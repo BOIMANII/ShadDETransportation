@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VibeRide</title>
   <style>
+    /* Color variables */
+    :root {
+      --primary-red: #f87171;      /* lighter accent */
+      --trim-red:   #e3342f;      /* deeper trim */
+      --text-white: #ffffff;
+      --text-black: #000000;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,112 +21,356 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: white;
-      color: #333;
+      background: var(--text-white);
+      color: var(--text-black);
       min-height: 100vh;
       line-height: 1.6;
     }
 
-    .topbar {
-      background: #f87171;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ========== TOPBAR ========== */
+    header.topbar {
+      background: var(--trim-red);
       padding: 20px 30px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      color: white;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       margin-bottom: 30px;
     }
 
     .logo-section {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      color: white;
     }
 
     .logo {
+      color: var(--text-white);
       font-size: 2.4rem;
       font-weight: bold;
-      text-shadow: none;
     }
 
     .tagline {
+      color: var(--text-white);
+      opacity: 0.8;
       font-size: 1rem;
-      font-weight: 400;
       margin-top: 4px;
-      opacity: 0.85;
     }
 
-    .nav-links {
+    nav.nav-links {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
+      gap: 20px;
     }
 
     .nav-btn {
       background: transparent;
-      color: white;
-      border: 2px solid transparent;
-      padding: 10px 20px;
+      border: none;
+      padding: 8px;
       font-size: 1rem;
       font-weight: 600;
-      border-radius: 8px;
+      color: var(--text-white);
+      border-bottom: 2px solid transparent;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: border-color 0.2s ease;
     }
 
     .nav-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
+      border-bottom-color: var(--text-black);
     }
 
     .nav-btn.active {
-      background: white;
-      color: #f87171;
+      color: var(--text-black);
+      border-bottom-color: var(--text-black);
     }
 
-    @media (max-width: 768px) {
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        justify-content: center;
-        width: 100%;
-      }
+    /* ========== PAGE CONTAINERS & COMMON ========== */
+    .page {
+      display: none;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
     }
+
+    .page.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ... rest of your original styles unchanged ... */
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo-section">
-      <div class="logo">🚌 VibeRide</div>
-      <div class="tagline">Your Journey, Our Priority</div>
-    </div>
-    <nav class="nav-links">
-      <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
-      <button class="nav-btn" onclick="showPage('routes')">🛣️ Routes & Schedules</button>
-      <button class="nav-btn" onclick="showPage('search')">🔍 Search Buses</button>
-      <button class="nav-btn" onclick="showPage('bookings')">📋 My Bookings</button>
-    </nav>
-  </header>
+  <div class="container">
+    <header class="topbar">
+      <div class="logo-section">
+        <div class="logo">VibeRide</div>
+        <div class="tagline">Your Journey, Our Priority</div>
+      </div>
+      <nav class="nav-links">
+        <button class="nav-btn active" onclick="showPage('home')">Home</button>
+        <button class="nav-btn" onclick="showPage('routes')">Routes &amp; Schedules</button>
+        <button class="nav-btn" onclick="showPage('search')">Search Buses</button>
+        <button class="nav-btn" onclick="showPage('bookings')">My Bookings</button>
+      </nav>
+    </header>
 
-  <!-- Example home section (simplified) -->
-  <div id="home" class="page active">
-    <div style="padding: 40px; text-align: center;">
-      <h1>Welcome to VibeRide</h1>
-      <p>Experience comfort, reliability, and convenience on every journey.</p>
+    <!-- Home Page -->
+    <div id="home" class="page active">
+      <div class="hero">
+        <h1>Welcome to VibeRide</h1>
+        <p>Experience comfort, reliability, and convenience on every journey</p>
+      </div>
+      <!-- existing content... -->
+    </div>
+
+    <!-- Routes & Schedules Page -->
+    <div id="routes" class="page">
+      <h2>Available Routes &amp; Information</h2>
+      <div id="routes-list"></div>
+    </div>
+
+    <!-- Search Page -->
+    <div id="search" class="page">
+      <h2>Search Buses</h2>
+      <!-- existing search form... -->
+    </div>
+
+    <!-- Bookings Page -->
+    <div id="bookings" class="page">
+      <h2>My Bookings</h2>
+      <div id="bookings-list"></div>
     </div>
   </div>
 
   <script>
-    function showPage(id) {
-      // Placeholder for navigation logic
-      console.log("Switching to page:", id);
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      event.target.classList.add('active');
+
+      if (pageId === 'routes')   loadAllRoutes();
+      if (pageId === 'bookings') loadBookings();
     }
-  </script>
+
+        // Enhanced route loading with better visuals
+        function loadAllRoutes() {
+            const routesList = document.getElementById('routes-list');
+            routesList.innerHTML = '<div class="loading">Loading routes...</div>';
+
+            setTimeout(() => {
+                routesList.innerHTML = '';
+                busRoutes.forEach(route => {
+                    const routeCard = createRouteCard(route);
+                    routesList.appendChild(routeCard);
+                });
+            }, 500);
+        }
+
+        // Enhanced search functionality with validation
+        function searchBuses() {
+            const from = document.getElementById('quick-from').value;
+            const to = document.getElementById('quick-to').value;
+            const date = document.getElementById('quick-date').value;
+
+            if (!validateSearchInputs(from, to, date)) {
+                return;
+            }
+
+            // Set search page values and show results
+            document.getElementById('search-from').value = from;
+            document.getElementById('search-to').value = to;
+            document.getElementById('search-date').value = date;
+            
+            // Navigate to search page
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.nav-btn')[2].classList.add('active');
+            showPage('search');
+            performSearch();
+        }
+
+        function performSearch() {
+            const from = document.getElementById('search-from').value;
+            const to = document.getElementById('search-to').value;
+            const date = document.getElementById('search-date').value;
+
+            if (!validateSearchInputs(from, to, date)) {
+                return;
+            }
+
+            const resultsDiv = document.getElementById('search-results');
+            resultsDiv.innerHTML = '<div class="loading">Searching for buses...</div>';
+
+            setTimeout(() => {
+                const results = busRoutes.filter(route => 
+                    route.from === from && route.to === to
+                );
+                displaySearchResults(results);
+            }, 800);
+        }
+
+        function validateSearchInputs(from, to, date) {
+            if (!from || !to || !date) {
+                showError('Please fill in all search fields');
+                return false;
+            }
+
+            if (from === to) {
+                showError('Departure and destination cities cannot be the same');
+                return false;
+            }
+
+            const selectedDate = new Date(date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate < today) {
+                showError('Please select a future date');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            const container = document.querySelector('.page.active .search-form');
+            container.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 4000);
+        }
+
+        function displaySearchResults(results) {
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <h3 style="margin-bottom: 15px;">😔 No buses found</h3>
+                        <p>No buses available for your selected route and date.</p>
+                        <p>Try searching for a different date or route.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            resultsDiv.innerHTML = `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h3 style="color: #333;">🎉 Found ${results.length} bus(es) for your journey</h3>
+                </div>
+            `;
+
+            results.forEach(route => {
+                const routeCard = createRouteCard(route, true);
+                resultsDiv.appendChild(routeCard);
+            });
+        }
+
+        function createRouteCard(route, showBooking = false) {
+            const card = document.createElement('div');
+            card.className = 'route-card';
+            card.innerHTML = `
+                <div class="route-header">
+                    <div class="route-title">🚌 ${route.from} → ${route.to}</div>
+                    <div class="route-price">$${route.price}</div>
+                </div>
+                <div class="route-details">
+                    <div class="route-info">
+                        <strong>🕐 Departure</strong>
+                        <span>${route.departure}</span>
+                    </div>
+                    <div class="route-info">
+                        <strong>🕐 Arrival</strong>
+                        <span>${route.arrival}</span>
+                    </div>
+                    <div class="route-info">
+                        <strong>⏱️ Duration</strong>
+                        <span>${route.duration}</span>
+                    </div>
+                    <div class="route-info">
+                        <strong>💺 Available Seats</strong>
+                        <span>${route.seats}</span>
+                    </div>
+                    <div class="route-info">
+                        <strong>🚌 Bus Number</strong>
+                        <span>${route.busNumber}</span>
+                    </div>
+                </div>
+                ${showBooking && route.seats > 0 ? `
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="btn" onclick="showBookingForm(${route.id})">🎫 Book Now</button>
+                    </div>
+                    <div id="booking-form-${route.id}" class="booking-form hidden">
+                        <h4>📝 Book Your Ticket</h4>
+                        <div class="passenger-form">
+                            <div class="form-group">
+                                <label>👤 Full Name</label>
+                                <input type="text" id="name-${route.id}" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>📧 Email</label>
+                                <input type="email" id="email-${route.id}" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>📱 Phone</label>
+                                <input type="tel" id="phone-${route.id}" placeholder="Enter your phone number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>🎫 Number of Seats</label>
+                                <select id="seats-${route.id}">
+                                    <option value="1">1 Seat</option>
+                                    <option value="2">2 Seats</option>
+                                    <option value="3">3 Seats</option>
+                                    <option value="4">4 Seats</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button class="btn btn-secondary" onclick="confirmBooking(${route.id})">✅ Confirm Booking</button>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+            return card;
+        }
+
+        function showBookingForm(routeId) {
+            const form = document.getElementById(`booking-form-${routeId}`);
+            form.classList.toggle('hidden');
+        }
+
+        function confirmBooking(routeId) {
+            const name = document.getElementById(`name-${routeId}`).value;
+            const email = document.getElementById(`email-${routeId}`).value;
+            const phone = document.getElementById(`phone-${routeId}`).value;
+            const seats = document.getElementById(`seats-${routeId}`).value;
+
+            if (!name || !email || !phone || !seats) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Simulate booking confirmation
+            alert(`Booking confirmed for ${name}!\nRoute ID: ${routeId}\nSeats: ${seats}`);
+        }
+    </script>
 </body>
 </html>
