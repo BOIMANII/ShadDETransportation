@@ -1,202 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VibeRide</title>
-  <style>
-    :root {
-      --primary-red: #f87171;
-      --trim-red:   #e3342f;
-      --text-white: #ffffff;
-      --text-black: #000000;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--text-white);
-      color: var(--text-black);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* TOPBAR */
-    header.topbar {
-      background: var(--trim-red);
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      color: var(--text-white);
-    }
-    .logo-section { display: flex; flex-direction: column; }
-    .logo {
-      color: var(--text-white);
-      font-size: 2.4rem;
-      font-weight: bold;
-    }
-    .tagline {
-      color: var(--text-white);
-      opacity: 0.8;
-      font-size: 1rem;
-      margin-top: 4px;
-    }
-    /* nav */
-    nav.nav-links {
-      display: flex;
-      gap: 20px;
-    }
-    .nav-btn {
-      background: transparent;
-      border: none;
-      padding: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-white);
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.2s ease;
-    }
-    .nav-btn:hover {
-      border-bottom-color: var(--text-black);
-    }
-    .nav-btn.active {
-      color: var(--text-black);
-      border-bottom-color: var(--text-black);
-    }
-
-    /* hamburger toggle - hidden on desktop */
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: none;
-      font-size: 1.6rem;
-      color: var(--text-white);
-      cursor: pointer;
-    }
-
-    /* RESPONSIVE BEHAVIOR */
-    @media (max-width: 767px) {
-      header.topbar {
-        flex-wrap: wrap;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      nav.nav-links {
-        flex-direction: column;
+<html>
+  <head>
+    <title>Simple Google Map</title>
+    <style>
+      #map {
+        height: 400px;
         width: 100%;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.3s ease;
       }
-      nav.nav-links.open {
-        max-height: 300px; /* enough to show all buttons */
+    </style>
+    <script>
+      function initMap() {
+        const location = { lat: 51.0447, lng: -114.0719 }; // Example: Calgary, AB
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 10,
+          center: location,
+        });
+        const marker = new google.maps.Marker({
+          position: location,
+          map: map,
+        });
       }
-      .nav-btn {
-        padding: 12px 0;
-        text-align: center;
-        border-bottom: none;
-        border-top: 1px solid rgba(255,255,255,0.2);
-      }
-      .nav-btn:first-child {
-        border-top: none;
-      }
-    }
+    </script>
+  </head>
+  <body>
+    <h3>My Google Map</h3>
+    <div id="map"></div>
 
-    /* PAGE PANES */
-    .page {
-      display: none;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      margin-bottom: 30px;
-    }
-    .page.active {
-      display: block;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header class="topbar">
-      <div class="logo-section">
-        <div class="logo">VibeRide</div>
-        <div class="tagline">Your Journey, Our Priority</div>
-      </div>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <nav class="nav-links">
-        <button class="nav-btn active" onclick="showPage('home')">Home</button>
-        <button class="nav-btn" onclick="showPage('routes')">Routes &amp; Schedules</button>
-        <button class="nav-btn" onclick="showPage('search')">Search Buses</button>
-        <button class="nav-btn" onclick="showPage('bookings')">My Bookings</button>
-      </nav>
-    </header>
-
-    <!-- Home -->
-    <div id="home" class="page active">
-      <div class="hero">
-        <h1>Welcome to VibeRide</h1>
-        <p>Experience comfort, reliability, and convenience on every journey</p>
-      </div>
-      <!-- …existing home content… -->
-    </div>
-
-    <!-- Routes -->
-    <div id="routes" class="page">
-      <h2>Available Routes &amp; Information</h2>
-      <div id="routes-list"></div>
-    </div>
-
-    <!-- Search -->
-    <div id="search" class="page">
-      <h2>Search Buses</h2>
-      <!-- …existing search form… -->
-    </div>
-
-    <!-- Bookings -->
-    <div id="bookings" class="page">
-      <h2>My Bookings</h2>
-      <div id="bookings-list"></div>
-    </div>
-  </div>
-
-  <script>
-    // toggle mobile menu
-    document.querySelector('.menu-toggle')
-      .addEventListener('click', () => {
-        document.querySelector('nav.nav-links')
-          .classList.toggle('open');
-      });
-
-    // page navigation
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-      event.target.classList.add('active');
-      // close mobile menu after click
-      if (window.innerWidth < 768) {
-        document.querySelector('nav.nav-links').classList.remove('open');
-      }
-      // load page-specific data…
-      if (pageId === 'routes')   loadAllRoutes();
-      if (pageId === 'bookings') loadBookings();
-    }
-  </script>
-</body>
+    <!-- Replace YOUR_API_KEY with your actual API key -->
+    <script async
+      src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
+  </body>
 </html>
