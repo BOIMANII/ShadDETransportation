@@ -2,201 +2,183 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VibeRide</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title></title>  <!-- no visible page title -->
   <style>
     :root {
-      --primary-red: #f87171;
-      --trim-red:   #e3342f;
-      --text-white: #ffffff;
-      --text-black: #000000;
+      --primary-green: #009b8f;
+      --accent-green:  #00bfa5;
+      --text-white:   #ffffff;
+      --text-black:   #000000;
+      --bg-page:      #ffffff;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family:'Segoe UI',sans-serif;
+      background: var(--bg-page);
+      color: var(--text-black);
+    }
+
+    /* ─── HEADER ───────────────────────────────────────── */
+    header.topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 24px;
+      background: var(--primary-green);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* logo only (no text) */
+    .logo img {
+      height: 100%;   /* fills the 60px bar */
+      display: block;
+    }
+
+    /* nav links */
+    nav.nav-links {
+      display: flex;
+      gap: 24px;
+      flex: 1;
+      margin-left: 24px;
+    }
+    nav.nav-links a {
+      color: var(--text-white);
+      font-weight:600;
+      text-decoration:none;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s;
+    }
+    nav.nav-links a:hover {
+      border-bottom-color: var(--text-black);
+    }
+    nav.nav-links a.active {
+      border-bottom-color: var(--text-black);
+      color: var(--text-black);
+    }
+
+    /* search in header */
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .search-container input {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--accent-green);
+      border-radius: 16px;
+      font-size: 0.9rem;
       background: var(--text-white);
       color: var(--text-black);
-      min-height: 100vh;
-      line-height: 1.6;
     }
+    .search-container input::placeholder {
+      color: rgba(0,0,0,0.5);
+    }
+    .search-container button {
+      height: 32px;
+      padding: 0 16px;
+      border:none;
+      border-radius:16px;
+      background: var(--accent-green);
+      color: var(--text-white);
+      font-weight:600;
+      cursor:pointer;
+      transition: background .2s;
+    }
+    .search-container button:hover {
+      background: var(--text-white);
+      color: var(--primary-green);
+      border:1px solid var(--primary-green);
+    }
+
+    /* mobile hamburger */
+    .menu-toggle {
+      display:none;
+      background:transparent;
+      border:none;
+      font-size:1.6rem;
+      color:var(--text-white);
+      cursor:pointer;
+    }
+    @media(max-width:767px){
+      header.topbar{flex-wrap:wrap;}
+      .menu-toggle{display:block;}
+      nav.nav-links {
+        width:100%;
+        flex-direction:column;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .3s;
+      }
+      nav.nav-links.open{max-height:200px;}
+      nav.nav-links a {
+        padding:12px 0;
+        border-top:1px solid rgba(255,255,255,0.2);
+      }
+      nav.nav-links a:first-child{border-top:none;}
+    }
+
+    /* ─── PAGE LAYOUT ──────────────────────────────── */
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
     }
+    .page { display:none; }
+    .page.active { display:block; }
 
-    /* TOPBAR */
-    header.topbar {
-      background: var(--trim-red);
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      color: var(--text-white);
+    /* example hero section */
+    .hero {
+      background: var(--text-white);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
     }
-    .logo-section { display: flex; flex-direction: column; }
-    .logo {
-      color: var(--text-white);
-      font-size: 2.4rem;
-      font-weight: bold;
-    }
-    .tagline {
-      color: var(--text-white);
-      opacity: 0.8;
-      font-size: 1rem;
-      margin-top: 4px;
-    }
-    /* nav */
-    nav.nav-links {
-      display: flex;
-      gap: 20px;
-    }
-    .nav-btn {
-      background: transparent;
-      border: none;
-      padding: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-white);
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      transition: border-color 0.2s ease;
-    }
-    .nav-btn:hover {
-      border-bottom-color: var(--text-black);
-    }
-    .nav-btn.active {
-      color: var(--text-black);
-      border-bottom-color: var(--text-black);
-    }
-
-    /* hamburger toggle - hidden on desktop */
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: none;
-      font-size: 1.6rem;
-      color: var(--text-white);
-      cursor: pointer;
-    }
-
-    /* RESPONSIVE BEHAVIOR */
-    @media (max-width: 767px) {
-      header.topbar {
-        flex-wrap: wrap;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      nav.nav-links {
-        flex-direction: column;
-        width: 100%;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.3s ease;
-      }
-      nav.nav-links.open {
-        max-height: 300px; /* enough to show all buttons */
-      }
-      .nav-btn {
-        padding: 12px 0;
-        text-align: center;
-        border-bottom: none;
-        border-top: 1px solid rgba(255,255,255,0.2);
-      }
-      .nav-btn:first-child {
-        border-top: none;
-      }
-    }
-
-    /* PAGE PANES */
-    .page {
-      display: none;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      margin-bottom: 30px;
-    }
-    .page.active {
+    .hero img {
       display: block;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      width: 100%;
+      height: auto;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="topbar">
-      <div class="logo-section">
-        <div class="logo">VibeRide</div>
-        <div class="tagline">Your Journey, Our Priority</div>
-      </div>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <nav class="nav-links">
-        <button class="nav-btn active" onclick="showPage('home')">Home</button>
-        <button class="nav-btn" onclick="showPage('routes')">Routes &amp; Schedules</button>
-        <button class="nav-btn" onclick="showPage('search')">Search Buses</button>
-        <button class="nav-btn" onclick="showPage('bookings')">My Bookings</button>
-      </nav>
-    </header>
+  <header class="topbar">
+    <img src="images/canada-commute-logo.png" alt="Canada Commute logo" class="logo"/>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="nav-links">
+      <a href="#schedules" class="active">Schedules and Maps</a>
+      <a href="#fares">Fares and Passes</a>
+      <a href="#service">Service Information</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <div class="search-container">
+      <input type="text" placeholder="What are you looking for?"/>
+      <button>Search</button>
+    </div>
+  </header>
 
-    <!-- Home -->
+  <div class="container">
     <div id="home" class="page active">
       <div class="hero">
-        <h1>Welcome to VibeRide</h1>
-        <p>Experience comfort, reliability, and convenience on every journey</p>
+        <img src="bus-56.jpg" alt="Bus at a stop"/>
       </div>
-      <!-- …existing home content… -->
+      <!-- ... rest of your content ... -->
     </div>
-
-    <!-- Routes -->
-    <div id="routes" class="page">
-      <h2>Available Routes &amp; Information</h2>
-      <div id="routes-list"></div>
-    </div>
-
-    <!-- Search -->
-    <div id="search" class="page">
-      <h2>Search Buses</h2>
-      <!-- …existing search form… -->
-    </div>
-
-    <!-- Bookings -->
-    <div id="bookings" class="page">
-      <h2>My Bookings</h2>
-      <div id="bookings-list"></div>
-    </div>
+    <!-- other .page sections ... -->
   </div>
 
   <script>
-    // toggle mobile menu
+    // mobile nav toggle
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
-      });
-
-    // page navigation
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-      event.target.classList.add('active');
-      // close mobile menu after click
-      if (window.innerWidth < 768) {
-        document.querySelector('nav.nav-links').classList.remove('open');
-      }
-      // load page-specific data…
-      if (pageId === 'routes')   loadAllRoutes();
-      if (pageId === 'bookings') loadBookings();
-    }
+    });
   </script>
 </body>
 </html>
+```
