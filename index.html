@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Canada Commute</title>
   <style>
     /* ─────────── Color Palette ─────────── */
     :root {
-      --primary-green: #009b8f;  /* header & trim */
-      --accent-green:  #00bfa5;  /* hover & accents */
-      --text-white:   #ffffff;
-      --text-black:   #000000;
-      --bg-light:     #f7f7f7;
+      --primary-green: #009b8f;
+      /* header & trim */
+      --accent-green: #00bfa5;
+      /* hover & accents */
+      --text-white: #ffffff;
+      --text-black: #000000;
+      --bg-light: #f7f7f7;
     }
 
     /* ─────────── Global Reset ─────────── */
@@ -20,16 +23,19 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg-light);
       color: var(--text-black);
       line-height: 1.6;
     }
+
     a {
       text-decoration: none;
       color: inherit;
     }
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -45,18 +51,23 @@
       color: var(--text-white);
       padding: 16px 24px;
     }
+
     .logo {
       display: flex;
       align-items: center;
     }
+
     .logo img {
-      height: 32px;
-      margin-right: 8px;
+      height: 40px;
+      /* match your actual PNG dimensions */
+      margin-right: 10px;
     }
+
     .logo .logo-text {
       font-size: 1.6rem;
       font-weight: bold;
     }
+
     .menu-toggle {
       display: none;
       background: transparent;
@@ -65,10 +76,12 @@
       cursor: pointer;
       color: var(--text-white);
     }
+
     nav.nav-links {
       display: flex;
       gap: 24px;
     }
+
     nav.nav-links a {
       font-size: 1rem;
       font-weight: 600;
@@ -76,9 +89,11 @@
       border-bottom: 2px solid transparent;
       transition: border-color 0.2s;
     }
+
     nav.nav-links a:hover {
       border-bottom-color: var(--text-black);
     }
+
     nav.nav-links a.active {
       border-bottom-color: var(--text-black);
       color: var(--text-black);
@@ -91,6 +106,7 @@
       margin: 20px 0;
       gap: 8px;
     }
+
     .search-bar input {
       flex: 1;
       max-width: 500px;
@@ -99,6 +115,7 @@
       border-radius: 4px;
       font-size: 1rem;
     }
+
     .search-bar button {
       padding: 12px 20px;
       background: var(--primary-green);
@@ -109,6 +126,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     .search-bar button:hover {
       background: var(--accent-green);
     }
@@ -118,10 +136,12 @@
       text-align: center;
       margin-bottom: 24px;
     }
+
     .hero img {
       max-width: 100%;
       border-radius: 8px;
     }
+
     .cta-buttons {
       display: flex;
       justify-content: center;
@@ -129,6 +149,7 @@
       flex-wrap: wrap;
       margin: 24px 0;
     }
+
     .cta-buttons a {
       flex: 1;
       min-width: 200px;
@@ -142,6 +163,7 @@
       border-radius: 4px;
       transition: background 0.2s;
     }
+
     .cta-buttons a:hover {
       background: var(--accent-green);
     }
@@ -151,9 +173,11 @@
       header.topbar {
         flex-wrap: wrap;
       }
+
       .menu-toggle {
         display: block;
       }
+
       nav.nav-links {
         width: 100%;
         flex-direction: column;
@@ -161,25 +185,29 @@
         overflow: hidden;
         transition: max-height 0.3s;
       }
+
       nav.nav-links.open {
         max-height: 240px;
       }
+
       nav.nav-links a {
         padding: 12px;
-        border-top: 1px solid rgba(255,255,255,0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
       }
+
       nav.nav-links a:first-child {
         border-top: none;
       }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- HEADER -->
     <header class="topbar">
       <div class="logo">
-        <img src="canada-commute-logo.svg" alt="Canada Commute logo">
+        <img src="images/canada-commute-logo.png" alt="Canada Commute logo" />
         <div class="logo-text">Canada Commute</div>
       </div>
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -199,8 +227,9 @@
 
     <!-- HERO IMAGE -->
     <div class="hero">
-      <img src="bus-56.jpg" alt="Bus at a stop">
+      <img src="images/bus-56.jpg" alt="Bus at a stop" />
     </div>
+
 
     <!-- CTA BUTTONS -->
     <div class="cta-buttons">
@@ -210,7 +239,7 @@
   </div>
 
   <script>
-    // Mobile menu toggl
+    // Mobile menu toggle
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
@@ -218,4 +247,5 @@
       });
   </script>
 </body>
+
 </html>
