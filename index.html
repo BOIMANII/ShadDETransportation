@@ -1,34 +1,221 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Simple Google Map</title>
-    <style>
-      #map {
-        height: 400px;
-        width: 100%;
-      }
-    </style>
-    <script>
-      function initMap() {
-        const location = { lat: 51.0447, lng: -114.0719 }; // Example: Calgary, AB
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 10,
-          center: location,
-        });
-        const marker = new google.maps.Marker({
-          position: location,
-          map: map,
-        });
-      }
-    </script>
-  </head>
-  <body>
-    <h3>My Google Map</h3>
-    <div id="map"></div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Canada Commute</title>
+  <style>
+    /* ─────────── Color Palette ─────────── */
+    :root {
+      --primary-green: #009b8f;  /* header & trim */
+      --accent-green:  #00bfa5;  /* hover & accents */
+      --text-white:   #ffffff;
+      --text-black:   #000000;
+      --bg-light:     #f7f7f7;
+    }
 
-    <!-- Replace YOUR_API_KEY with your actual API key -->
-    <script async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3FQV2ZGzDrXVXeqpgnPkBefOfzzSOTgc&callback=initMap">
-    </script>
-  </body>
+    /* ─────────── Global Reset ─────────── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-black);
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ─────────── Header & Nav ─────────── */
+    header.topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--primary-green);
+      color: var(--text-white);
+      padding: 16px 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 32px;
+      margin-right: 8px;
+    }
+    .logo .logo-text {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--text-white);
+    }
+    nav.nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    nav.nav-links a {
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 8px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    nav.nav-links a:hover {
+      border-bottom-color: var(--text-black);
+    }
+    nav.nav-links a.active {
+      border-bottom-color: var(--text-black);
+      color: var(--text-black);
+    }
+
+    /* ─────────── Search Bar ─────────── */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 8px;
+    }
+    .search-bar input {
+      flex: 1;
+      max-width: 500px;
+      padding: 12px 16px;
+      border: 2px solid var(--accent-green);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .search-bar button {
+      padding: 12px 20px;
+      background: var(--primary-green);
+      border: none;
+      border-radius: 4px;
+      color: var(--text-white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover {
+      background: var(--accent-green);
+    }
+
+    /* ─────────── Hero & CTA ─────────── */
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .hero img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    .cta-buttons a {
+      flex: 1;
+      min-width: 200px;
+      max-width: 280px;
+      padding: 16px 24px;
+      background: var(--primary-green);
+      color: var(--text-white);
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .cta-buttons a:hover {
+      background: var(--accent-green);
+    }
+
+    /* ─────────── Responsive ─────────── */
+    @media (max-width: 767px) {
+      header.topbar {
+        flex-wrap: wrap;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      nav.nav-links {
+        width: 100%;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
+      }
+      nav.nav-links.open {
+        max-height: 240px;
+      }
+      nav.nav-links a {
+        padding: 12px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+      nav.nav-links a:first-child {
+        border-top: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="logo">
+        <img src="canada-commute-logo.svg" alt="Canada Commute logo">
+        <div class="logo-text">Canada Commute</div>
+      </div>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav-links">
+        <a href="#schedules" class="active">Schedules and Maps</a>
+        <a href="#fares">Fares and Passes</a>
+        <a href="#service">Service Information</a>
+        <a href="#about">About Us</a>
+      </nav>
+    </header>
+
+    <!-- SEARCH -->
+    <div class="search-bar">
+      <input type="text" placeholder="What are you looking for?">
+      <button type="button">Search</button>
+    </div>
+
+    <!-- HERO IMAGE -->
+    <div class="hero">
+      <img src="bus-56.jpg" alt="Bus at a stop">
+    </div>
+
+    <!-- CTA BUTTONS -->
+    <div class="cta-buttons">
+      <a href="#schedules">ROUTE SCHEDULES</a>
+      <a href="#map">SYSTEM MAP</a>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.menu-toggle')
+      .addEventListener('click', () => {
+        document.querySelector('nav.nav-links')
+          .classList.toggle('open');
+      });
+  </script>
+</body>
 </html>
