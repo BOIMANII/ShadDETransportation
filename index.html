@@ -1,251 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Canada Commute</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title></title>  <!-- no visible page title -->
   <style>
-    /* ─────────── Color Palette ─────────── */
     :root {
       --primary-green: #009b8f;
-      /* header & trim */
-      --accent-green: #00bfa5;
-      /* hover & accents */
-      --text-white: #ffffff;
-      --text-black: #000000;
-      --bg-light: #f7f7f7;
+      --accent-green:  #00bfa5;
+      --text-white:   #ffffff;
+      --text-black:   #000000;
+      --bg-page:      #ffffff;
     }
 
-    /* ─────────── Global Reset ─────────── */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-light);
+      font-family:'Segoe UI',sans-serif;
+      background: var(--bg-page);
       color: var(--text-black);
-      line-height: 1.6;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* ─────────── Header & Nav ─────────── */
+    /* ─── HEADER ───────────────────────────────────────── */
     header.topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      height: 60px;
+      padding: 0 24px;
       background: var(--primary-green);
-      color: var(--text-white);
-      padding: 16px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-
+    /* logo only (no text) */
     .logo img {
-      height: 40px;
-      /* match your actual PNG dimensions */
-      margin-right: 10px;
+      height: 100%;   /* fills the 60px bar */
+      display: block;
     }
 
-    .logo .logo-text {
-      font-size: 1.6rem;
-      font-weight: bold;
-    }
-
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: var(--text-white);
-    }
-
+    /* nav links */
     nav.nav-links {
       display: flex;
       gap: 24px;
+      flex: 1;
+      margin-left: 24px;
     }
-
     nav.nav-links a {
-      font-size: 1rem;
-      font-weight: 600;
-      padding: 8px;
+      color: var(--text-white);
+      font-weight:600;
+      text-decoration:none;
+      padding: 8px 0;
       border-bottom: 2px solid transparent;
-      transition: border-color 0.2s;
+      transition: border-color .2s;
     }
-
     nav.nav-links a:hover {
       border-bottom-color: var(--text-black);
     }
-
     nav.nav-links a.active {
       border-bottom-color: var(--text-black);
       color: var(--text-black);
     }
 
-    /* ─────────── Search Bar ─────────── */
-    .search-bar {
+    /* search in header */
+    .search-container {
       display: flex;
-      justify-content: center;
-      margin: 20px 0;
+      align-items: center;
       gap: 8px;
     }
-
-    .search-bar input {
-      flex: 1;
-      max-width: 500px;
-      padding: 12px 16px;
-      border: 2px solid var(--accent-green);
-      border-radius: 4px;
-      font-size: 1rem;
+    .search-container input {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--accent-green);
+      border-radius: 16px;
+      font-size: 0.9rem;
+      background: var(--text-white);
+      color: var(--text-black);
     }
-
-    .search-bar button {
-      padding: 12px 20px;
-      background: var(--primary-green);
-      border: none;
-      border-radius: 4px;
-      color: var(--text-white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
+    .search-container input::placeholder {
+      color: rgba(0,0,0,0.5);
     }
-
-    .search-bar button:hover {
+    .search-container button {
+      height: 32px;
+      padding: 0 16px;
+      border:none;
+      border-radius:16px;
       background: var(--accent-green);
-    }
-
-    /* ─────────── Hero & CTA ─────────── */
-    .hero {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .hero img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin: 24px 0;
-    }
-
-    .cta-buttons a {
-      flex: 1;
-      min-width: 200px;
-      max-width: 280px;
-      padding: 16px 24px;
-      background: var(--primary-green);
       color: var(--text-white);
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 4px;
-      transition: background 0.2s;
+      font-weight:600;
+      cursor:pointer;
+      transition: background .2s;
+    }
+    .search-container button:hover {
+      background: var(--text-white);
+      color: var(--primary-green);
+      border:1px solid var(--primary-green);
     }
 
-    .cta-buttons a:hover {
-      background: var(--accent-green);
+    /* mobile hamburger */
+    .menu-toggle {
+      display:none;
+      background:transparent;
+      border:none;
+      font-size:1.6rem;
+      color:var(--text-white);
+      cursor:pointer;
     }
-
-    /* ─────────── Responsive ─────────── */
-    @media (max-width: 767px) {
-      header.topbar {
-        flex-wrap: wrap;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
+    @media(max-width:767px){
+      header.topbar{flex-wrap:wrap;}
+      .menu-toggle{display:block;}
       nav.nav-links {
-        width: 100%;
-        flex-direction: column;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s;
+        width:100%;
+        flex-direction:column;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .3s;
       }
-
-      nav.nav-links.open {
-        max-height: 240px;
-      }
-
+      nav.nav-links.open{max-height:200px;}
       nav.nav-links a {
-        padding: 12px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding:12px 0;
+        border-top:1px solid rgba(255,255,255,0.2);
       }
+      nav.nav-links a:first-child{border-top:none;}
+    }
 
-      nav.nav-links a:first-child {
-        border-top: none;
-      }
+    /* ─── PAGE LAYOUT ──────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .page { display:none; }
+    .page.active { display:block; }
+
+    /* example hero section */
+    .hero {
+      background: var(--text-white);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .hero img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
   </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <img src="images/canada-commute-logo.png" alt="Canada Commute logo" class="logo"/>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="nav-links">
+      <a href="#schedules" class="active">Schedules and Maps</a>
+      <a href="#fares">Fares and Passes</a>
+      <a href="#service">Service Information</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <div class="search-container">
+      <input type="text" placeholder="What are you looking for?"/>
+      <button>Search</button>
+    </div>
+  </header>
+
   <div class="container">
-    <!-- HEADER -->
-    <header class="topbar">
-      <div class="logo">
-        <img src="images/canada-commute-logo.png" alt="Canada Commute logo" />
-        <div class="logo-text">Canada Commute</div>
+    <div id="home" class="page active">
+      <div class="hero">
+        <img src="bus-56.jpg" alt="Bus at a stop"/>
       </div>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <nav class="nav-links">
-        <a href="#schedules" class="active">Schedules and Maps</a>
-        <a href="#fares">Fares and Passes</a>
-        <a href="#service">Service Information</a>
-        <a href="#about">About Us</a>
-      </nav>
-    </header>
-
-    <!-- SEARCH -->
-    <div class="search-bar">
-      <input type="text" placeholder="What are you looking for?">
-      <button type="button">Search</button>
+      <!-- ... rest of your content ... -->
     </div>
-
-    <!-- HERO IMAGE -->
-    <div class="hero">
-      <img src="images/bus-56.jpg" alt="Bus at a stop" />
-    </div>
-
-
-    <!-- CTA BUTTONS -->
-    <div class="cta-buttons">
-      <a href="#schedules">ROUTE SCHEDULES</a>
-      <a href="#map">SYSTEM MAP</a>
-    </div>
+    <!-- other .page sections ... -->
   </div>
 
   <script>
-    // Mobile menu toggle
+    // mobile nav toggle
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
-      });
+    });
   </script>
 </body>
-
 </html>
+```
