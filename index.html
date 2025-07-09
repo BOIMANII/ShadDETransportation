@@ -68,19 +68,55 @@
       gap: 24px;
       margin-right: 24px;
     }
-    nav.nav-links a {
+    
+    /* nav dropdown items */
+    .nav-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .nav-dropdown-btn {
+      background: transparent;
       color: var(--text-white);
-      font-weight:600;
-      text-decoration:none;
+      font-weight: 600;
       padding: 8px 0;
+      border: none;
       border-bottom: 2px solid transparent;
+      cursor: pointer;
+      font-size: 1rem;
       transition: border-color .2s;
+      font-family: inherit;
     }
-    nav.nav-links a:hover {
+    .nav-dropdown-btn:hover {
       border-bottom-color: var(--text-white);
     }
-    nav.nav-links a.active {
+    .nav-dropdown-btn.active {
       border-bottom-color: var(--text-white);
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      background: var(--text-white);
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 4px;
+      z-index: 1000;
+      margin-top: 8px;
+    }
+    .nav-dropdown-content a {
+      color: var(--text-black);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .nav-dropdown-content a:hover {
+      background: #f1f1f1;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
     }
 
     /* dropdown styling */
@@ -209,12 +245,20 @@
         transition:max-height .3s;
         margin: 0;
       }
-      nav.nav-links.open{max-height:200px;}
-      nav.nav-links a {
-        padding:12px 24px;
-        border-top:1px solid rgba(255,255,255,0.2);
+      nav.nav-links.open{max-height:300px;}
+      .nav-dropdown {
+        width: 100%;
+        margin: 0;
       }
-      nav.nav-links a:first-child{border-top:none;}
+      .nav-dropdown-btn {
+        width: 100%;
+        text-align: left;
+        padding: 12px 24px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+      .nav-dropdown:first-child .nav-dropdown-btn {
+        border-top: none;
+      }
       .dropdown {
         margin: 0;
         width: 100%;
@@ -265,10 +309,30 @@
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
       
       <nav class="nav-links">
-        <a href="#schedules" class="active">Schedules and Maps</a>
-        <a href="#fares">Fares and Passes</a>
-        <a href="#service">Service Information</a>
-        <a href="#about">About Us</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn active" data-page="schedules">Schedules and Maps ▼</button>
+          <div class="nav-dropdown-content">
+            <!-- Dropdown items will go here -->
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn" data-page="fares">Fares and Passes ▼</button>
+          <div class="nav-dropdown-content">
+            <!-- Dropdown items will go here -->
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn" data-page="service">Service Information ▼</button>
+          <div class="nav-dropdown-content">
+            <!-- Dropdown items will go here -->
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn" data-page="about">About Us ▼</button>
+          <div class="nav-dropdown-content">
+            <!-- Dropdown items will go here -->
+          </div>
+        </div>
       </nav>
       
       <div class="dropdown">
@@ -301,6 +365,20 @@
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
+    });
+
+    // nav dropdown active state management
+    document.querySelectorAll('.nav-dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        document.querySelectorAll('.nav-dropdown-btn').forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // You can add page switching logic here if needed
+        const page = btn.getAttribute('data-page');
+        console.log('Switched to page:', page);
+      });
     });
   </script>
 </body>
