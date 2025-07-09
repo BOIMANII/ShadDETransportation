@@ -35,7 +35,7 @@
     /* ─── HEADER ───────────────────────────────────────── */
     header.topbar {
       position: relative;
-      height: 60px;
+      height: 120px; /* Increased from 60px */
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
@@ -45,7 +45,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 60px;
+      height: 60px; /* Keep logo same height */
       z-index: 10;
       background: var(--light-green);
       padding: 0 16px 0 24px;
@@ -61,20 +61,60 @@
       display: block;
     }
 
-    /* navigation container - positioned to the right */
+    /* search container - positioned in top right */
+    .search-container {
+      position: absolute;
+      top: 10px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .search-container input {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--search-green);
+      border-radius: 16px;
+      font-size: 0.9rem;
+      background: var(--text-white);
+      color: var(--text-black);
+      min-width: 200px;
+    }
+
+    .search-container input::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .search-container button {
+      height: 32px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 16px;
+      background: var(--search-green);
+      color: var(--text-white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .search-container button:hover {
+      background: var(--accent-green);
+    }
+
+    /* navigation container - positioned at bottom of header */
     .nav-container {
       position: absolute;
-      top: 0;
+      bottom: 0;
+      left: 0;
       right: 0;
       height: 60px;
       background: var(--primary-green);
       display: flex;
       align-items: center;
       padding: 0 24px;
-      min-width: 600px;
-      /* ensure adequate width */
-      padding-left: 220px;
-      /* space for logo */
+      padding-left: 220px; /* space for logo */
     }
 
     /* nav links */
@@ -194,43 +234,6 @@
       display: block;
     }
 
-    /* search in header */
-    .search-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .search-container input {
-      height: 32px;
-      padding: 0 12px;
-      border: 1px solid var(--search-green);
-      border-radius: 16px;
-      font-size: 0.9rem;
-      background: var(--text-white);
-      color: var(--text-black);
-    }
-
-    .search-container input::placeholder {
-      color: rgba(0, 0, 0, 0.5);
-    }
-
-    .search-container button {
-      height: 32px;
-      padding: 0 16px;
-      border: none;
-      border-radius: 16px;
-      background: var(--search-green);
-      color: var(--text-white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
-
-    .search-container button:hover {
-      background: var(--accent-green);
-    }
-
     /* mobile hamburger */
     .menu-toggle {
       display: none;
@@ -246,15 +249,9 @@
     }
 
     @media(max-width:767px) {
-      .nav-container {
-        position: static;
-        width: 100%;
-        min-width: auto;
-        border-radius: 0;
-        flex-direction: column;
+      header.topbar {
         height: auto;
-        min-height: 60px;
-        padding-left: 24px;
+        min-height: 120px;
       }
 
       .logo {
@@ -268,6 +265,29 @@
         border-radius: 0;
         clip-path: none;
         min-width: auto;
+      }
+
+      .search-container {
+        position: static;
+        padding: 12px 24px;
+        width: 100%;
+        background: var(--primary-green);
+      }
+
+      .search-container input {
+        flex: 1;
+        min-width: auto;
+      }
+
+      .nav-container {
+        position: static;
+        width: 100%;
+        min-width: auto;
+        border-radius: 0;
+        flex-direction: column;
+        height: auto;
+        min-height: 60px;
+        padding-left: 24px;
       }
 
       .menu-toggle {
@@ -312,15 +332,6 @@
         width: 100%;
         margin: 8px 0;
       }
-
-      .search-container {
-        padding: 12px 24px;
-        width: 100%;
-      }
-
-      .search-container input {
-        flex: 1;
-      }
     }
 
     /* ─── PAGE LAYOUT ──────────────────────────────── */
@@ -361,6 +372,11 @@
       <img src="images/logo.png" alt="Canada Commute logo" />
     </div>
 
+    <div class="search-container">
+      <input type="text" placeholder="What are you looking for?" />
+      <button>Search</button>
+    </div>
+
     <div class="nav-container">
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
 
@@ -396,11 +412,6 @@
         <div class="dropdown-content">
           <!-- Dropdown items will go here -->
         </div>
-      </div>
-
-      <div class="search-container">
-        <input type="text" placeholder="What are you looking for?" />
-        <button>Search</button>
       </div>
     </div>
   </header>
