@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Canada Commute</title>
   <style>
     :root {
-      --primary-green: #0f660a;  /* Dark green */
-      --accent-green:  #25991f;  /* Mid green */
-      --light-green: #98dd93;    /* Light green background */
-      --search-green: #055401;   /* Darkest green for search bar */
-      --text-white:   #ffffff;
-      --text-black:   #000000;
-      --bg-page:      var(--light-green);
+      --primary-green: #0f660a;
+      /* Dark green */
+      --accent-green: #25991f;
+      /* Mid green */
+      --light-green: #98dd93;
+      /* Light green background */
+      --search-green: #055401;
+      /* Darkest green for search bar */
+      --text-white: #ffffff;
+      --text-black: #000000;
+      --bg-page: var(--light-green);
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family:'Segoe UI',sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg-page);
       color: var(--text-black);
     }
@@ -27,7 +37,7 @@
       position: relative;
       height: 60px;
       background: var(--primary-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* logo positioned top left with trapezoid shape */
@@ -42,9 +52,10 @@
       display: flex;
       align-items: center;
       clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       min-width: 200px;
     }
+
     .logo img {
       height: 40px;
       display: block;
@@ -60,8 +71,10 @@
       display: flex;
       align-items: center;
       padding: 0 24px;
-      min-width: 600px; /* ensure adequate width */
-      padding-left: 220px; /* space for logo */
+      min-width: 600px;
+      /* ensure adequate width */
+      padding-left: 220px;
+      /* space for logo */
     }
 
     /* nav links */
@@ -70,12 +83,13 @@
       gap: 24px;
       margin-right: 24px;
     }
-    
+
     /* nav dropdown items */
     .nav-dropdown {
       position: relative;
       display: inline-block;
     }
+
     .nav-dropdown-btn {
       background: transparent;
       color: var(--text-white);
@@ -88,12 +102,15 @@
       transition: border-color .2s;
       font-family: inherit;
     }
+
     .nav-dropdown-btn:hover {
       border-bottom-color: var(--text-white);
     }
+
     .nav-dropdown-btn.active {
       border-bottom-color: var(--text-white);
     }
+
     .nav-dropdown-content {
       display: none;
       position: absolute;
@@ -101,11 +118,12 @@
       top: 100%;
       background: var(--text-white);
       min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
       z-index: 1000;
       margin-top: 8px;
     }
+
     .nav-dropdown-content a {
       color: var(--text-black);
       padding: 12px 16px;
@@ -114,9 +132,11 @@
       font-weight: 500;
       transition: background .2s;
     }
+
     .nav-dropdown-content a:hover {
       background: #f1f1f1;
     }
+
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
@@ -127,6 +147,7 @@
       display: inline-block;
       margin-right: 24px;
     }
+
     .dropdown-btn {
       background: var(--search-green);
       color: var(--text-white);
@@ -138,9 +159,11 @@
       font-size: 0.9rem;
       transition: background .2s;
     }
+
     .dropdown-btn:hover {
       background: var(--accent-green);
     }
+
     .dropdown-content {
       display: none;
       position: absolute;
@@ -148,11 +171,12 @@
       top: 100%;
       background: var(--text-white);
       min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
       border-radius: 4px;
       z-index: 1000;
       margin-top: 4px;
     }
+
     .dropdown-content a {
       color: var(--text-black);
       padding: 12px 16px;
@@ -161,9 +185,11 @@
       font-weight: 500;
       transition: background .2s;
     }
+
     .dropdown-content a:hover {
       background: #f1f1f1;
     }
+
     .dropdown:hover .dropdown-content {
       display: block;
     }
@@ -174,6 +200,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .search-container input {
       height: 32px;
       padding: 0 12px;
@@ -183,39 +210,42 @@
       background: var(--text-white);
       color: var(--text-black);
     }
+
     .search-container input::placeholder {
-      color: rgba(0,0,0,0.5);
+      color: rgba(0, 0, 0, 0.5);
     }
+
     .search-container button {
       height: 32px;
       padding: 0 16px;
-      border:none;
-      border-radius:16px;
+      border: none;
+      border-radius: 16px;
       background: var(--search-green);
       color: var(--text-white);
-      font-weight:600;
-      cursor:pointer;
+      font-weight: 600;
+      cursor: pointer;
       transition: background .2s;
     }
+
     .search-container button:hover {
       background: var(--accent-green);
     }
 
     /* mobile hamburger */
     .menu-toggle {
-      display:none;
-      background:transparent;
-      border:none;
-      font-size:1.6rem;
-      color:var(--text-white);
-      cursor:pointer;
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--text-white);
+      cursor: pointer;
       position: absolute;
       right: 24px;
       top: 50%;
       transform: translateY(-50%);
     }
 
-    @media(max-width:767px){
+    @media(max-width:767px) {
       .nav-container {
         position: static;
         width: 100%;
@@ -226,6 +256,7 @@
         min-height: 60px;
         padding-left: 24px;
       }
+
       .logo {
         position: static;
         display: flex;
@@ -238,41 +269,55 @@
         clip-path: none;
         min-width: auto;
       }
-      .menu-toggle{display:block;}
+
+      .menu-toggle {
+        display: block;
+      }
+
       nav.nav-links {
-        width:100%;
-        flex-direction:column;
-        max-height:0;
-        overflow:hidden;
-        transition:max-height .3s;
+        width: 100%;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s;
         margin: 0;
       }
-      nav.nav-links.open{max-height:300px;}
+
+      nav.nav-links.open {
+        max-height: 300px;
+      }
+
       .nav-dropdown {
         width: 100%;
         margin: 0;
       }
+
       .nav-dropdown-btn {
         width: 100%;
         text-align: left;
         padding: 12px 24px;
-        border-top: 1px solid rgba(255,255,255,0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
       }
+
       .nav-dropdown:first-child .nav-dropdown-btn {
         border-top: none;
       }
+
       .dropdown {
         margin: 0;
         width: 100%;
       }
+
       .dropdown-btn {
         width: 100%;
         margin: 8px 0;
       }
+
       .search-container {
         padding: 12px 24px;
         width: 100%;
       }
+
       .search-container input {
         flex: 1;
       }
@@ -284,8 +329,14 @@
       margin: 0 auto;
       padding: 20px;
     }
-    .page { display:none; }
-    .page.active { display:block; }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
 
     /* example hero section */
     .hero {
@@ -294,22 +345,25 @@
       overflow: hidden;
       margin: 20px 0;
     }
+
     .hero img {
-      display: internal;
+      display: block;
       width: 75%;
       height: auto;
+      margin: 0 auto;
     }
   </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="logo">
-      <img src="images/canada-commute-logo.png" alt="Canada Commute logo"/>
+      <img src="images/canada-commute-logo.png" alt="Canada Commute logo" />
     </div>
-    
+
     <div class="nav-container">
       <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      
+
       <nav class="nav-links">
         <div class="nav-dropdown">
           <button class="nav-dropdown-btn active" data-page="schedules">Schedules and Maps ▼</button>
@@ -336,16 +390,16 @@
           </div>
         </div>
       </nav>
-      
+
       <div class="dropdown">
         <button class="dropdown-btn">App ▼</button>
         <div class="dropdown-content">
           <!-- Dropdown items will go here -->
         </div>
       </div>
-      
+
       <div class="search-container">
-        <input type="text" placeholder="What are you looking for?"/>
+        <input type="text" placeholder="What are you looking for?" />
         <button>Search</button>
       </div>
     </div>
@@ -354,7 +408,7 @@
   <div class="container">
     <div id="home" class="page active">
       <div class="hero">
-        <img src="images/bus-image.png" alt="Bus at a stop"/>
+        <img src="images/bus-image.png" alt="Bus at a stop" />
       </div>
       <!-- ... rest of your content ... -->
     </div>
@@ -366,7 +420,7 @@
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
-    });
+      });
 
     // nav dropdown active state management
     document.querySelectorAll('.nav-dropdown-btn').forEach(btn => {
@@ -375,7 +429,7 @@
         document.querySelectorAll('.nav-dropdown-btn').forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
         btn.classList.add('active');
-        
+
         // You can add page switching logic here if needed
         const page = btn.getAttribute('data-page');
         console.log('Switched to page:', page);
@@ -398,4 +452,5 @@
     });
   </script>
 </body>
+
 </html>
