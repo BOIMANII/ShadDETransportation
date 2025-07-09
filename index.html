@@ -6,8 +6,8 @@
   <title></title>  <!-- no visible page title -->
   <style>
     :root {
-      --primary-green: #009b8f;
-      --accent-green:  #00bfa5;
+      --primary-green: #1e5f3a;  /* Christmas green */
+      --accent-green:  #2d7a4b;  /* Lighter Christmas green */
       --text-white:   #ffffff;
       --text-black:   #000000;
       --bg-page:      #ffffff;
@@ -22,27 +22,44 @@
 
     /* ─── HEADER ───────────────────────────────────────── */
     header.topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: relative;
       height: 60px;
-      padding: 0 24px;
-      background: var(--primary-green);
+      background: transparent;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* logo only (no text) */
+    /* logo positioned top left (transparent background) */
+    .logo {
+      position: absolute;
+      top: 0;
+      left: 24px;
+      height: 60px;
+      z-index: 10;
+    }
     .logo img {
-      height: 100%;   /* fills the 60px bar */
+      height: 100%;
       display: block;
+    }
+
+    /* navigation container - positioned to the right */
+    .nav-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 60px;
+      background: var(--primary-green);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-radius: 0 0 0 20px; /* rounded left bottom corner */
+      min-width: 600px; /* ensure adequate width */
     }
 
     /* nav links */
     nav.nav-links {
       display: flex;
       gap: 24px;
-      flex: 1;
-      margin-left: 24px;
+      margin-right: 24px;
     }
     nav.nav-links a {
       color: var(--text-white);
@@ -53,11 +70,58 @@
       transition: border-color .2s;
     }
     nav.nav-links a:hover {
-      border-bottom-color: var(--text-black);
+      border-bottom-color: var(--text-white);
     }
     nav.nav-links a.active {
-      border-bottom-color: var(--text-black);
+      border-bottom-color: var(--text-white);
+    }
+
+    /* dropdown styling */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin-right: 24px;
+    }
+    .dropdown-btn {
+      background: var(--accent-green);
+      color: var(--text-white);
+      font-weight: 600;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background .2s;
+    }
+    .dropdown-btn:hover {
+      background: var(--text-white);
+      color: var(--primary-green);
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: var(--text-white);
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 4px;
+      z-index: 1000;
+      margin-top: 4px;
+    }
+    .dropdown-content a {
       color: var(--text-black);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .dropdown-content a:hover {
+      background: #f1f1f1;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
     }
 
     /* search in header */
@@ -103,9 +167,31 @@
       font-size:1.6rem;
       color:var(--text-white);
       cursor:pointer;
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
     }
+
     @media(max-width:767px){
-      header.topbar{flex-wrap:wrap;}
+      .nav-container {
+        position: static;
+        width: 100%;
+        min-width: auto;
+        border-radius: 0;
+        flex-direction: column;
+        height: auto;
+        min-height: 60px;
+      }
+      .logo {
+        position: static;
+        display: flex;
+        align-items: center;
+        height: 60px;
+        background: var(--primary-green);
+        padding: 0 24px;
+        width: 100%;
+      }
       .menu-toggle{display:block;}
       nav.nav-links {
         width:100%;
@@ -113,13 +199,29 @@
         max-height:0;
         overflow:hidden;
         transition:max-height .3s;
+        margin: 0;
       }
       nav.nav-links.open{max-height:200px;}
       nav.nav-links a {
-        padding:12px 0;
+        padding:12px 24px;
         border-top:1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links a:first-child{border-top:none;}
+      .dropdown {
+        margin: 0;
+        width: 100%;
+      }
+      .dropdown-btn {
+        width: 100%;
+        margin: 8px 0;
+      }
+      .search-container {
+        padding: 12px 24px;
+        width: 100%;
+      }
+      .search-container input {
+        flex: 1;
+      }
     }
 
     /* ─── PAGE LAYOUT ──────────────────────────────── */
@@ -147,17 +249,31 @@
 </head>
 <body>
   <header class="topbar">
-    <img src="images/canada-commute-logo.png" alt="Canada Commute logo" class="logo"/>
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-    <nav class="nav-links">
-      <a href="#schedules" class="active">Schedules and Maps</a>
-      <a href="#fares">Fares and Passes</a>
-      <a href="#service">Service Information</a>
-      <a href="#about">About Us</a>
-    </nav>
-    <div class="search-container">
-      <input type="text" placeholder="What are you looking for?"/>
-      <button>Search</button>
+    <div class="logo">
+      <img src="images/canada-commute-logo.png" alt="Canada Commute logo"/>
+    </div>
+    
+    <div class="nav-container">
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      
+      <nav class="nav-links">
+        <a href="#schedules" class="active">Schedules and Maps</a>
+        <a href="#fares">Fares and Passes</a>
+        <a href="#service">Service Information</a>
+        <a href="#about">About Us</a>
+      </nav>
+      
+      <div class="dropdown">
+        <button class="dropdown-btn">App ▼</button>
+        <div class="dropdown-content">
+          <!-- Dropdown items will go here -->
+        </div>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" placeholder="What are you looking for?"/>
+        <button>Search</button>
+      </div>
     </div>
   </header>
 
@@ -181,4 +297,3 @@
   </script>
 </body>
 </html>
-```
