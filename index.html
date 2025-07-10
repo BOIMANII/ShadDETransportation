@@ -8,53 +8,52 @@
     :root {
       --primary-green: #0f660a;
       --accent-green:  #25991f;
-      --light-green:  #98dd93;
-      --search-green: #055401;
-      --white:        #ffffff;
-      --black:        #000000;
-      --bg-page:      var(--light-green);
+      --light-green:   #98dd93;
+      --search-green:  #055401;
+      --white:         #ffffff;
+      --black:         #000000;
+      --bg-page:       var(--light-green);
     }
 
-    /* ─── Global & Scroll-Snap Setup ───────────────── */
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     html, body {
       height: 100vh;
       overflow: hidden;
-    }
-    body {
-      font-family:'Segoe UI',sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: var(--bg-page);
       color: var(--black);
     }
+
     .scroll-container {
-      height:100%;
+      height: 100%;
       overflow-y: auto;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
+
     .section {
       scroll-snap-align: start;
-      min-height:100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: stretch;
     }
 
-    /* ─── HEADER (stays fixed at top) ───────────────── */
+    /* ─── HEADER ───────────────────── */
     header.topbar {
       position: sticky;
-      top:0;
-      z-index:100;
-      display:flex;
-      align-items:center;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      height:60px;
-      padding:0 24px;
+      height: 60px;
+      padding: 0 24px;
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* logo positioned top left with trapezoid shape */
     .logo {
       position: absolute;
       top: 0;
@@ -69,256 +68,253 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       min-width: 200px;
     }
+
     .logo img {
       height: 48px;
       display: block;
     }
-    .menu-toggle {
-      display:none;
-      background:none; border:none;
-      font-size:1.6rem; color:var(--white);
-    }
-    nav.nav-links {
-      display:flex; gap:24px; flex:1; margin-left:24px;
-    }
-    nav.nav-links a {
-      color:var(--white);
-      font-weight:600;
-      text-decoration:none;
-      padding:8px 0;
-      border-bottom:2px solid transparent;
-      transition:border-color .2s;
-    }
-    nav.nav-links a:hover { border-bottom-color:var(--black); }
-    nav.nav-links a.active {
-      color:var(--black);
-      border-bottom-color:var(--black);
-    }
-    .search-container {
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-    .search-container input {
-      height:32px;
-      padding:0 12px;
-      border:1px solid var(--search-green);
-      border-radius:16px;
-      font-size:.9rem;
-    }
-    .search-container button {
-      height:32px;
-      padding:0 16px;
-      border:none;
-      border-radius:16px;
-      background:var(--search-green);
-      color:var(--white);
-      font-weight:600;
-      cursor:pointer;
-      transition:background .2s;
-    }
-    .search-container button:hover {
-      background:var(--accent-green);
-    }
 
-    /* ─── HERO SECTION ───────────────────────────── */
-    .hero {
-      background: var(--white);
-      margin: 20px;
-      border-radius:8px;
-      overflow:hidden;
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .hero img {
-      width:100%;
-      height:auto;
-      display:block;
-    }
-
-    /* ─── TRIP PLANNER SECTION ───────────────────── */
-    .planner {
-      background: var(--white);
-      padding: 60px 20px;
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .planner-form {
-      background: var(--white);
-      border-radius:8px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
-      padding:24px;
-      max-width:400px;
-      width:100%;
-    }
-    .planner-form h2 {
-      margin-bottom:16px;
-      font-size:1.4rem;
-      color:var(--primary-green);
-      text-align:center;
-    }
-    .planner-form .form-group {
-      margin-bottom:16px;
-    }
-    .planner-form label {
-      display:block;
-      margin-bottom:4px;
-      font-weight:600;
-    }
-    .planner-form input[type="text"],
-    .planner-form input[type="datetime-local"],
-    .planner-form select {
-      width:100%;
-      padding:10px;
-      border:1px solid #ccc;
-      border-radius:4px;
-      font-size:1rem;
-    }
-    .planner-form .time-toggle {
-      display:flex;
-      gap:8px;
-      margin-bottom:16px;
-    }
-    .planner-form .time-toggle label {
-      display:flex;
-      align-items:center;
-      gap:4px;
-      font-weight:500;
-    }
-    .planner-form button {
-      width:100%;
-      padding:12px;
-      background: var(--primary-green);
-      color: var(--white);
-      font-size:1rem;
-      font-weight:600;
-      border:none;
-      border-radius:4px;
-      cursor:pointer;
-      transition: background .2s;
-    }
-    .planner-form button:hover {
-      background: var(--accent-green);
-    }
-
-    /* mobile hamburger */
     .menu-toggle {
       display: none;
-      background: transparent;
+      background: none;
       border: none;
       font-size: 1.6rem;
-      color: var(--text-white);
-      cursor: pointer;
+      color: var(--white);
       position: absolute;
       right: 24px;
       top: 50%;
       transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 24px;
+      flex: 1;
+      margin-left: 24px;
+    }
+
+    nav.nav-links a {
+      color: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    nav.nav-links a:hover { border-bottom-color: var(--black); }
+
+    nav.nav-links a.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-container input {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--search-green);
+      border-radius: 16px;
+      font-size: 0.9rem;
+    }
+
+    .search-container button {
+      height: 32px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 16px;
+      background: var(--search-green);
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .search-container button:hover {
+      background: var(--accent-green);
+    }
+
+    /* ─── HERO ─────────────────────── */
+    .hero {
+      background: var(--white);
+      margin: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── PLANNER ──────────────────── */
+    .planner {
+      background: var(--white);
+      padding: 60px 20px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .planner-form {
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .planner-form h2 {
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+      color: var(--primary-green);
+      text-align: center;
+    }
+
+    .planner-form .form-group {
+      margin-bottom: 16px;
+    }
+
+    .planner-form label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .planner-form input[type="text"],
+    .planner-form input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .planner-form .time-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .planner-form .time-toggle label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 500;
+    }
+
+    .planner-form button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-green);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .planner-form button:hover {
+      background: var(--accent-green);
+    }
+
+    /* ─── SERVICE UPDATE SECTION ───── */
+    .info {
+      background: var(--white);
+      padding: 60px 20px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-content {
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .info-content h2 {
+      font-size: 1.6rem;
+      color: var(--primary-green);
+      margin-bottom: 16px;
+    }
+
+    .info-content p {
+      font-size: 1rem;
+      color: #333;
     }
 
     @media(max-width:767px) {
-      .nav-container {
-        position: static;
-        width: 100%;
-        min-width: auto;
-        border-radius: 0;
-        flex-direction: column;
-        height: auto;
-        min-height: 60px;
-        padding-left: 24px;
-      }
-
       .logo {
         position: static;
-        display: flex;
-        align-items: center;
         height: 60px;
         background: var(--light-green);
         padding: 0 24px;
         width: 100%;
-        border-radius: 0;
         clip-path: none;
         min-width: auto;
+        border-radius: 0;
       }
 
-      .menu-toggle {
-        display: block;
-      }
+      .menu-toggle { display: block; }
 
       nav.nav-links {
-        width:100%;
-        flex-direction:column;
-        max-height:0;
-        overflow:hidden;
-        transition:max-height .3s;
+        width: 100%;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
       }
-      nav.nav-links.open { max-height:240px; }
+
+      nav.nav-links.open { max-height: 240px; }
+
       nav.nav-links a {
-        padding:12px 0;
-        border-top:1px solid rgba(255,255,255,0.2);
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links a:first-child { border-top:none; }
+
+      nav.nav-links a:first-child { border-top: none; }
+
       .search-container {
-        width:100%;
-        padding:12px 24px;
+        width: 100%;
+        padding: 12px 24px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- fixed header -->
   <header class="topbar">
     <div class="logo">
       <img src="images/logo.png" alt="Canada Commute logo" />
     </div>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <nav class="nav-links">
+      <a href="#schedules" class="active">Schedules and Maps</a>
+      <a href="#fares">Fares and Passes</a>
+      <a href="#service">Service Information</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <div class="search-container">
+      <input type="text" placeholder="What are you looking for?"/>
+      <button>Search</button>
+    </div>
   </header>
 
   <div class="scroll-container">
-    <!-- page 1 -->
-    <section id="home" class="section hero">
-      <img src="images/bus-56.jpg" alt="Bus at a stop"/>
-    </section>
-
-    <!-- page 2 -->
-    <section id="planner" class="section planner">
-      <form class="planner-form">
-        <h2>Trip Planner</h2>
-
-        <div class="form-group">
-          <label for="origin">Origin</label>
-          <input type="text" id="origin" placeholder="Enter starting point"/>
-        </div>
-
-        <div class="form-group">
-          <label for="destination">Destination</label>
-          <input type="text" id="destination" placeholder="Enter destination"/>
-        </div>
-
-        <div class="time-toggle">
-          <label><input type="radio" name="when" value="leave" checked/> Leave at</label>
-          <label><input type="radio" name="when" value="arrive"/> Arrive by</label>
-        </div>
-
-        <div class="form-group">
-          <label for="datetime">Date & Time</label>
-          <input type="datetime-local" id="datetime"/>
-        </div>
-
-        <button type="button">Plan My Trip</button>
-      </form>
-    </section>
-  </div>
-
-  <script>
-    // mobile nav toggle
-    document.querySelector('.menu-toggle')
-      .addEventListener('click', ()=> {
-        document.querySelector('nav.nav-links').classList.toggle('open');
-      });
-  </script>
-</body>
-</html>
+    <!-- Section 1:
