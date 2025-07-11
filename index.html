@@ -16,107 +16,116 @@
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      height:100vh;
-      overflow:hidden;
+      height:100vh; overflow:hidden;
       font-family:'Segoe UI',sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
+      background: var(--bg-page); color:var(--black);
     }
+
+    /* Scroll-snap wrapper */
     .scroll-container {
-      height:100%;
-      overflow-y:auto;
+      height:100%; overflow-y:auto;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
     .section {
       scroll-snap-align: start;
       min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      display:flex; flex-direction:column;
       align-items:stretch;
       background: var(--bg-page);
     }
+
     /* ─── HEADER ───────────────────────── */
     header.topbar {
-      position:sticky;
-      top:0; z-index:100;
-      display:flex;
-      align-items:center;
+      position:sticky; top:0; z-index:100;
+      display:flex; align-items:center;
       justify-content:flex-end;
       height:60px;
       padding:0 24px 0 calc(200px + 24px);
       background: var(--primary-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
     }
     .logo {
       position:absolute; top:0; left:0;
       height:60px; background:var(--light-green);
       padding:0 16px 0 24px;
       display:flex; align-items:center;
-      clip-path:polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
+      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
       box-shadow:0 2px 4px rgba(0,0,0,0.1);
       min-width:200px;
     }
     .logo img { height:48px; display:block; }
     .menu-toggle {
-      display:none;
-      position:absolute; right:24px; top:50%;
-      transform:translateY(-50%);
+      display:none; position:absolute;
+      right:24px; top:50%; transform:translateY(-50%);
       background:none; border:none;
       font-size:1.6rem; color:var(--white);
       cursor:pointer;
     }
+
     nav.nav-links {
       display:flex; gap:24px; margin-right:16px;
       align-items:center;
     }
-    nav.nav-links a,
-    .nav-dropdown-btn {
-      color:var(--white);
-      font-weight:600;
-      text-decoration:none;
-      padding:8px 0;
-      background:transparent;
-      border:none;
-      cursor:pointer;
-      transition:border-color 0.2s, color 0.2s;
+    nav.nav-links > a {
+      color:var(--white); font-weight:600;
+      text-decoration:none; padding:8px 0;
+      border-bottom:2px solid transparent;
+      transition:border-color .2s, color .2s;
     }
-    nav.nav-links a:hover,
-    .nav-dropdown-btn:hover {
-      border-bottom:2px solid var(--black);
+    nav.nav-links > a:hover {
+      border-bottom-color:var(--black);
     }
-    nav.nav-links a.active {
+    nav.nav-links > a.active {
       color:var(--black);
-      border-bottom:2px solid var(--black);
+      border-bottom-color:var(--black);
     }
-    /* ABOUT dropdown */
+
+    /* ─ Fares & Passes dropdown ───────── */
     .nav-dropdown {
-      position: relative;
+      position:relative;
+    }
+    .nav-dropdown-btn {
+      background: var(--primary-green);
+      color: var(--white);
+      font-weight:600;
+      padding:8px 16px;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      transition: background .2s;
+    }
+    .nav-dropdown-btn:hover {
+      background: var(--accent-green);
     }
     .nav-dropdown-content {
-      display: none;
-      position: absolute;
+      display:none;
+      position:absolute;
       top:100%; left:0;
-      background:var(--white);
+      background: var(--light-green);
       border-radius:4px;
       box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      overflow:hidden;
       white-space:nowrap;
     }
     .nav-dropdown-content a {
       display:block;
       padding:8px 16px;
-      color:var(--black);
+      color: var(--primary-green);
       text-decoration:none;
       font-weight:500;
-      transition:background 0.2s;
+      transition: background .2s;
     }
     .nav-dropdown-content a:hover {
-      background:#f1f1f1;
+      background: var(--accent-green);
+      color: var(--white);
     }
     .nav-dropdown:hover .nav-dropdown-content {
       display:block;
     }
+
+    /* ─ About dropdown ─────────────────── */
+    /* reusing same .nav-dropdown, .nav-dropdown-btn, .nav-dropdown-content */
+
     .search-container {
       display:flex; align-items:center; gap:8px;
     }
@@ -135,41 +144,37 @@
     .search-container button:hover {
       background:var(--accent-green);
     }
+
     /* ─── HERO ─────────────────────────── */
     .hero {
-      position:relative;
-      min-height:100vh;
+      position:relative; min-height:100vh;
     }
     .hero img {
       position:absolute; top:0; left:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
+      width:100%; height:100%; object-fit:cover;
     }
-    /* ─── TRIP PLANNER ─────────────────── */
+
+    /* ─── PLANNER ──────────────────────── */
     .planner {
-      flex:1; display:flex;
-      align-items:center; justify-content:center;
+      flex:1; display:flex; align-items:center;
+      justify-content:center;
     }
     .planner-form {
       background:var(--primary-green);
       color:var(--white);
       border-radius:8px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
       padding:24px;
       width:90%; max-width:800px;
       display:flex; flex-direction:column; gap:16px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
     }
-    .planner-form h2 {
-      text-align:center; font-size:1.6rem;
-    }
+    .planner-form h2 { text-align:center; font-size:1.6rem; }
+
     .planner-form .form-group {
       display:flex; flex-direction:column; gap:4px;
     }
     .planner-form label { font-weight:600; }
-    .planner-form input[type="text"],
-    .planner-form input[type="date"],
-    .planner-form input[type="time"] {
+    .planner-form input {
       padding:10px; border:1px solid #ccc;
       border-radius:4px; font-size:1rem;
     }
@@ -192,8 +197,7 @@
       display:flex; gap:16px; flex-wrap:wrap;
     }
     .planner-form .plan-btn {
-      padding:12px;
-      background:var(--accent-green);
+      padding:12px; background:var(--accent-green);
       color:var(--white); font-weight:600;
       border:none; border-radius:4px;
       cursor:pointer; transition:background .2s;
@@ -203,10 +207,11 @@
       color:var(--primary-green);
       border:1px solid var(--primary-green);
     }
+
     /* ─── SERVICE UPDATES ─────────────── */
     .info {
-      flex:1; display:flex;
-      align-items:center; justify-content:center;
+      flex:1; display:flex; align-items:center;
+      justify-content:center;
     }
     .info-card {
       background:var(--white); border-radius:8px;
@@ -221,20 +226,21 @@
 
     @media(max-width:767px){
       .logo {
-        position:static; width:100%; clip-path:none;
-        padding:0 24px;
+        position:static; width:100%;
+        clip-path:none; padding:0 24px;
       }
       .menu-toggle { display:block; }
       nav.nav-links {
-        flex-direction:column; max-height:0;
-        overflow:hidden; transition:max-height .3s;
+        flex-direction:column;
+        max-height:0; overflow:hidden;
+        transition:max-height .3s;
       }
-      nav.nav-links.open { max-height:360px; }
-      nav.nav-links a,
+      nav.nav-links.open { max-height:400px; }
+      nav.nav-links > a,
       .nav-dropdown-btn {
         padding:12px 0; border-top:1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links a:first-child,
+      nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top:none;
       }
@@ -250,14 +256,23 @@
     <div class="logo">
       <img src="images/logo.png" alt="Canada Commute logo"/>
     </div>
+
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
     <nav class="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#planner">Trip Planner</a>
       <a href="#info">Service Updates</a>
 
       <div class="nav-dropdown">
-        <button class="nav-dropdown-btn">About ▼</button>
+        <button class="nav-dropdown-btn">Fares and Passes</button>
+        <div class="nav-dropdown-content">
+          <a href="fare-chart.html">Fare Chart</a>
+        </div>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">About</button>
         <div class="nav-dropdown-content">
           <a href="contacts.html">Contacts</a>
           <a href="team.html">Our Team</a>
@@ -267,6 +282,7 @@
 
       <a href="faq.html">FAQ</a>
     </nav>
+
     <div class="search-container">
       <input type="text" placeholder="What are you looking for?"/>
       <button>Search</button>
@@ -274,12 +290,12 @@
   </header>
 
   <div class="scroll-container">
-    <!-- 1: Hero -->
+    <!-- Hero -->
     <section id="home" class="section hero">
       <img src="images/bus-image.svg" alt="Bus at a stop"/>
     </section>
 
-    <!-- 2: Trip Planner -->
+    <!-- Trip Planner -->
     <section id="planner" class="section planner">
       <form class="planner-form">
         <h2>Trip Planner</h2>
@@ -309,7 +325,7 @@
       </form>
     </section>
 
-    <!-- 3: Service Updates -->
+    <!-- Service Updates -->
     <section id="info" class="section info">
       <div class="info-card">
         <h2>Service Updates</h2>
@@ -323,32 +339,7 @@
     const navLinks = document.querySelector('nav.nav-links');
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => navLinks.classList.toggle('open'));
-
-    // Toggle leave/arrive mode
-    let currentMode = 'leave';
-    const dateInput = document.getElementById('date');
-    const timeInput = document.getElementById('time');
-    let leaveDate = '', leaveTime = '';
-    let arriveDate = '', arriveTime = '';
-
-    document.querySelectorAll('.toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentMode = btn.textContent.includes('Leave') ? 'leave' : 'arrive';
-        dateInput.value = currentMode === 'leave' ? leaveDate : arriveDate;
-        timeInput.value = currentMode === 'leave' ? leaveTime : arriveTime;
-      });
-    });
-
-    dateInput.addEventListener('change', () => {
-      if (currentMode === 'leave') leaveDate = dateInput.value;
-      else arriveDate = dateInput.value;
-    });
-    timeInput.addEventListener('change', () => {
-      if (currentMode === 'leave') leaveTime = timeInput.value;
-      else arriveTime = timeInput.value;
-    });
   </script>
 </body>
 </html>
+```
