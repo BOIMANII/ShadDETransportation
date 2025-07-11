@@ -15,269 +15,246 @@
       --bg-page:       var(--light-green);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
+      height:100vh;
+      overflow:hidden;
+      font-family:'Segoe UI',sans-serif;
       background: var(--bg-page);
       color: var(--black);
     }
 
     .scroll-container {
-      height: 100%;
-      overflow-y: auto;
+      height:100%;
+      overflow-y:auto;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
-
     .section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+      scroll-snap-align:start;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      background: var(--bg-page);
     }
 
-    /* ─── HEADER ────────────────────────── */
+    /* ─── HEADER ───────────────────────── */
     header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end; /* push nav+search to the right */
-      height: 60px;
-      /* padding-left = logo container (200px) + its left padding (24px) */
-      padding: 0 24px 0 calc(200px + 24px);
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      height:60px;
+      padding:0 24px 0 calc(200px + 24px);
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
-    /* trapezoid logo container */
     .logo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 60px;
+      position:absolute;
+      top:0; left:0;
+      height:60px;
       background: var(--light-green);
-      padding: 0 16px 0 24px;
-      display: flex;
-      align-items: center;
-      clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+      padding:0 16px 0 24px;
+      display:flex;
+      align-items:center;
+      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      min-width: 200px;
+      min-width:200px;
     }
-    .logo img {
-      height: 48px;
-      display: block;
-    }
+    .logo img { height:48px; display:block; }
 
-    /* mobile hamburger */
     .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      color: var(--white);
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
+      display:none;
+      position:absolute;
+      right:24px; top:50%;
+      transform:translateY(-50%);
+      background:none; border:none;
+      font-size:1.6rem; color:var(--white);
+      cursor:pointer;
     }
-
     nav.nav-links {
-      display: flex;
-      gap: 24px;
-      margin-right: 16px; /* space between nav and search */
+      display:flex;
+      gap:24px;
+      margin-right:16px;
     }
     nav.nav-links a {
-      color: var(--white);
-      font-weight: 600;
-      text-decoration: none;
-      padding: 8px 0;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.2s;
+      color:var(--white);
+      font-weight:600;
+      text-decoration:none;
+      padding:8px 0;
+      border-bottom:2px solid transparent;
+      transition:border-color .2s;
     }
-    nav.nav-links a:hover {
-      border-bottom-color: var(--black);
-    }
+    nav.nav-links a:hover { border-bottom-color:var(--black); }
     nav.nav-links a.active {
-      color: var(--black);
-      border-bottom-color: var(--black);
+      color:var(--black);
+      border-bottom-color:var(--black);
     }
 
     .search-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
     }
     .search-container input {
-      height: 32px;
-      padding: 0 12px;
-      border: 1px solid var(--search-green);
-      border-radius: 16px;
-      font-size: 0.9rem;
+      height:32px;
+      padding:0 12px;
+      border:1px solid var(--search-green);
+      border-radius:16px;
+      font-size:.9rem;
     }
     .search-container button {
-      height: 32px;
-      padding: 0 16px;
-      border: none;
-      border-radius: 16px;
-      background: var(--search-green);
-      color: var(--white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
+      height:32px;
+      padding:0 16px;
+      border:none;
+      border-radius:16px;
+      background:var(--search-green);
+      color:var(--white);
+      font-weight:600;
+      cursor:pointer;
+      transition:background .2s;
     }
     .search-container button:hover {
-      background: var(--accent-green);
+      background:var(--accent-green);
     }
 
-    /* ─── HERO ─────────────────────────── */
+    /* ─── HERO (white card) ───────────────── */
     .hero {
-      background: var(--white);
-      margin: 20px;
-      border-radius: 8px;
-      overflow: hidden;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      /* no margin, full-bleed green behind */
     }
-    .hero img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .hero-card {
+      background:var(--white);
+      border-radius:8px;
+      overflow:hidden;
+      width:90%;
+      max-width:800px;
+    }
+    .hero-card img {
+      width:100%;
+      height:auto;
+      display:block;
     }
 
-    /* ─── TRIP PLANNER ─────────────────── */
+    /* ─── TRIP PLANNER (white card) ───────── */
     .planner {
-      background: var(--white);
-      padding: 60px 20px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
     .planner-form {
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      padding: 24px;
-
-      /* make form span 90% of page width, up to 800px */
-      width: 90%;
-      max-width: 800px;
+      background:var(--white);
+      border-radius:8px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      padding:24px;
+      width:90%;
+      max-width:800px;
     }
     .planner-form h2 {
-      margin-bottom: 16px;
-      font-size: 1.4rem;
-      color: var(--primary-green);
-      text-align: center;
+      margin-bottom:16px;
+      font-size:1.4rem;
+      color:var(--primary-green);
+      text-align:center;
     }
     .planner-form .form-group {
-      margin-bottom: 16px;
+      margin-bottom:16px;
     }
     .planner-form label {
-      display: block;
-      margin-bottom: 4px;
-      font-weight: 600;
+      display:block;
+      margin-bottom:4px;
+      font-weight:600;
     }
     .planner-form input,
     .planner-form select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-size:1rem;
     }
     .planner-form .time-toggle {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
+      display:flex;
+      gap:8px;
+      margin-bottom:16px;
     }
     .planner-form .time-toggle label {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-weight: 500;
+      display:flex;
+      align-items:center;
+      gap:4px;
+      font-weight:500;
     }
     .planner-form button {
-      width: 100%;
-      padding: 12px;
-      background: var(--primary-green);
-      color: var(--white);
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
+      width:100%;
+      padding:12px;
+      background:var(--primary-green);
+      color:var(--white);
+      font-size:1rem;
+      font-weight:600;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      transition:background .2s;
     }
     .planner-form button:hover {
-      background: var(--accent-green);
+      background:var(--accent-green);
     }
 
-    /* ─── SERVICE UPDATES ───────────────── */
+    /* ─── SERVICE UPDATES (white card) ────── */
     .info {
-      background: var(--white);
-      padding: 60px 20px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .info-content {
-      max-width: 600px;
-      text-align: center;
+    .info-card {
+      background:var(--white);
+      border-radius:8px;
+      padding:60px 20px;
+      width:90%;
+      max-width:800px;
+      text-align:center;
     }
-    .info-content h2 {
-      font-size: 1.6rem;
-      color: var(--primary-green);
-      margin-bottom: 16px;
+    .info-card h2 {
+      font-size:1.6rem;
+      color:var(--primary-green);
+      margin-bottom:16px;
     }
-    .info-content p {
-      font-size: 1rem;
-      color: #333;
+    .info-card p {
+      font-size:1rem;
+      color:#333;
     }
 
-    @media (max-width: 767px) {
+    @media(max-width:767px){
       .logo {
-        position: static;
-        width: 100%;
-        clip-path: none;
-        padding: 0 24px;
-        border-radius: 0;
+        position:static;
+        width:100%;
+        clip-path:none;
+        padding:0 24px;
+        border-radius:0;
       }
-      .menu-toggle {
-        display: block;
-      }
+      .menu-toggle { display:block; }
       nav.nav-links {
-        flex-direction: column;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s;
+        flex-direction:column;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .3s;
       }
-      nav.nav-links.open {
-        max-height: 240px;
-      }
+      nav.nav-links.open { max-height:240px; }
       nav.nav-links a {
-        padding: 12px 0;
-        border-top: 1px solid rgba(255,255,255,0.2);
+        padding:12px 0;
+        border-top:1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links a:first-child {
-        border-top: none;
-      }
+      nav.nav-links a:first-child { border-top:none; }
       .search-container {
-        width: 100%;
-        padding: 12px 24px;
+        width:100%;
+        padding:12px 24px;
       }
     }
   </style>
@@ -289,11 +266,13 @@
       <img src="images/logo.png" alt="Canada Commute logo"/>
     </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+
     <nav class="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#planner">Trip Planner</a>
       <a href="#info">Service Updates</a>
     </nav>
+
     <div class="search-container">
       <input type="text" placeholder="What are you looking for?"/>
       <button>Search</button>
@@ -303,7 +282,9 @@
   <div class="scroll-container">
     <!-- 1: Hero -->
     <section id="home" class="section hero">
-      <img src="images/bus-56.jpg" alt="Bus at a stop"/>
+      <div class="hero-card">
+        <img src="images/bus-56.jpg" alt="Bus at a stop"/>
+      </div>
     </section>
 
     <!-- 2: Trip Planner -->
@@ -332,7 +313,7 @@
 
     <!-- 3: Service Updates -->
     <section id="info" class="section info">
-      <div class="info-content">
+      <div class="info-card">
         <h2>Service Updates</h2>
         <p>Stay informed about schedule changes and service advisories across Canada Commute routes.</p>
       </div>
