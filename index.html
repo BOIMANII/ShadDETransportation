@@ -17,74 +17,54 @@
 
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      height:100vh;
-      overflow:hidden;
+      height:100vh; overflow:hidden;
       font-family:'Segoe UI',sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
+      background: var(--bg-page); color: var(--black);
     }
-
     .scroll-container {
-      height:100%;
-      overflow-y:auto;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
+      height:100%; overflow-y:auto;
+      scroll-snap-type: y mandatory; scroll-behavior: smooth;
     }
     .section {
       scroll-snap-align:start;
       min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      display:flex; flex-direction:column;
       align-items:stretch;
       background: var(--bg-page);
     }
 
     /* ─── HEADER ───────────────────────── */
     header.topbar {
-      position:sticky;
-      top:0;
-      z-index:100;
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
+      position:sticky; top:0; z-index:100;
+      display:flex; align-items:center; justify-content:flex-end;
       height:60px;
+      /* leave space for the trapezoid logo */
       padding:0 24px 0 calc(200px + 24px);
       background: var(--primary-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
     }
     .logo {
-      position:absolute;
-      top:0; left:0;
-      height:60px;
-      background: var(--light-green);
+      position:absolute; top:0; left:0;
+      height:60px; background: var(--light-green);
       padding:0 16px 0 24px;
-      display:flex;
-      align-items:center;
+      display:flex; align-items:center;
       clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
       min-width:200px;
     }
     .logo img { height:48px; display:block; }
-
     .menu-toggle {
-      display:none;
-      position:absolute;
-      right:24px; top:50%;
-      transform:translateY(-50%);
+      display:none; position:absolute;
+      right:24px; top:50%; transform:translateY(-50%);
       background:none; border:none;
-      font-size:1.6rem; color:var(--white);
-      cursor:pointer;
+      font-size:1.6rem; color:var(--white); cursor:pointer;
     }
     nav.nav-links {
-      display:flex;
-      gap:24px;
-      margin-right:16px;
+      display:flex; gap:24px; margin-right:16px;
     }
     nav.nav-links a {
-      color:var(--white);
-      font-weight:600;
-      text-decoration:none;
-      padding:8px 0;
+      color:var(--white); font-weight:600;
+      text-decoration:none; padding:8px 0;
       border-bottom:2px solid transparent;
       transition:border-color .2s;
     }
@@ -93,168 +73,168 @@
       color:var(--black);
       border-bottom-color:var(--black);
     }
-
     .search-container {
-      display:flex;
-      align-items:center;
-      gap:8px;
+      display:flex; align-items:center; gap:8px;
     }
     .search-container input {
-      height:32px;
-      padding:0 12px;
+      height:32px; padding:0 12px;
       border:1px solid var(--search-green);
-      border-radius:16px;
-      font-size:.9rem;
+      border-radius:16px; font-size:.9rem;
     }
     .search-container button {
-      height:32px;
-      padding:0 16px;
-      border:none;
-      border-radius:16px;
+      height:32px; padding:0 16px;
       background:var(--search-green);
-      color:var(--white);
-      font-weight:600;
-      cursor:pointer;
-      transition:background .2s;
+      color:var(--white); border:none;
+      border-radius:16px; font-weight:600;
+      cursor:pointer; transition:background .2s;
     }
     .search-container button:hover {
       background:var(--accent-green);
     }
 
-    /* ─── HERO (white card) ───────────────── */
+    /* ─── HERO ─────────────────────────── */
     .hero {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      /* no margin, full-bleed green behind */
+      flex:1; display:flex;
+      align-items:center; justify-content:center;
     }
     .hero-card {
       background:var(--white);
-      border-radius:8px;
-      overflow:hidden;
-      width:90%;
-      max-width:800px;
+      border-radius:8px; overflow:hidden;
+      width:90%; max-width:800px;
     }
     .hero-card img {
-      width:100%;
-      height:auto;
-      display:block;
+      width:100%; display:block;
     }
 
-    /* ─── TRIP PLANNER (white card) ───────── */
+    /* ─── TRIP PLANNER ─────────────────── */
     .planner {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      flex:1; display:flex;
+      align-items:center; justify-content:center;
     }
     .planner-form {
       background:var(--white);
-      border-radius:8px;
-      box-shadow:0 4px 16px rgba(0,0,0,0.1);
+      border-radius:8px; box-shadow:0 4px 16px rgba(0,0,0,0.1);
       padding:24px;
-      width:90%;
-      max-width:800px;
+      width:90%; max-width:800px;
+      display:flex; flex-direction:column; gap:16px;
     }
     .planner-form h2 {
-      margin-bottom:16px;
-      font-size:1.4rem;
-      color:var(--primary-green);
       text-align:center;
+      color: var(--primary-green);
+      font-size:1.6rem;
     }
+
     .planner-form .form-group {
-      margin-bottom:16px;
+      display:flex; flex-direction:column; gap:4px;
     }
-    .planner-form label {
-      display:block;
-      margin-bottom:4px;
+    .planner-form label { font-weight:600; }
+
+    .planner-form input[type="text"] {
+      padding:10px; border:1px solid #ccc;
+      border-radius:4px; font-size:1rem;
+    }
+
+    /* toggle buttons */
+    .planner-form .toggle-group {
+      display:flex; gap:8px;
+    }
+    .planner-form .toggle-btn {
+      flex:1;
+      padding:10px 0;
+      background: #f1f1f1;
+      border:1px solid #ccc;
+      border-radius:4px;
       font-weight:600;
+      cursor:pointer;
+      transition: background .2s, color .2s;
     }
-    .planner-form input,
-    .planner-form select {
-      width:100%;
-      padding:10px;
+    .planner-form .toggle-btn.active {
+      background:var(--primary-green);
+      color:var(--white);
+      border-color:var(--primary-green);
+    }
+
+    /* date/time steppers */
+    .planner-form .date-time-group {
+      display:flex; gap:16px;
+      flex-wrap:wrap;
+    }
+    .planner-form .dt-field {
+      flex:1; display:flex; flex-direction:column; gap:4px;
+    }
+    .planner-form .dt-control {
+      display:flex; align-items:center;
+    }
+    .planner-form .dt-control button {
+      width:32px; height:32px;
+      background:var(--accent-green);
+      color:var(--white); border:none;
+      border-radius:4px; cursor:pointer;
+      transition: background .2s, color .2s;
+    }
+    .planner-form .dt-control button:hover {
+      background:var(--white);
+      color:var(--accent-green);
+      border:1px solid var(--accent-green);
+    }
+    .planner-form .dt-control input {
+      flex:1;
+      padding:6px;
+      margin:0 4px;
       border:1px solid #ccc;
       border-radius:4px;
       font-size:1rem;
     }
-    .planner-form .time-toggle {
-      display:flex;
-      gap:8px;
-      margin-bottom:16px;
-    }
-    .planner-form .time-toggle label {
-      display:flex;
-      align-items:center;
-      gap:4px;
-      font-weight:500;
-    }
-    .planner-form button {
-      width:100%;
+
+    .planner-form .plan-btn {
+      margin-top:8px;
       padding:12px;
       background:var(--primary-green);
       color:var(--white);
-      font-size:1rem;
       font-weight:600;
       border:none;
       border-radius:4px;
       cursor:pointer;
-      transition:background .2s;
+      transition: background .2s;
     }
-    .planner-form button:hover {
+    .planner-form .plan-btn:hover {
       background:var(--accent-green);
     }
 
-    /* ─── SERVICE UPDATES (white card) ────── */
+    /* ─── SERVICE UPDATES ─────────────── */
     .info {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      flex:1; display:flex;
+      align-items:center; justify-content:center;
     }
     .info-card {
-      background:var(--white);
-      border-radius:8px;
-      padding:60px 20px;
-      width:90%;
-      max-width:800px;
+      background:var(--white); border-radius:8px;
+      padding:60px 20px; width:90%; max-width:800px;
       text-align:center;
     }
     .info-card h2 {
+      margin-bottom:16px;
       font-size:1.6rem;
       color:var(--primary-green);
-      margin-bottom:16px;
     }
     .info-card p {
-      font-size:1rem;
-      color:#333;
+      font-size:1rem; color:#333;
     }
 
-    @media(max-width:767px){
-      .logo {
-        position:static;
-        width:100%;
-        clip-path:none;
-        padding:0 24px;
-        border-radius:0;
-      }
+    @media(max-width:767px) {
+      .logo { position:static; clip-path:none; padding:0 24px; }
       .menu-toggle { display:block; }
       nav.nav-links {
-        flex-direction:column;
-        max-height:0;
-        overflow:hidden;
+        flex-direction:column; max-height:0; overflow:hidden;
         transition:max-height .3s;
       }
       nav.nav-links.open { max-height:240px; }
       nav.nav-links a {
-        padding:12px 0;
-        border-top:1px solid rgba(255,255,255,0.2);
+        padding:12px 0; border-top:1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links a:first-child { border-top:none; }
-      .search-container {
-        width:100%;
-        padding:12px 24px;
+      .search-container { width:100%; padding:12px 24px; }
+      .planner-form .date-time-group {
+        flex-direction:column;
       }
     }
   </style>
@@ -266,13 +246,11 @@
       <img src="images/logo.png" alt="Canada Commute logo"/>
     </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-
     <nav class="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#planner">Trip Planner</a>
       <a href="#info">Service Updates</a>
     </nav>
-
     <div class="search-container">
       <input type="text" placeholder="What are you looking for?"/>
       <button>Search</button>
@@ -291,23 +269,42 @@
     <section id="planner" class="section planner">
       <form class="planner-form">
         <h2>Trip Planner</h2>
+
         <div class="form-group">
-          <label for="origin">Origin</label>
-          <input type="text" id="origin" placeholder="Enter starting point"/>
+          <label for="from">From</label>
+          <input type="text" id="from" placeholder="Enter starting point"/>
         </div>
+
         <div class="form-group">
-          <label for="destination">Destination</label>
-          <input type="text" id="destination" placeholder="Enter destination"/>
+          <label for="to">To</label>
+          <input type="text" id="to" placeholder="Enter destination"/>
         </div>
-        <div class="time-toggle">
-          <label><input type="radio" name="when" value="leave" checked/> Leave at</label>
-          <label><input type="radio" name="when" value="arrive"/> Arrive by</label>
+
+        <div class="toggle-group">
+          <button type="button" class="toggle-btn active">Leave at</button>
+          <button type="button" class="toggle-btn">Arrive by</button>
         </div>
-        <div class="form-group">
-          <label for="datetime">Date & Time</label>
-          <input type="datetime-local" id="datetime"/>
+
+        <div class="date-time-group">
+          <div class="dt-field">
+            <label for="time">Time</label>
+            <div class="dt-control">
+              <button type="button">–</button>
+              <input type="time" id="time" value="18:45"/>
+              <button type="button">+</button>
+            </div>
+          </div>
+          <div class="dt-field">
+            <label for="date">Date</label>
+            <div class="dt-control">
+              <button type="button">–</button>
+              <input type="date" id="date" value="2025-07-08"/>
+              <button type="button">+</button>
+            </div>
+          </div>
         </div>
-        <button type="button">Plan My Trip</button>
+
+        <button type="button" class="plan-btn">Plan My Trip</button>
       </form>
     </section>
 
@@ -324,9 +321,15 @@
     // Mobile nav toggle
     const navLinks = document.querySelector('nav.nav-links');
     document.querySelector('.menu-toggle')
-      .addEventListener('click', () => {
-        navLinks.classList.toggle('open');
+      .addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    // Toggle active state
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
       });
+    });
   </script>
 </body>
 </html>
