@@ -14,7 +14,6 @@
       --black:         #000000;
       --bg-page:       var(--light-green);
     }
-
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
       height:100vh;
@@ -23,14 +22,12 @@
       background: var(--bg-page);
       color: var(--black);
     }
-
     .scroll-container {
       height:100%;
       overflow-y:auto;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
     }
-
     .section {
       scroll-snap-align: start;
       min-height:100vh;
@@ -39,12 +36,10 @@
       align-items:stretch;
       background: var(--bg-page);
     }
-
     /* ─── HEADER ───────────────────────── */
     header.topbar {
       position:sticky;
-      top:0;
-      z-index:100;
+      top:0; z-index:100;
       display:flex;
       align-items:center;
       justify-content:flex-end;
@@ -54,95 +49,107 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .logo {
-      position:absolute;
-      top:0; left:0;
-      height:60px;
-      background: var(--light-green);
+      position:absolute; top:0; left:0;
+      height:60px; background:var(--light-green);
       padding:0 16px 0 24px;
-      display:flex;
-      align-items:center;
-      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display:flex; align-items:center;
+      clip-path:polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
       min-width:200px;
     }
     .logo img { height:48px; display:block; }
-
     .menu-toggle {
       display:none;
-      position:absolute;
-      right:24px; top:50%;
+      position:absolute; right:24px; top:50%;
       transform:translateY(-50%);
       background:none; border:none;
       font-size:1.6rem; color:var(--white);
       cursor:pointer;
     }
     nav.nav-links {
-      display:flex;
-      gap:24px;
-      margin-right:16px;
+      display:flex; gap:24px; margin-right:16px;
+      align-items:center;
     }
-    nav.nav-links a {
+    nav.nav-links a,
+    .nav-dropdown-btn {
       color:var(--white);
       font-weight:600;
       text-decoration:none;
       padding:8px 0;
-      border-bottom:2px solid transparent;
-      transition:border-color .2s;
+      background:transparent;
+      border:none;
+      cursor:pointer;
+      transition:border-color 0.2s, color 0.2s;
     }
-    nav.nav-links a:hover { border-bottom-color:var(--black); }
+    nav.nav-links a:hover,
+    .nav-dropdown-btn:hover {
+      border-bottom:2px solid var(--black);
+    }
     nav.nav-links a.active {
       color:var(--black);
-      border-bottom-color:var(--black);
+      border-bottom:2px solid var(--black);
     }
-
+    /* ABOUT dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      top:100%; left:0;
+      background:var(--white);
+      border-radius:4px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      overflow:hidden;
+      white-space:nowrap;
+    }
+    .nav-dropdown-content a {
+      display:block;
+      padding:8px 16px;
+      color:var(--black);
+      text-decoration:none;
+      font-weight:500;
+      transition:background 0.2s;
+    }
+    .nav-dropdown-content a:hover {
+      background:#f1f1f1;
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display:block;
+    }
     .search-container {
-      display:flex;
-      align-items:center;
-      gap:8px;
+      display:flex; align-items:center; gap:8px;
     }
     .search-container input {
-      height:32px;
-      padding:0 12px;
+      height:32px; padding:0 12px;
       border:1px solid var(--search-green);
-      border-radius:16px;
-      font-size:.9rem;
+      border-radius:16px; font-size:.9rem;
     }
     .search-container button {
-      height:32px;
-      padding:0 16px;
-      border:none;
-      border-radius:16px;
+      height:32px; padding:0 16px;
+      border:none; border-radius:16px;
       background:var(--search-green);
-      color:var(--white);
-      font-weight:600;
-      cursor:pointer;
-      transition:background .2s;
+      color:var(--white); font-weight:600;
+      cursor:pointer; transition:background .2s;
     }
     .search-container button:hover {
       background:var(--accent-green);
     }
-
-    /* ─── HERO (full bleed SVG) ─────────── */
+    /* ─── HERO ─────────────────────────── */
     .hero {
       position:relative;
       min-height:100vh;
-      scroll-snap-align:start;
     }
     .hero img {
-      position:absolute;
-      top:0; left:0;
-      width:100%;
-      height:100%;
+      position:absolute; top:0; left:0;
+      width:100%; height:100%;
       object-fit:cover;
       display:block;
     }
-
     /* ─── TRIP PLANNER ─────────────────── */
     .planner {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      flex:1; display:flex;
+      align-items:center; justify-content:center;
     }
     .planner-form {
       background:var(--primary-green);
@@ -150,43 +157,30 @@
       border-radius:8px;
       box-shadow:0 4px 16px rgba(0,0,0,0.1);
       padding:24px;
-      width:90%;
-      max-width:800px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
+      width:90%; max-width:800px;
+      display:flex; flex-direction:column; gap:16px;
     }
     .planner-form h2 {
-      text-align:center;
-      font-size:1.6rem;
+      text-align:center; font-size:1.6rem;
     }
     .planner-form .form-group {
       display:flex; flex-direction:column; gap:4px;
     }
-    .planner-form label {
-      font-weight:600;
-    }
+    .planner-form label { font-weight:600; }
     .planner-form input[type="text"],
     .planner-form input[type="date"],
-    .planner-form input[type="time"],
-    .planner-form input[type="datetime-local"] {
-      padding:10px;
-      border:1px solid #ccc;
-      border-radius:4px;
-      font-size:1rem;
+    .planner-form input[type="time"] {
+      padding:10px; border:1px solid #ccc;
+      border-radius:4px; font-size:1rem;
     }
     .planner-form .toggle-group {
       display:flex; gap:8px;
     }
     .planner-form .toggle-btn {
-      flex:1;
-      padding:10px 0;
-      background:#f1f1f1;
-      color:var(--black);
-      border:1px solid #ccc;
-      border-radius:4px;
-      font-weight:600;
-      cursor:pointer;
+      flex:1; padding:10px 0;
+      background:#f1f1f1; color:var(--black);
+      border:1px solid #ccc; border-radius:4px;
+      font-weight:600; cursor:pointer;
       transition:background .2s, color .2s;
     }
     .planner-form .toggle-btn.active {
@@ -200,67 +194,52 @@
     .planner-form .plan-btn {
       padding:12px;
       background:var(--accent-green);
-      color:var(--white);
-      font-weight:600;
-      border:none;
-      border-radius:4px;
-      cursor:pointer;
-      transition:background .2s;
+      color:var(--white); font-weight:600;
+      border:none; border-radius:4px;
+      cursor:pointer; transition:background .2s;
     }
     .planner-form .plan-btn:hover {
       background:var(--white);
       color:var(--primary-green);
       border:1px solid var(--primary-green);
     }
-
     /* ─── SERVICE UPDATES ─────────────── */
     .info {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      flex:1; display:flex;
+      align-items:center; justify-content:center;
     }
     .info-card {
-      background:var(--white);
-      border-radius:8px;
-      padding:60px 20px;
-      width:90%;
-      max-width:800px;
+      background:var(--white); border-radius:8px;
+      padding:60px 20px; width:90%; max-width:800px;
       text-align:center;
     }
     .info-card h2 {
-      margin-bottom:16px;
-      font-size:1.6rem;
+      margin-bottom:16px; font-size:1.6rem;
       color:var(--primary-green);
     }
-    .info-card p {
-      font-size:1rem;
-      color:#333;
-    }
+    .info-card p { font-size:1rem; color:#333; }
 
     @media(max-width:767px){
       .logo {
-        position:static;
-        width:100%;
-        clip-path:none;
+        position:static; width:100%; clip-path:none;
         padding:0 24px;
       }
       .menu-toggle { display:block; }
       nav.nav-links {
-        flex-direction:column;
-        max-height:0;
-        overflow:hidden;
-        transition:max-height .3s;
+        flex-direction:column; max-height:0;
+        overflow:hidden; transition:max-height .3s;
       }
-      nav.nav-links.open { max-height:240px; }
-      nav.nav-links a {
-        padding:12px 0;
-        border-top:1px solid rgba(255,255,255,0.2);
+      nav.nav-links.open { max-height:360px; }
+      nav.nav-links a,
+      .nav-dropdown-btn {
+        padding:12px 0; border-top:1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links a:first-child { border-top:none; }
+      nav.nav-links a:first-child,
+      .nav-dropdown-btn:first-child {
+        border-top:none;
+      }
       .search-container {
-        width:100%;
-        padding:12px 24px;
+        width:100%; padding:12px 24px;
       }
     }
   </style>
@@ -276,6 +255,17 @@
       <a href="#home" class="active">Home</a>
       <a href="#planner">Trip Planner</a>
       <a href="#info">Service Updates</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">About ▼</button>
+        <div class="nav-dropdown-content">
+          <a href="contacts.html">Contacts</a>
+          <a href="team.html">Our Team</a>
+          <a href="careers.html">Careers</a>
+        </div>
+      </div>
+
+      <a href="faq.html">FAQ</a>
     </nav>
     <div class="search-container">
       <input type="text" placeholder="What are you looking for?"/>
@@ -334,15 +324,13 @@
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => navLinks.classList.toggle('open'));
 
-    // Keep separate values for leave/arrive
-    let leaveDate = '', leaveTime = '';
-    let arriveDate = '', arriveTime = '';
+    // Toggle leave/arrive mode
     let currentMode = 'leave';
-
     const dateInput = document.getElementById('date');
     const timeInput = document.getElementById('time');
+    let leaveDate = '', leaveTime = '';
+    let arriveDate = '', arriveTime = '';
 
-    // Toggle buttons logic
     document.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
@@ -353,7 +341,6 @@
       });
     });
 
-    // Save on change
     dateInput.addEventListener('change', () => {
       if (currentMode === 'leave') leaveDate = dateInput.value;
       else arriveDate = dateInput.value;
@@ -362,13 +349,6 @@
       if (currentMode === 'leave') leaveTime = timeInput.value;
       else arriveTime = timeInput.value;
     });
-    // asdasd balls
-    // Initialize with today's date and time
-    // Example of retrieving values on submit
-    document.querySelector('.plan-btn').addEventListener('click', () => {
-      console.log({ mode: currentMode, leaveDate, leaveTime, arriveDate, arriveTime });
-    });
   </script>
 </body>
-</html> 
-    
+</html>
