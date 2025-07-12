@@ -14,59 +14,38 @@
       --black:         #000000;
       --bg-page:       var(--light-green);
     }
-
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
-
     body {
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg-page);
       color: var(--black);
       min-height: 100vh;
     }
-
-    /* ─── HEADER ───────────────────────── */
+    /* HEADER */
     header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center;
+      justify-content: space-between;
       height: 60px;
-      padding: 0 24px 0 calc(200px + 24px);
+      padding: 0 24px calc(200px + 24px);
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
     .logo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 60px;
-      background: var(--light-green);
+      position: absolute; top: 0; left: 0;
+      height: 60px; background: var(--light-green);
       padding: 0 16px 0 24px;
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       min-width: 200px;
     }
-
-    .logo img {
-      height: 48px;
-    }
-
+    .logo img { height: 48px; display: block; }
     nav.nav-links {
-      display: flex;
-      gap: 24px;
-      margin-right: 16px;
-      align-items: center;
+      display: flex; gap: 24px; margin-left: 224px;
     }
-
     nav.nav-links > a,
     .nav-dropdown-btn {
       color: var(--white);
@@ -76,40 +55,32 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      transition: color .2s, border-color .2s;
+      transition: color .2s;
     }
-
     nav.nav-links > a:hover,
     .nav-dropdown-btn:hover {
-      border-bottom: 2px solid var(--black);
+      color: var(--accent-green);
     }
-
     nav.nav-links > a.active {
       color: var(--black);
       border-bottom: 2px solid var(--black);
     }
-
-    /* dropdown wrapper */
+    /* dropdown */
     .nav-dropdown {
       position: relative;
     }
-
     .nav-dropdown-btn {
-      padding: 8px 16px;
-      border-radius: 4px;
+      padding: 8px 16px; border-radius: 4px;
     }
-
     .nav-dropdown-content {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
+      position: absolute; top: 100%; left: 0;
       background: var(--light-green);
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       white-space: nowrap;
+      margin-top: 4px; z-index: 200;
     }
-
     .nav-dropdown-content a {
       display: block;
       padding: 8px 16px;
@@ -118,60 +89,44 @@
       font-weight: 500;
       transition: background .2s, color .2s;
     }
-
     .nav-dropdown-content a:hover {
       background: var(--accent-green);
       color: var(--white);
     }
-
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
-
     .search-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: flex; align-items: center; gap: 8px;
     }
-
     .search-container input {
-      height: 32px;
-      padding: 0 12px;
+      height: 32px; padding: 0 12px;
       border: 1px solid var(--search-green);
-      border-radius: 16px;
-      font-size: 0.9rem;
+      border-radius: 16px; font-size: 0.9rem;
     }
-
     .search-container button {
-      height: 32px;
-      padding: 0 16px;
-      border: none;
-      border-radius: 16px;
+      height: 32px; padding: 0 16px;
+      border: none; border-radius: 16px;
       background: var(--search-green);
-      color: var(--white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
+      color: var(--white); font-weight: 600;
+      cursor: pointer; transition: background .2s;
     }
-
     .search-container button:hover {
       background: var(--accent-green);
     }
 
-    /* ─── CONTAINER & FAQ ───────────────── */
+    /* CONTAINER & FAQ */
     .container {
       max-width: 900px;
-      margin: 20px auto;
-      padding: 0 20px 40px;
+      margin: 20px auto 40px;
+      padding: 0 20px;
     }
-
     .container h1 {
+      text-align: center;
       font-size: 2rem;
       color: var(--primary-green);
       margin-bottom: 24px;
-      text-align: center;
     }
-
     .faq-item {
       background: var(--white);
       border-radius: 8px;
@@ -179,13 +134,11 @@
       margin-bottom: 16px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
     .faq-item h2 {
       font-size: 1.2rem;
       color: var(--primary-green);
       margin-bottom: 8px;
     }
-
     .faq-item p {
       font-size: 1rem;
       line-height: 1.5;
@@ -198,65 +151,92 @@
     <div class="logo">
       <img src="images/logo.png" alt="Canada Commute logo"/>
     </div>
-
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
-
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn">Fares &amp; Passes ▼</button>
         <div class="nav-dropdown-content">
           <a href="fare-chart.html">Fare Chart</a>
         </div>
       </div>
-
       <div class="nav-dropdown">
-        <button class="nav-dropdown-btn">About ▼</button>
+        <button class="nav-dropdown-btn active">About Us ▼</button>
         <div class="nav-dropdown-content">
-          <a href="contacts.html">Contacts</a>
-          <a href="team.html">Our Team</a>
-          <a href="careers.html">Careers</a>
+          <a href="ask-questions.html">Ask Questions</a>
+          <a href="feedback.html">Feedback Form</a>
+          <a href="faq.html">FAQ</a>
+          <a href="plans.html">Plans &amp; Improvements</a>
+          <a href="news.html">News</a>
         </div>
       </div>
-
-      <a href="faq.html" class="active">FAQ</a>
-
-      <div class="search-container">
-        <input type="text" placeholder="What are you looking for?"/>
-        <button>Search</button>
-      </div>
     </nav>
+    <div class="search-container">
+      <input type="text" placeholder="What are you looking for?"/>
+      <button>Search</button>
+    </div>
   </header>
 
-  <div class="container">
+  <main class="container">
     <h1>Frequently Asked Questions</h1>
 
     <div class="faq-item">
-      <h2>How do I plan a trip?</h2>
-      <p>Use our Trip Planner section. Enter your origin, destination, date and time, and click “Plan My Trip.”</p>
+      <h2>How often are the stops?</h2>
+      <p>
+        From 7 am to 11 pm, buses arrive every 15–20 minutes. From 12 am to 6 am, intervals are 30–45 minutes. Times may vary by region and demand.
+      </p>
     </div>
 
     <div class="faq-item">
-      <h2>What payment methods are accepted?</h2>
-      <p>We accept credit/debit cards, mobile wallets, and transit passes. See the Fare Chart for details.</p>
+      <h2>Can I bring my luggage?</h2>
+      <p>
+        Yes. There’s under-seat storage, but space is limited during rush hours. Larger items may require special handling.
+      </p>
     </div>
 
     <div class="faq-item">
-      <h2>Can I track my bus in real-time?</h2>
-      <p>Yes! On the Service Updates page, you’ll find live tracking for all active routes.</p>
+      <h2>Are there discounts for seniors, students, or others?</h2>
+      <p>
+        Seniors and students ride for $2. Special holiday and event discounts (e.g., Christmas, sports games) apply to everyone.
+      </p>
     </div>
 
     <div class="faq-item">
-      <h2>Where can I find service alerts?</h2>
-      <p>Service advisories and disruptions appear on the Service Updates page and are emailed if you subscribe.</p>
+      <h2>What measures ensure accessibility for everyone?</h2>
+      <p>
+        Buses feature ramps, designated wheelchair areas, handrails, and tactile paving at stops to assist riders with mobility or visual impairments.
+      </p>
     </div>
 
     <div class="faq-item">
-      <h2>How do I contact customer support?</h2>
-      <p>Visit our Contacts page under About, or email support@canadacommute.ca for assistance.</p>
+      <h2>Can we bring bikes on the bus?</h2>
+      <p>
+        Yes. Each bus has bike racks that hold up to two bikes. Capacity may vary by city and vehicle size.
+      </p>
     </div>
-  </div>
+
+    <div class="faq-item">
+      <h2>Are pets allowed on the bus?</h2>
+      <p>
+        Only service animals. For safety and allergy reasons, other pets are not permitted. Service animals must be leashed and well-behaved.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h2>How many people can fit on a bus?</h2>
+      <p>
+        Seating capacity is approximately 50. With standing room, a bus can carry up to around 60 passengers.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h2>What happens if buses are cancelled?</h2>
+      <p>
+        Our app and alerts notify you of delays or cancellations. We run frequent services and will re-accommodate you as soon as possible.
+      </p>
+    </div>
+  </main>
 
 </body>
 </html>
