@@ -18,13 +18,11 @@
     html, body {
       height:100vh; overflow:hidden;
       font-family:'Segoe UI',sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
+      background: var(--bg-page); color: var(--black);
     }
     .scroll-container {
       height:100%; overflow-y:auto;
-      scroll-snap-type:y mandatory;
-      scroll-behavior:smooth;
+      scroll-snap-type:y mandatory; scroll-behavior:smooth;
     }
     .section {
       scroll-snap-align:start;
@@ -90,8 +88,7 @@
       color: var(--white);
       font-weight:600;
       padding:8px 16px;
-      border:none;
-      border-radius:4px;
+      border:none; border-radius:4px;
       cursor:pointer;
       transition:background .2s;
     }
@@ -101,12 +98,12 @@
     .nav-dropdown-content {
       display:none;
       position:absolute;
-      top:100%; left:0;
+      top:100%;       /* sits flush under the button */
+      left:0;
       background: var(--primary-green);
       border-radius:4px;
       box-shadow:0 4px 12px rgba(0,0,0,0.1);
       white-space:nowrap;
-      margin-top:4px;
       z-index:200;
     }
     .nav-dropdown-content a {
@@ -151,7 +148,6 @@
     .hero img {
       position:absolute; top:0; left:0;
       width:100%; height:100%; object-fit:cover;
-      display:block;
     }
 
     /* ─── TRIP PLANNER ─────────────────── */
@@ -292,12 +288,12 @@
   </header>
 
   <div class="scroll-container">
-    <!-- Hero -->
+    <!-- 1: Hero -->
     <section id="home" class="section hero">
       <img src="images/bus-image.svg" alt="Bus at a stop"/>
     </section>
 
-    <!-- Trip Planner -->
+    <!-- 2: Trip Planner -->
     <section id="planner" class="section planner">
       <form class="planner-form">
         <h2>Trip Planner</h2>
@@ -327,7 +323,7 @@
       </form>
     </section>
 
-    <!-- Service Updates -->
+    <!-- 3: Service Updates -->
     <section id="info" class="section info">
       <div class="info-card">
         <h2>Service Updates</h2>
@@ -348,7 +344,6 @@
     let arriveDate = '', arriveTime = '';
     const dateInput = document.getElementById('date');
     const timeInput = document.getElementById('time');
-
     document.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
@@ -358,7 +353,6 @@
         timeInput.value = currentMode === 'leave' ? leaveTime : arriveTime;
       });
     });
-
     dateInput.addEventListener('change', () => {
       if (currentMode === 'leave') leaveDate = dateInput.value;
       else arriveDate = dateInput.value;
@@ -370,3 +364,4 @@
   </script>
 </body>
 </html>
+```
