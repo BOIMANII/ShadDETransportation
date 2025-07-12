@@ -23,28 +23,43 @@
       color: var(--black);
       min-height: 100vh;
     }
+
     /* HEADER */
     header.topbar {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
       justify-content: space-between;
       height: 60px;
-      padding: 0 24px calc(200px + 24px);
+      /* remove large bottom padding: only top/right/bottom/left */
+      padding: 0 24px 0 calc(200px + 24px);
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .logo {
-      position: absolute; top: 0; left: 0;
-      height: 60px; background: var(--light-green);
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 60px;
+      background: var(--light-green);
       padding: 0 16px 0 24px;
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       min-width: 200px;
     }
-    .logo img { height: 48px; display: block; }
+    .logo img {
+      height: 48px;
+      display: block;
+    }
+
     nav.nav-links {
-      display: flex; gap: 24px; margin-left: 224px;
+      display: flex;
+      gap: 24px;
+      margin-left: 24px;
     }
     nav.nav-links > a,
     .nav-dropdown-btn {
@@ -65,21 +80,25 @@
       color: var(--black);
       border-bottom: 2px solid var(--black);
     }
-    /* dropdown */
+
+    /* DROPDOWNS */
     .nav-dropdown {
       position: relative;
     }
     .nav-dropdown-btn {
-      padding: 8px 16px; border-radius: 4px;
+      padding: 8px 16px;
+      border-radius: 4px;
     }
     .nav-dropdown-content {
       display: none;
-      position: absolute; top: 100%; left: 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
       background: var(--light-green);
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       white-space: nowrap;
-      margin-top: 4px; z-index: 200;
+      z-index: 200;
     }
     .nav-dropdown-content a {
       display: block;
@@ -96,26 +115,36 @@
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
+
+    /* SEARCH */
     .search-container {
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .search-container input {
-      height: 32px; padding: 0 12px;
+      height: 32px;
+      padding: 0 12px;
       border: 1px solid var(--search-green);
-      border-radius: 16px; font-size: 0.9rem;
+      border-radius: 16px;
+      font-size: 0.9rem;
     }
     .search-container button {
-      height: 32px; padding: 0 16px;
-      border: none; border-radius: 16px;
+      height: 32px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 16px;
       background: var(--search-green);
-      color: var(--white); font-weight: 600;
-      cursor: pointer; transition: background .2s;
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
     }
     .search-container button:hover {
       background: var(--accent-green);
     }
 
-    /* CONTAINER & FAQ */
+    /* FAQ CONTENT */
     .container {
       max-width: 900px;
       margin: 20px auto 40px;
@@ -143,6 +172,35 @@
       font-size: 1rem;
       line-height: 1.5;
     }
+
+    @media (max-width: 767px) {
+      .logo {
+        position: static;
+        width: 100%;
+        clip-path: none;
+        padding: 0 24px;
+        border-radius: 0;
+      }
+      nav.nav-links {
+        flex-direction: column;
+        gap: 0;
+        margin-left: 0;
+        margin-top: 60px;
+      }
+      nav.nav-links > a,
+      .nav-dropdown-btn {
+        padding: 12px 0;
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+      nav.nav-links > a:first-child,
+      .nav-dropdown-btn:first-child {
+        border-top: none;
+      }
+      .search-container {
+        width: 100%;
+        padding: 12px 24px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -155,12 +213,14 @@
       <a href="index.html">Home</a>
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
+
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn">Fares &amp; Passes ▼</button>
         <div class="nav-dropdown-content">
           <a href="fare-chart.html">Fare Chart</a>
         </div>
       </div>
+
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn active">About Us ▼</button>
         <div class="nav-dropdown-content">
@@ -173,7 +233,7 @@
       </div>
     </nav>
     <div class="search-container">
-      <input type="text" placeholder="What are you looking for?"/>
+      <input type="text" placeholder="Search…"/>
       <button>Search</button>
     </div>
   </header>
@@ -183,58 +243,23 @@
 
     <div class="faq-item">
       <h2>How often are the stops?</h2>
-      <p>
-        From 7 am to 11 pm, buses arrive every 15–20 minutes. From 12 am to 6 am, intervals are 30–45 minutes. Times may vary by region and demand.
-      </p>
+      <p>From 7am to 11pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
     </div>
-
     <div class="faq-item">
       <h2>Can I bring my luggage?</h2>
-      <p>
-        Yes. There’s under-seat storage, but space is limited during rush hours. Larger items may require special handling.
-      </p>
+      <p>Yes. Under-seat storage is available but limited during peak times. Larger items may require special handling.</p>
     </div>
-
     <div class="faq-item">
-      <h2>Are there discounts for seniors, students, or others?</h2>
-      <p>
-        Seniors and students ride for $2. Special holiday and event discounts (e.g., Christmas, sports games) apply to everyone.
-      </p>
+      <h2>Are there discounts for seniors or students?</h2>
+      <p>Seniors & students ride for $2. Special holiday & event discounts apply universally during select days.</p>
     </div>
-
     <div class="faq-item">
-      <h2>What measures ensure accessibility for everyone?</h2>
-      <p>
-        Buses feature ramps, designated wheelchair areas, handrails, and tactile paving at stops to assist riders with mobility or visual impairments.
-      </p>
+      <h2>How do I track buses in real time?</h2>
+      <p>Use the Service Updates page for live vehicle tracking across all active routes.</p>
     </div>
-
     <div class="faq-item">
-      <h2>Can we bring bikes on the bus?</h2>
-      <p>
-        Yes. Each bus has bike racks that hold up to two bikes. Capacity may vary by city and vehicle size.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h2>Are pets allowed on the bus?</h2>
-      <p>
-        Only service animals. For safety and allergy reasons, other pets are not permitted. Service animals must be leashed and well-behaved.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h2>How many people can fit on a bus?</h2>
-      <p>
-        Seating capacity is approximately 50. With standing room, a bus can carry up to around 60 passengers.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h2>What happens if buses are cancelled?</h2>
-      <p>
-        Our app and alerts notify you of delays or cancellations. We run frequent services and will re-accommodate you as soon as possible.
-      </p>
+      <h2>What accessibility features are available?</h2>
+      <p>Buses include ramps, wheelchair spaces, handrails, and tactile paving at stops to assist all riders.</p>
     </div>
   </main>
 
