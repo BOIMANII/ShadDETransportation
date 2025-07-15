@@ -16,7 +16,7 @@ jobs:
         run: |
           mkdir -p public
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
-            public/service.template.html > public/service.html
+            service.template.html > public/service.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
