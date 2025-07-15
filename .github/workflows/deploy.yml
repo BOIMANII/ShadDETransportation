@@ -3,21 +3,34 @@ name: Build & Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main   # change to your default branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      # 1. Pull your code
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Inject Google Maps Key
+      # 2. Stage everything into public/
+      - name: Prepare public folder
         run: |
           mkdir -p public
+          cp index.html public/
+          cp planner.html public/
+          # copy other pages if you have them
+          cp -r css public/      || true
+          cp -r images public/   || true
+
+      # 3. Generate service.html with your Maps key
+      - name: Inject Google Maps Key
+        run: |
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
             service.template.html > public/service.html
 
+      # 4. Push public/ to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
