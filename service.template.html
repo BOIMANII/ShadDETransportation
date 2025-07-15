@@ -1,0 +1,31 @@
+<!-- public/service.template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Service Updates — Canada Commute</title>
+  <!-- your existing styles… -->
+</head>
+<body>
+
+  <!-- your header/nav… -->
+
+  <main class="updates-page">
+    <div id="map"></div>
+  </main>
+
+  <script>
+    // Injected by build: __MAP_KEY__
+    function initMap() {
+      new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 43.65107, lng: -79.347015 },
+        zoom: 12,
+        disableDefaultUI: true
+      });
+    }
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=__MAP_KEY__&callback=initMap" async></script>
+</body>
+</html>
