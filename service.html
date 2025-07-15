@@ -256,20 +256,22 @@
       // Mobile nav toggle
       const menuToggle = document.querySelector('.menu-toggle');
       const navLinks = document.querySelector('nav.nav-links');
-      if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-          navLinks.classList.toggle('open');
-        });
-      }
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
 
-      // Fetch API key and load Google Maps
+      // Request Maps API key
       fetch('/api/getMapKey', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ password: 'SHADDE' })
       })
       .then(res => {
-        if (!res.ok) throw new Error('Unauthorized');
+        if (!res.ok) {
+          throw new Error(`Failed to get key: ${res.status} ${res.statusText}`);
+        }
         return res.json();
       })
       .then(({ key }) => {
@@ -278,7 +280,11 @@
         script.async = true;
         document.head.appendChild(script);
       })
-      .catch(err => console.error('Failed to load map:', err));
+      .catch(err => {
+        console.error(err);
+        const container = document.getElementById('map');
+        container.innerHTML = '<p style="text-align:center; padding:1rem;">Unable to load map. Please try again later.</p>';
+      });
     });
 
     function initMap() {

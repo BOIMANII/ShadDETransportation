@@ -1,17 +1,38 @@
 // getMapKey.js
+require('dotenv').config();
+
 exports.handler = async (event) => {
   try {
     const { password } = JSON.parse(event.body || '{}');
-    // Only reveal the key if the password matches your secret
-    if (password !== process.env.SHADDE) {
-      return { statusCode: 401, body: 'Unauthorized' };
+
+    // the password is literally "SHADDE"
+    if (password !== 'SHADDE') {
+      return {
+        statusCode: 401,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        body: 'Unauthorized'
+      };
     }
-    // Return the real Maps API key from env
+
+    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+    if (!apiKey) {
+      throw new Error('Missing API key in environment');
+    }
+
     return {
       statusCode: 200,
-      body: JSON.stringify({ key: process.env.GOOGLE_MAPS_API_KEY })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({ key: apiKey })
     };
+
   } catch (e) {
-    return { statusCode: 400, body: 'Bad Request' };
+    return {
+      statusCode: 400,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: 'Bad Request'
+    };
   }
 };
