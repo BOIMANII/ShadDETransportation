@@ -1,0 +1,42 @@
+name: Build & Deploy to GitHub Pages
+
+permissions:
+  contents: read    # to checkout the repo
+  pages: write      # to publish to GitHub Pages
+  id-token: write   # required by configure-pages
+
+on:
+  push:
+    branches: [ main ]  # your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout your repo
+      - uses: actions/checkout@v3
+
+      # 2. Build the docs/ folder
+      - name: Prepare docs folder
+        run: |
+          rm -rf docs
+          mkdir docs
+          cp index.html planner.html docs/
+          cp -r css images docs/ || true
+          sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
+            service.template.html > docs/service.html
+
+      # 3. Tell GitHub we want to deploy via Actions
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      # 4. Upload the docs/ folder
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      # 5. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v3
