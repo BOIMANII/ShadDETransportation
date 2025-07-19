@@ -1,63 +1,59 @@
 # .github/workflows/deploy.yml
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build & Deploy to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [ main ]
   workflow_dispatch:
 
-# Grant the GITHUB_TOKEN the rights to read the repo, publish Pages,
-# and request an OIDC token (required by configure-pages@v5)
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read    # allow reading the repo
+  pages: write      # allow publishing to GitHub Pages
+  id-token: write   # required by configure-pages
 
-# Only one Pages deployment at a time; do not cancel in-progress runs
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
   deploy:
-    # Expose the published URL in the environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout your code
+      # 1. Checkout your code
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2) Build your docs/ folder with key injection
+      # 2. Stage all the pages + assets into docs/
       - name: Prepare docs folder
         run: |
           rm -rf docs
           mkdir docs
-          cp index.html planner.html docs/
+
+          # copy each HTML page you want published
+          cp index.html planner.html faq.html docs/
+
+          # copy assets
           cp -r css images docs/ || true
 
-          # Inject the secret Maps key into service.html
+          # inject the Maps key into service.html
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
             service.template.html > docs/service.html
 
-      # 3) Tell GitHub we’re deploying via Actions
-      - name: Setup Pages
+      # 3. Configure GitHub Pages to use Actions
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      # 4) Upload docs/ as the artifact for Pages
+      # 4. Upload docs/ as the artifact for Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
-      # 5) Deploy to GitHub Pages and capture the URL
+      # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
