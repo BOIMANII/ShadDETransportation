@@ -29,60 +29,65 @@
 
     /* Top bar */
     .top-bar {
+      background-color: var(--primary-green);
+      padding: 0.75rem 0;
+    }
+    .top-bar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1rem;
-      background-color: var(--primary-green);
+      padding: 0 1rem;
     }
-    .top-bar .logo {
-      color: var(--white);
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-decoration: none;
+    .logo img {
+      height: 40px;
+      display: block;
     }
-    .top-bar nav {
+    .nav {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
     }
-    .top-bar a {
+    .nav a {
       color: var(--white);
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.95rem;
     }
-    .top-bar a:hover {
+    .nav a:hover {
       text-decoration: underline;
     }
     .search-form {
       display: flex;
+      align-items: center;
       gap: 0.5rem;
     }
     .search-form input {
       padding: 0.5rem;
       border: none;
       border-radius: 4px;
-      width: 160px;
+      width: 200px;
     }
     .search-form button {
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 4px;
-      background-color: var(--search-green);
+      background-color: var(--accent-green);
       color: var(--white);
-      cursor: pointer;
       font-weight: 600;
+      cursor: pointer;
     }
     .search-form button:hover {
-      background-color: var(--accent-green);
+      background-color: var(--search-green);
     }
 
-    /* Main content wrapper */
+    /* Main content */
     main {
       max-width: 960px;
       margin: 1.5rem auto;
       background-color: var(--white);
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       padding: 1rem;
     }
     h1 {
@@ -92,7 +97,7 @@
       text-align: center;
     }
 
-    /* Image assets (from index.html) */
+    /* Asset icons (from index.html) */
     .assets {
       display: flex;
       justify-content: center;
@@ -115,11 +120,19 @@
     }
 
     @media (max-width: 600px) {
-      .assets img {
-        width: 48px;
+      .top-bar__inner {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
       }
       .search-form input {
-        width: 120px;
+        width: 140px;
+      }
+      .assets img {
+        width: 48px;
       }
     }
   </style>
@@ -127,18 +140,22 @@
 <body>
 
   <header class="top-bar">
-    <a href="index.html" class="logo">Canada Commute</a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="planner.html">Trip Planner</a>
-      <a href="fare-chart.html">Fare Chart</a>
-      <a href="faq.html">FAQ</a>
-      <a href="service.html">Service Updates</a>
-    </nav>
-    <form class="search-form" action="#" method="get">
-      <input type="text" name="q" placeholder="Search…" />
-      <button type="submit">Go</button>
-    </form>
+    <div class="top-bar__inner">
+      <a href="index.html" class="logo">
+        <img src="logo.svg" alt="Canada Commute logo" />
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="planner.html">Trip Planner</a>
+        <a href="service.html">Service Updates</a>
+        <a href="fare-chart.html">Fares &amp; Passes</a>
+        <a href="about.html">About Us</a>
+      </nav>
+      <form class="search-form" action="#" method="get">
+        <input type="text" name="q" placeholder="What are you looking for?" />
+        <button type="submit">Search</button>
+      </form>
+    </div>
   </header>
 
   <main>
@@ -149,7 +166,7 @@
       <img src="images/bus.png" alt="Bus icon" />
       <img src="images/train.png" alt="Train icon" />
       <img src="images/tram.png" alt="Tram icon" />
-      <!-- add/remove icons exactly like in your index.html -->
+      <!-- other icons… -->
     </div>
 
     <div id="map"></div>
