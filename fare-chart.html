@@ -6,12 +6,12 @@
   <title>Canada Commute Fare Chart</title>
   <style>
     :root {
-      --primary-color: #2a3f54;
-      --accent-color: #4a90e2;
+      --primary-color: #2d8f2d;
+      --accent-color: #76c043;
       --header-text: #ffffff;
-      --table-border: #b0b0b0;
-      --bg-light: #f9f9f9;
+      --bg-light: #f7f9f7;
       --text-dark: #333333;
+      --table-border: #d0d0d0;
     }
 
     *, *::before, *::after {
@@ -21,36 +21,67 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: var(--text-dark);
       background-color: var(--bg-light);
+      color: var(--text-dark);
       line-height: 1.5;
     }
 
-    /* Top bar / navigation */
+    /* Top bar with nav and search */
     .top-bar {
-      background-color: var(--primary-color);
-      padding: 0.75rem 1rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background-color: var(--primary-color);
+      padding: 0.75rem 1rem;
     }
+
     .top-bar .logo {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: var(--header-text);
       text-decoration: none;
     }
+
     .top-bar nav {
       display: flex;
       gap: 1rem;
+      flex-wrap: wrap;
     }
+
     .top-bar a {
       color: var(--header-text);
       text-decoration: none;
       font-weight: 600;
     }
+
     .top-bar a:hover {
       text-decoration: underline;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-form input {
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+      width: 180px;
+    }
+
+    .search-form button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: var(--accent-color);
+      color: var(--header-text);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .search-form button:hover {
+      background-color: #5eb03a;
     }
 
     /* Page heading */
@@ -64,27 +95,30 @@
     .fare-table {
       width: 100%;
       max-width: 800px;
-      margin: 0 auto 2rem auto;
+      margin: 0 auto 2rem;
       border-collapse: collapse;
       background-color: #ffffff;
     }
+
     .fare-table th,
     .fare-table td {
       border: 1px solid var(--table-border);
       padding: 0.75rem;
       text-align: center;
     }
+
     .fare-table th {
       background-color: var(--accent-color);
-      color: #ffffff;
+      color: var(--header-text);
     }
 
-    /* Sections */
+    /* Section styling */
     .section {
       max-width: 800px;
-      margin: 0 auto 2rem auto;
+      margin: 0 auto 2rem;
       padding: 0 1rem;
     }
+
     .section h2 {
       font-size: 1.25rem;
       margin-bottom: 0.75rem;
@@ -92,6 +126,7 @@
       border-bottom: 2px solid var(--accent-color);
       padding-bottom: 0.25rem;
     }
+
     .section p {
       margin: 0.5rem 0;
     }
@@ -100,12 +135,11 @@
     @media (max-width: 600px) {
       .top-bar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: 0.75rem;
       }
-      .top-bar nav {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+      .search-form {
+        justify-content: flex-end;
       }
       .fare-table th,
       .fare-table td {
@@ -120,16 +154,20 @@
 </head>
 <body>
 
-  <!-- Top bar / Navigation -->
+  <!-- Top bar -->
   <header class="top-bar">
     <a href="index.html" class="logo">Canada Commute</a>
     <nav>
       <a href="index.html">Home</a>
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
-      <a href="faq.html">FAQ</a>
-      <a href="fare-chart.html">Fare Chart</a>
+      <a href="fare-chart.html">Fares &amp; Passes</a>
+      <a href="about.html">About Us</a>
     </nav>
+    <form class="search-form" action="#" method="get">
+      <input type="text" name="q" placeholder="What are you looking for?" />
+      <button type="submit">Search</button>
+    </form>
   </header>
 
   <!-- Page title -->
@@ -167,7 +205,7 @@
     <p><strong>Youth:</strong> Ages 6 to 18 years.</p>
     <p><strong>Senior:</strong> Ages 65+ years.</p>
     <p><strong>Child:</strong> Children five years and under ride free.</p>
-    <p>A physical CC card costs $4, and can be purchased from fare vending machines at bus stations, select service centres, or participating Shoppers Drug Mart locations.</p>
+    <p>A physical CC card costs $4 and can be purchased at vending machines, service centres, or participating Shoppers Drug Mart locations.</p>
   </div>
 
   <!-- Proof & transfers -->
@@ -187,3 +225,4 @@
 
 </body>
 </html>
+```
