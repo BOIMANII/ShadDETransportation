@@ -1,18 +1,17 @@
-# .github/workflows/deploy.yml
 name: Build & Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: read    # allow reading the repo
-  pages: write      # allow publishing to GitHub Pages
-  id-token: write   # required by configure-pages
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -23,37 +22,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout your code
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Stage all the pages + assets into docs/
       - name: Prepare docs folder
         run: |
           rm -rf docs
           mkdir docs
 
-          # copy each HTML page you want published
-          cp index.html planner.html faq.html docs/
+          # Copy every HTML page you want served
+          cp index.html planner.html faq.html fare-chart.html docs/ || true
 
-          # copy assets
+          # Copy assets
           cp -r css images docs/ || true
 
-          # inject the Maps key into service.html
+          # Inject your Maps key into service.html
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
             service.template.html > docs/service.html
 
-      # 3. Configure GitHub Pages to use Actions
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      # 4. Upload docs/ as the artifact for Pages
-      - name: Upload artifact
+      - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
-      # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
