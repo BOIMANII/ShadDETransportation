@@ -1,24 +1,23 @@
-# .github/workflows/deploy.yml
 name: Build & Deploy to GitHub Pages
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read    # to pull your code
+  pages: write      # to publish your site
+  id-token: write   # required by configure-pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]  # your default branch
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      # 1. Checkout your repo
+      - uses: actions/checkout@v3
 
+      # 2. Stage what goes to your site
       - name: Prepare docs folder
         run: |
           rm -rf docs
@@ -28,13 +27,16 @@ jobs:
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
             service.template.html > docs/service.html
 
-      - name: Configure Pages
+      # 3. Tell GitHub we want to use the Pages actions
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload artifact for Pages
+      # 4. Upload docs/ as the artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
 
+      # 5. Deploy the artifact to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v3
