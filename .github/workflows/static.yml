@@ -1,43 +1,42 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build & Deploy to GitHub Pages
+
+permissions:
+  contents: read    # allow reading the repo
+  pages: write      # allow publishing to GitHub Pages
+  id-token: write   # required by configure-pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches: [ main ]  # change if your default branch is different
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
+      # 1. Checkout your repository
+      - uses: actions/checkout@v3
+
+      # 2. Prepare the docs/ folder for deployment
+      - name: Prepare docs folder
+        run: |
+          rm -rf docs
+          mkdir docs
+          cp index.html planner.html docs/
+          cp -r css images docs/ || true
+          sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
+            service.template.html > docs/service.html
+
+      # 3. Configure GitHub Pages to use Actions
+      - name: Configure Pages
+        uses: actions/configure-pages@v3
+
+      # 4. Upload docs/ as the Pages artifact
+      - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: docs
+
+      # 5. Deploy the artifact to GitHub Pages
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
