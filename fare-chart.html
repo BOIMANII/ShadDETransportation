@@ -5,56 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Canada Commute Fare Chart</title>
   <style>
+    :root {
+      --primary-color: #2a3f54;
+      --accent-color: #4a90e2;
+      --header-text: #ffffff;
+      --table-border: #b0b0b0;
+      --bg-light: #f9f9f9;
+      --text-dark: #333333;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      margin: 16px;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
       line-height: 1.5;
     }
+
+    /* Top bar / navigation */
+    .top-bar {
+      background-color: var(--primary-color);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .top-bar .logo {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: var(--header-text);
+      text-decoration: none;
+    }
+    .top-bar nav {
+      display: flex;
+      gap: 1rem;
+    }
+    .top-bar a {
+      color: var(--header-text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Page heading */
     h1 {
       text-align: center;
-      margin-bottom: 24px;
+      margin: 1.5rem 0;
+      color: var(--primary-color);
     }
+
+    /* Fare table */
     .fare-table {
       width: 100%;
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
       border-collapse: collapse;
-      margin-bottom: 32px;
+      background-color: #ffffff;
     }
     .fare-table th,
     .fare-table td {
-      border: 1px solid #ccc;
-      padding: 12px;
+      border: 1px solid var(--table-border);
+      padding: 0.75rem;
       text-align: center;
     }
     .fare-table th {
-      background-color: #f5f5f5;
+      background-color: var(--accent-color);
+      color: #ffffff;
     }
+
+    /* Sections */
     .section {
-      margin-bottom: 24px;
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      padding: 0 1rem;
     }
     .section h2 {
       font-size: 1.25rem;
-      margin-bottom: 12px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 4px;
+      margin-bottom: 0.75rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.25rem;
     }
+    .section p {
+      margin: 0.5rem 0;
+    }
+
+    /* Responsive tweaks */
     @media (max-width: 600px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top-bar nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
       .fare-table th,
       .fare-table td {
-        padding: 8px;
+        padding: 0.5rem;
       }
-      body {
-        margin: 8px;
+      h1 {
+        font-size: 1.5rem;
+        margin: 1rem 0;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>Canada Commute Fare Chart</h1>
+  <!-- Top bar / Navigation -->
+  <header class="top-bar">
+    <a href="index.html" class="logo">Canada Commute</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="planner.html">Trip Planner</a>
+      <a href="service.html">Service Updates</a>
+      <a href="faq.html">FAQ</a>
+      <a href="fare-chart.html">Fare Chart</a>
+    </nav>
+  </header>
 
+  <!-- Page title -->
+  <h1>Fare Chart</h1>
+
+  <!-- Fare table -->
   <table class="fare-table">
     <tr>
-      <th>Payment Methods</th>
+      <th>Payment Method</th>
       <th>Adult</th>
       <th>Youth</th>
       <th>Senior</th>
@@ -76,25 +160,28 @@
     </tr>
   </table>
 
+  <!-- Definitions -->
   <div class="section">
     <h2>Fare Category Definitions</h2>
     <p><strong>Adult:</strong> Ages 19 to 64 years.</p>
     <p><strong>Youth:</strong> Ages 6 to 18 years.</p>
     <p><strong>Senior:</strong> Ages 65+ years.</p>
     <p><strong>Child:</strong> Children five years and under ride free.</p>
-    <p>A physical CC card costs $4, and can be purchased from fare vending machines at bus stations or select service centres, and participating Shoppers Drug Mart locations.</p>
+    <p>A physical CC card costs $4, and can be purchased from fare vending machines at bus stations, select service centres, or participating Shoppers Drug Mart locations.</p>
   </div>
 
+  <!-- Proof & transfers -->
   <div class="section">
-    <h2>Proof of Payments & Transfers</h2>
-    <p>With just one fare, riders can travel on any Canada Commute vehicle in any direction. Fare is valid for two hours from time of issue or validation.</p>
-    <p>Customers travelling without a valid fare may be subject to a fine or criminal charge. Always tap your CC card, CC in mobile wallet, credit or debit card every time you board or transfer vehicles.</p>
+    <h2>Proof of Payment & Transfers</h2>
+    <p>With one fare, riders can travel on any Canada Commute vehicle in any direction. Fare is valid for two hours from time of issue or validation.</p>
+    <p>Customers travelling without a valid fare may be subject to fine or criminal charge. Always tap your CC card, or use credit/debit, each time you board or transfer.</p>
   </div>
 
+  <!-- Policies -->
   <div class="section">
-    <h2>Fare Policies and General Conditions</h2>
+    <h2>Fare Policies & Conditions</h2>
     <p>Fares must not be altered or reproduced in any fashion.</p>
-    <p>Fares are non-refundable with the exception of CC e-purse.</p>
+    <p>Fares are non-refundable (exception: CC e-purse).</p>
     <p>Fares will not be replaced if lost or stolen.</p>
   </div>
 
