@@ -1,39 +1,53 @@
+# .github/workflows/deploy.yml
 name: Build & Deploy to GitHub Pages
+
+# Grant the minimum permissions needed to push and publish
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 on:
   push:
     branches:
-      - main
+      - main   # or your default branch
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Pull your code
-      # test: this is a comment to test the workflow
+      # 1) Grab your code
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2. Stage everything into public/
-      - name: Prepare public folder
+      # 2) Prepare docs/ as the exact site root
+      - name: Prepare docs folder
         run: |
-          mkdir -p public
-          cp index.html public/
-          cp planner.html public/
-          # copy other pages if you have them
-          cp -r css public/      || true
-          cp -r images public/   || true
+          # clear previous run
+          rm -rf docs
+          mkdir docs
 
-      # 3. Generate service.html with your Maps key
-      - name: Inject Google Maps Key
-        run: |
+          # copy all your static pages & assets
+          cp index.html planner.html docs/
+          cp -r css images docs/    || true
+
+          # inject real Maps key into service.html
           sed "s|__MAP_KEY__|${{ secrets.GOOGLE_MAPS_API_KEY }}|g" \
-            service.template.html > public/service.html
+            service.template.html > docs/service.html
 
-      # 4. Push public/ to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # 3) Tell GitHub we’re doing a Pages deploy
+      - name: Configure Pages
+        uses: actions/configure-pages@v2
+
+      # 4) Upload everything under docs/ as the build artifact
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
+          path: docs
+
+      # 5) Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v2
+        with:
+          publish_dir: docs # this is the directory we prepared above     
