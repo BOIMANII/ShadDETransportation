@@ -14,30 +14,33 @@
       --black:         #000000;
       --bg-page:       var(--light-green);
     }
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg-page);
       color: var(--black);
+      line-height: 1.5;
       min-height: 100vh;
     }
 
-    /* HEADER */
+    /* ─── HEADER ───────────────────────────────────────── */
     header.topbar {
       position: sticky;
       top: 0;
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       height: 60px;
-      /* remove large bottom padding: only top/right/bottom/left */
       padding: 0 24px 0 calc(200px + 24px);
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
     .logo {
       position: absolute;
       top: 0;
@@ -51,44 +54,67 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       min-width: 200px;
     }
+
     .logo img {
       height: 48px;
       display: block;
     }
 
+    .menu-toggle {
+      display: none;
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: var(--white);
+      cursor: pointer;
+    }
+
     nav.nav-links {
       display: flex;
       gap: 24px;
-      margin-left: 24px;
+      margin-right: 16px;
+      align-items: center;
     }
-    nav.nav-links > a,
-    .nav-dropdown-btn {
+
+    nav.nav-links > a {
       color: var(--white);
       font-weight: 600;
       text-decoration: none;
       padding: 8px 0;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: color .2s;
-    }
-    nav.nav-links > a:hover,
-    .nav-dropdown-btn:hover {
-      color: var(--accent-green);
-    }
-    nav.nav-links > a.active {
-      color: var(--black);
-      border-bottom: 2px solid var(--black);
+      border-bottom: 2px solid transparent;
+      transition: border-color .2s, color .2s;
     }
 
-    /* DROPDOWNS */
+    nav.nav-links > a:hover,
+    nav.nav-links > a.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    /* ─── DROPDOWN MENU ───────────────────────────────── */
     .nav-dropdown {
       position: relative;
     }
+
     .nav-dropdown-btn {
+      background: var(--primary-green);
+      color: var(--white);
+      font-weight: 600;
       padding: 8px 16px;
+      border: none;
       border-radius: 4px;
+      cursor: pointer;
+      transition: background .2s;
     }
+
+    .nav-dropdown-btn:hover {
+      background: var(--accent-green);
+    }
+
     .nav-dropdown-content {
       display: none;
       position: absolute;
@@ -100,6 +126,7 @@
       white-space: nowrap;
       z-index: 200;
     }
+
     .nav-dropdown-content a {
       display: block;
       padding: 8px 16px;
@@ -108,71 +135,17 @@
       font-weight: 500;
       transition: background .2s, color .2s;
     }
+
     .nav-dropdown-content a:hover {
       background: var(--accent-green);
       color: var(--white);
     }
+
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
 
-    /* SEARCH */
-    .search-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .search-container input {
-      height: 32px;
-      padding: 0 12px;
-      border: 1px solid var(--search-green);
-      border-radius: 16px;
-      font-size: 0.9rem;
-    }
-    .search-container button {
-      height: 32px;
-      padding: 0 16px;
-      border: none;
-      border-radius: 16px;
-      background: var(--search-green);
-      color: var(--white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .search-container button:hover {
-      background: var(--accent-green);
-    }
-
-    /* FAQ CONTENT */
-    .container {
-      max-width: 900px;
-      margin: 20px auto 40px;
-      padding: 0 20px;
-    }
-    .container h1 {
-      text-align: center;
-      font-size: 2rem;
-      color: var(--primary-green);
-      margin-bottom: 24px;
-    }
-    .faq-item {
-      background: var(--white);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .faq-item h2 {
-      font-size: 1.2rem;
-      color: var(--primary-green);
-      margin-bottom: 8px;
-    }
-    .faq-item p {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
+    /* ─── MOBILE NAV ───────────────────────────────────── */
     @media (max-width: 767px) {
       .logo {
         position: static;
@@ -181,25 +154,65 @@
         padding: 0 24px;
         border-radius: 0;
       }
+
+      .menu-toggle {
+        display: block;
+      }
+
       nav.nav-links {
         flex-direction: column;
-        gap: 0;
-        margin-left: 0;
-        margin-top: 60px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s;
       }
+
+      nav.nav-links.open {
+        max-height: 480px;
+      }
+
       nav.nav-links > a,
       .nav-dropdown-btn {
         padding: 12px 0;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
+
       nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top: none;
       }
-      .search-container {
-        width: 100%;
-        padding: 12px 24px;
-      }
+    }
+
+    /* ─── FAQ CONTENT ─────────────────────────────────── */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+
+    .container h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary-green);
+      margin-bottom: 24px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .faq-item h2 {
+      font-size: 1.2rem;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+
+    .faq-item p {
+      font-size: 1rem;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -207,35 +220,25 @@
 
   <header class="topbar">
     <div class="logo">
-      <img src="images/logo.png" alt="Canada Commute logo"/>
+      <img src="images/logo.svg" alt="Canada Commute logo"/>
     </div>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
-
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-btn">Fares &amp; Passes ▼</button>
-        <div class="nav-dropdown-content">
-          <a href="fare-chart.html">Fare Chart</a>
-        </div>
-      </div>
-
+      <a href="fare-chart.html">Fare Chart</a>
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn active">About Us ▼</button>
         <div class="nav-dropdown-content">
+          <a href="faq.html" class="active">FAQ</a>
           <a href="ask-questions.html">Ask Questions</a>
           <a href="feedback.html">Feedback Form</a>
-          <a href="faq.html">FAQ</a>
           <a href="plans.html">Plans &amp; Improvements</a>
           <a href="news.html">News</a>
         </div>
       </div>
     </nav>
-    <div class="search-container">
-      <input type="text" placeholder="Search…"/>
-      <button>Search</button>
-    </div>
   </header>
 
   <main class="container">
@@ -262,6 +265,13 @@
       <p>Buses include ramps, wheelchair spaces, handrails, and tactile paving at stops to assist all riders.</p>
     </div>
   </main>
+
+  <script>
+    // Mobile nav toggle
+    const navLinks = document.querySelector('nav.nav-links');
+    document.querySelector('.menu-toggle')
+      .addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
 
 </body>
 </html>
