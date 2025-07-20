@@ -1,228 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Canada Commute Fare Chart</title>
   <style>
     :root {
-      --primary-color: #2d8f2d;
-      --accent-color: #76c043;
-      --header-text: #ffffff;
-      --bg-light: #f7f9f7;
-      --text-dark: #333333;
-      --table-border: #d0d0d0;
+      --primary-green: #0f660a;
+      --accent-green:  #25991f;
+      --light-green:   #98dd93;
+      --white:         #ffffff;
+      --black:         #000000;
+      --bg-page:       var(--light-green);
+      --table-border:  #d0d0d0;
     }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-dark);
+      background-color: var(--bg-page);
+      color: var(--black);
       line-height: 1.5;
+      min-height: 100vh;
     }
-
-    /* Top bar with nav and search */
-    .top-bar {
+    /* ─── TOP BAR ───────────────────────────────────────── */
+    header.topbar {
+      position: sticky;
+      top: 0;
+      background: var(--primary-green);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .topbar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--primary-color);
       padding: 0.75rem 1rem;
     }
-
-    .top-bar .logo {
+    .logo {
+      background: var(--white);
+      padding: 0 1rem;
+      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 40px;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
       font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--header-text);
-      text-decoration: none;
-    }
-
-    .top-bar nav {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .top-bar a {
-      color: var(--header-text);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .top-bar a:hover {
-      text-decoration: underline;
-    }
-
-    .search-form {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .search-form input {
-      padding: 0.5rem;
-      border: none;
-      border-radius: 4px;
-      width: 180px;
-    }
-
-    .search-form button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      background-color: var(--accent-color);
-      color: var(--header-text);
-      font-weight: 600;
       cursor: pointer;
     }
-
-    .search-form button:hover {
-      background-color: #5eb03a;
+    nav.nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav.nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    nav.nav-links a:hover,
+    nav.nav-links a.active {
+      opacity: 0.9;
+      border-bottom: 2px solid var(--white);
+    }
+    /* Mobile toggle */
+    @media (max-width: 767px) {
+      .menu-toggle { display: block; }
+      nav.nav-links {
+        position: absolute;
+        top: 60px; left: 0;
+        right: 0;
+        background: var(--primary-green);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s ease;
+      }
+      nav.nav-links.open {
+        max-height: 300px;
+      }
+      nav.nav-links a {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+      }
+      nav.nav-links a:last-child { border-bottom: none; }
     }
 
-    /* Page heading */
+    /* ─── MAIN CONTENT ─────────────────────────────────── */
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    }
     h1 {
       text-align: center;
-      margin: 1.5rem 0;
-      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      color: var(--primary-green);
     }
-
-    /* Fare table */
     .fare-table {
       width: 100%;
-      max-width: 800px;
-      margin: 0 auto 2rem;
       border-collapse: collapse;
-      background-color: #ffffff;
+      margin-bottom: 2rem;
     }
-
     .fare-table th,
     .fare-table td {
       border: 1px solid var(--table-border);
       padding: 0.75rem;
       text-align: center;
     }
-
     .fare-table th {
-      background-color: var(--accent-color);
-      color: var(--header-text);
+      background: var(--accent-green);
+      color: var(--white);
     }
-
-    /* Section styling */
     .section {
-      max-width: 800px;
-      margin: 0 auto 2rem;
-      padding: 0 1rem;
+      margin-bottom: 1.5rem;
     }
-
     .section h2 {
       font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: var(--primary-color);
-      border-bottom: 2px solid var(--accent-color);
+      margin-bottom: 0.5rem;
+      color: var(--primary-green);
+      border-bottom: 2px solid var(--accent-green);
       padding-bottom: 0.25rem;
     }
-
     .section p {
       margin: 0.5rem 0;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      .top-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-      }
-      .search-form {
-        justify-content: flex-end;
-      }
-      .fare-table th,
-      .fare-table td {
-        padding: 0.5rem;
-      }
-      h1 {
-        font-size: 1.5rem;
-        margin: 1rem 0;
-      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top bar -->
-  <header class="top-bar">
-    <a href="index.html" class="logo">Canada Commute</a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="planner.html">Trip Planner</a>
-      <a href="service.html">Service Updates</a>
-      <a href="fare-chart.html">Fares &amp; Passes</a>
-      <a href="about.html">About Us</a>
-    </nav>
-    <form class="search-form" action="#" method="get">
-      <input type="text" name="q" placeholder="What are you looking for?" />
-      <button type="submit">Search</button>
-    </form>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.svg" alt="Canada Commute logo"/>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="planner.html">Trip Planner</a>
+        <a href="service.html">Service Updates</a>
+        <a href="fare-chart.html" class="active">Fare Chart</a>
+        <a href="about.html">About Us</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Page title -->
-  <h1>Fare Chart</h1>
+  <main>
+    <h1>Fare Chart</h1>
 
-  <!-- Fare table -->
-  <table class="fare-table">
-    <tr>
-      <th>Payment Method</th>
-      <th>Adult</th>
-      <th>Youth</th>
-      <th>Senior</th>
-      <th>Child</th>
-    </tr>
-    <tr>
-      <td>CC Card</td>
-      <td>$2.25</td>
-      <td>$1.90</td>
-      <td>$1.90</td>
-      <td>Free</td>
-    </tr>
-    <tr>
-      <td>Cash, Credit, or Debit</td>
-      <td>$2.50</td>
-      <td>$2.00</td>
-      <td>$2.00</td>
-      <td>Free</td>
-    </tr>
-  </table>
+    <table class="fare-table">
+      <tr>
+        <th>Payment Method</th>
+        <th>Adult</th>
+        <th>Youth</th>
+        <th>Senior</th>
+        <th>Child</th>
+      </tr>
+      <tr>
+        <td>CC Card</td>
+        <td>$2.25</td>
+        <td>$1.90</td>
+        <td>$1.90</td>
+        <td>Free</td>
+      </tr>
+      <tr>
+        <td>Cash, Credit, or Debit</td>
+        <td>$2.50</td>
+        <td>$2.00</td>
+        <td>$2.00</td>
+        <td>Free</td>
+      </tr>
+    </table>
 
-  <!-- Definitions -->
-  <div class="section">
-    <h2>Fare Category Definitions</h2>
-    <p><strong>Adult:</strong> Ages 19 to 64 years.</p>
-    <p><strong>Youth:</strong> Ages 6 to 18 years.</p>
-    <p><strong>Senior:</strong> Ages 65+ years.</p>
-    <p><strong>Child:</strong> Children five years and under ride free.</p>
-    <p>A physical CC card costs $4 and can be purchased at vending machines, service centres, or participating Shoppers Drug Mart locations.</p>
-  </div>
+    <div class="section">
+      <h2>Fare Category Definitions</h2>
+      <p><strong>Adult:</strong> Ages 19 to 64 years.</p>
+      <p><strong>Youth:</strong> Ages 6 to 18 years.</p>
+      <p><strong>Senior:</strong> Ages 65+ years.</p>
+      <p><strong>Child:</strong> Children five years and under ride free.</p>
+      <p>A physical CC card costs $4 and can be purchased at vending machines, service centres, or participating Shoppers Drug Mart locations.</p>
+    </div>
 
-  <!-- Proof & transfers -->
-  <div class="section">
-    <h2>Proof of Payment & Transfers</h2>
-    <p>With one fare, riders can travel on any Canada Commute vehicle in any direction. Fare is valid for two hours from time of issue or validation.</p>
-    <p>Customers travelling without a valid fare may be subject to fine or criminal charge. Always tap your CC card, or use credit/debit, each time you board or transfer.</p>
-  </div>
+    <div class="section">
+      <h2>Proof of Payment & Transfers</h2>
+      <p>With one fare, riders can travel on any Canada Commute vehicle in any direction. Fare is valid for two hours from time of issue or validation.</p>
+      <p>Customers travelling without a valid fare may be subject to fine or criminal charge. Always tap your CC card, or use credit/debit, each time you board or transfer.</p>
+    </div>
 
-  <!-- Policies -->
-  <div class="section">
-    <h2>Fare Policies & Conditions</h2>
-    <p>Fares must not be altered or reproduced in any fashion.</p>
-    <p>Fares are non-refundable (exception: CC e-purse).</p>
-    <p>Fares will not be replaced if lost or stolen.</p>
-  </div>
+    <div class="section">
+      <h2>Fare Policies & Conditions</h2>
+      <p>Fares must not be altered or reproduced in any fashion.</p>
+      <p>Fares are non-refundable (exception: CC e-purse).</p>
+      <p>Fares will not be replaced if lost or stolen.</p>
+    </div>
+  </main>
+
+  <script>
+    // Mobile nav toggle
+    const nav = document.querySelector('nav.nav-links');
+    document.querySelector('.menu-toggle')
+      .addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
 
 </body>
 </html>
-```
