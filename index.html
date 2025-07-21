@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Canada Commute</title>
   <style>
     :root {
@@ -17,6 +17,9 @@
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     html, body {
       height: 100vh;
       overflow: hidden;
@@ -25,11 +28,11 @@
       color: var(--black);
     }
 
+    /* scrollable area minus header */
     .scroll-container {
       height: calc(100vh - var(--header-height));
       overflow-y: auto;
       scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
     }
     .section {
       scroll-snap-align: start;
@@ -40,7 +43,12 @@
       background: var(--bg-page);
       padding: 2rem;
     }
+    /* center hero without padding */
+    .section.hero {
+      padding: 0;
+    }
 
+    /* ─── TOP BAR ─────────────────────────────────────── */
     header.topbar {
       position: sticky;
       top: 0; left: 0; right: 0;
@@ -70,7 +78,6 @@
     }
     .logo img {
       height: 64px;
-      display: block;
     }
     .menu-toggle {
       display: none;
@@ -112,9 +119,6 @@
       cursor: pointer;
       transition: color .2s;
     }
-    .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
-    }
     .nav-dropdown-content {
       display: none;
       position: absolute;
@@ -136,6 +140,9 @@
     .nav-dropdown-content a:hover {
       background: var(--accent-green);
       color: var(--white);
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
     }
 
     @media (max-width: 767px) {
@@ -172,6 +179,7 @@
       }
     }
 
+    /* ─── HERO ─────────────────────────────────────────── */
     .hero {
       position: relative;
       width: 100%;
@@ -185,33 +193,44 @@
       object-fit: cover;
     }
 
+    /* ─── PLANNER & INFO ───────────────────────────────── */
+    /* removed white wrapper */
     .planner,
     .info {
       width: 100%;
       max-width: 800px;
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 2rem;
-    }
-    .planner-form h2,
-    .info-card h2 {
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
-      color: var(--primary-green);
+      margin: 0 auto;
+      padding: 0;
     }
     .planner-form {
       background: var(--primary-green);
       color: var(--white);
       border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       padding: 24px;
+      width: 90%;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-    .planner-form .form-group { display: flex; flex-direction: column; gap: 4px; }
-    .planner-form label { font-weight: 600; }
-    .planner-form input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+    .planner-form h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .planner-form .form-group {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .planner-form label {
+      font-weight: 600;
+    }
+    .planner-form input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
     .toggle-group { display: flex; gap: 8px; }
     .toggle-btn {
       flex: 1; padding: 10px 0;
@@ -225,7 +244,9 @@
       color: var(--white);
       border-color: var(--accent-green);
     }
-    .date-time-group { display: flex; gap: 16px; flex-wrap: wrap; }
+    .date-time-group {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
     .plan-btn {
       padding: 12px; background: var(--accent-green);
       color: var(--white); font-weight: 600;
@@ -237,8 +258,17 @@
       color: var(--primary-green);
       border: 1px solid var(--primary-green);
     }
+
     .info-card {
+      background: var(--bg-page);
+      padding: 0;
+      box-shadow: none;
       text-align: center;
+    }
+    .info-card h2 {
+      font-size: 1.8rem;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
     }
     .info-card p { color: #333; }
   </style>
@@ -251,10 +281,10 @@
     </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="planner.html">Trip Planner</a>
-      <a href="service.html">Service Information</a>
-      <a href="fare-chart.html">Fares and Passes</a>
+      <a href="#home" class="active">Home</a>
+      <a href="#planner">Trip Planner</a>
+      <a href="#info">Service Information</a>
+      <a href="#fares">Fares and Passes</a>
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn">About Us ▼</button>
         <div class="nav-dropdown-content">
@@ -315,35 +345,30 @@
         </div>
       </div>
     </section>
+    
+    <!-- 4: Placeholder for fares section (to anchor) -->
+    <section id="fares" class="section">
+      <p>Fares and Passes content lives on the Fare Chart page.</p>
+    </section>
   </div>
 
   <script>
+    // mobile menu toggle
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
       });
 
-    // Trip planner toggle logic
-    let mode = 'leave', leaveD = '', leaveT = '', arriveD = '', arriveT = '';
-    const dateInput = document.getElementById('date');
-    const timeInput = document.getElementById('time');
-
-    document.querySelectorAll('.toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.toggle-btn')
-                .forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        mode = btn.textContent.includes('Leave') ? 'leave' : 'arrive';
-        dateInput.value = mode === 'leave' ? leaveD : arriveD;
-        timeInput.value = mode === 'leave' ? leaveT : arriveT;
+    // intercept in-page nav links and scroll container
+    document.querySelectorAll('nav.nav-links a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('nav.nav-links').classList.remove('open');
       });
-    });
-    dateInput.addEventListener('change', () => {
-      mode === 'leave' ? leaveD = dateInput.value : arriveD = dateInput.value;
-    });
-    timeInput.addEventListener('change', () => {
-      mode === 'leave' ? leaveT = timeInput.value : arriveT = timeInput.value;
     });
   </script>
 </body>
