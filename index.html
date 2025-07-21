@@ -16,7 +16,9 @@
     }
 
     *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     html {
@@ -97,14 +99,14 @@
       display: flex;
       gap: 24px;
       align-items: center;
-      margin-right: 24px;
+      margin-right: 80px; /* more space for dropdown */
     }
 
     nav.nav-links > a {
       color: var(--white);
       font-weight: 600;
       text-decoration: none;
-      padding: 4px 0 16px;  /* bottom padding moves underline down */
+      padding: 4px 0 16px;  /* pushes underline down */
       border-bottom: 3px solid transparent;
       transition: border-color .2s;
     }
@@ -123,14 +125,9 @@
       border: none;
       color: var(--white);
       font-weight: 600;
-      padding: 12px 0;
+      padding: 4px 0 16px;
       cursor: pointer;
-      transition: color .2s;
-    }
-
-    .nav-dropdown-btn:hover,
-    .nav-dropdown-btn:focus {
-      text-decoration: underline;
+      /* no underline */
     }
 
     .nav-dropdown-content {
@@ -157,8 +154,7 @@
       background: var(--accent-green);
     }
 
-    .nav-dropdown:hover .nav-dropdown-content,
-    .nav-dropdown:focus-within .nav-dropdown-content {
+    .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
 
@@ -175,6 +171,8 @@
         max-height: 0;
         overflow: hidden;
         transition: max-height .3s ease;
+        padding: 0 24px;
+        align-items: flex-end; /* right-align items */
       }
       nav.nav-links.open {
         max-height: 500px;
@@ -327,7 +325,6 @@
     <section class="section hero" id="home">
       <img src="images/bus-image.svg" alt="Bus at a stop"/>
     </section>
-
     <!-- Trip Planner -->
     <section class="section" id="planner">
       <div class="planner">
