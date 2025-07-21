@@ -1,274 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Canada Commute</title>
-  <style>
-    :root {
-      --primary-green: #0f660a;
-      --accent-green:  #25991f;
-      --light-green:   #98dd93;
-      --white:         #ffffff;
-      --black:         #000000;
-      --bg-page:       var(--light-green);
-    }
+<header class="topbar">
+  <div class="logo">
+    <img src="images/logo.svg" alt="Canada Commute logo" />
+  </div>
+  <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  <nav class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="planner.html">Trip Planner</a>
+    <a href="service.html">Service Updates</a>
+    <a href="fare-chart.html">Fare</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">About Us ▼</button>
+      <div class="nav-dropdown-content">
+        <a href="faq.html">FAQ</a>
+        <a href="ask-questions.html">Ask Questions</a>
+        <a href="feedback.html">Feedback Form</a>
+        <a href="plans.html">Plans &amp; Improvements</a>
+        <a href="news.html">News</a>
+      </div>
+    </div>
+  </nav>
+</header>
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+  header.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 60px;
+    background: var(--primary-green);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 24px;
+  }
 
-    html, body {
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
-    }
+  .logo {
+    background: var(--light-green);
+    height: 100%;
+    padding: 0 24px 0 24px;
+    display: flex;
+    align-items: center;
+    clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 
-    .scroll-container {
-      height: 100%;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
-    }
+  .logo img {
+    height: 48px;
+    display: block;
+  }
 
-    .section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      background: var(--bg-page);
-    }
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--white);
+    cursor: pointer;
+    display: none;
+  }
 
-    /* ─── HEADER ───────────────────────────────────────── */
-    header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      height: 60px;
-      padding: 0 24px 0 calc(200px + 24px);
-      background: var(--primary-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+  nav.nav-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
 
-    .logo {
-      position: absolute;
-      top: 0; left: 0;
-      height: 60px;
-      background: var(--light-green);
-      padding: 0 16px 0 24px;
-      display: flex;
-      align-items: center;
-      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      min-width: 200px;
-    }
+  nav.nav-links > a,
+  .nav-dropdown-btn {
+    color: var(--white);
+    font-weight: 600;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: color .2s;
+  }
 
-    .logo img {
-      height: 48px;
-      display: block;
-    }
+  nav.nav-links > a:hover,
+  .nav-dropdown-btn:hover {
+    color: var(--accent-green);
+  }
 
+  nav.nav-links > a.active {
+    color: var(--black);
+    border-bottom: 2px solid var(--black);
+  }
+
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--light-green);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 200;
+  }
+
+  .nav-dropdown-content a {
+    display: block;
+    padding: 8px 16px;
+    color: var(--primary-green);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .nav-dropdown-content a:hover {
+    background: var(--accent-green);
+    color: var(--white);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-content {
+    display: block;
+  }
+
+  @media (max-width: 767px) {
     .menu-toggle {
-      display: none;
-      position: absolute;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      color: var(--white);
-      cursor: pointer;
+      display: block;
     }
 
     nav.nav-links {
-      display: flex;
-      gap: 24px;
-      margin-right: 16px;
-      align-items: center;
-    }
-
-    nav.nav-links > a {
-      color: var(--white);
-      font-weight: 600;
-      text-decoration: none;
-      padding: 8px 0;
-      border-bottom: 2px solid transparent;
-      transition: border-color .2s, color .2s;
-    }
-
-    nav.nav-links > a:hover,
-    nav.nav-links > a.active {
-      color: var(--black);
-      border-bottom-color: var(--black);
-    }
-
-    .nav-dropdown {
-      position: relative;
-    }
-
-    .nav-dropdown-btn {
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
       background: var(--primary-green);
-      color: var(--white);
-      font-weight: 600;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background .2s;
+      padding: 16px 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
     }
 
-    .nav-dropdown-btn:hover {
-      background: var(--accent-green);
+    nav.nav-links.open {
+      max-height: 480px;
+    }
+
+    nav.nav-links > a,
+    .nav-dropdown-btn {
+      padding: 12px 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
     }
 
     .nav-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--light-green);
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap;
-      z-index: 200;
-    }
-
-    .nav-dropdown-content a {
-      display: block;
-      padding: 8px 16px;
-      color: var(--primary-green);
-      text-decoration: none;
-      font-weight: 500;
-      transition: background .2s, color .2s;
-    }
-
-    .nav-dropdown-content a:hover {
-      background: var(--accent-green);
-      color: var(--white);
+      position: static;
+      box-shadow: none;
+      margin-left: 12px;
     }
 
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
+  }
+</style>
 
-    @media (max-width: 767px) {
-      .logo {
-        position: static;
-        width: 100%;
-        clip-path: none;
-        padding: 0 24px;
-        border-radius: 0;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      nav.nav-links {
-        flex-direction: column;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height .3s;
-      }
-
-      nav.nav-links.open {
-        max-height: 480px;
-      }
-
-      nav.nav-links > a,
-      .nav-dropdown-btn {
-        padding: 12px 0;
-        border-top: 1px solid rgba(255,255,255,0.2);
-      }
-
-      nav.nav-links > a:first-child,
-      .nav-dropdown-btn:first-child {
-        border-top: none;
-      }
-    }
-
-    /* ─── HERO ─────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-    }
-
-    .hero img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* ─── TRIP PLANNER ─────────────────────────────────── */
-    .planner {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* ─── SERVICE INFO ─────────────────────────────────── */
-    .info {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  </style>
-</head>
-<body>
-
-  <header class="topbar">
-    <div class="logo">
-      <img src="images/logo.svg" alt="Canada Commute logo" />
-    </div>
-    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-    <nav class="nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="planner.html">Trip Planner</a>
-      <a href="service.html">Service Updates</a>
-      <a href="fare-chart.html">Fare</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-btn">About Us ▼</button>
-        <div class="nav-dropdown-content">
-          <a href="faq.html">FAQ</a>
-          <a href="ask-questions.html">Ask Questions</a>
-          <a href="feedback.html">Feedback Form</a>
-          <a href="plans.html">Plans &amp; Improvements</a>
-          <a href="news.html">News</a>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <div class="scroll-container">
-    <section id="home" class="section hero">
-      <img src="images/bus-image.svg" alt="Bus at a stop" />
-    </section>
-
-    <section id="planner" class="section planner">
-      <!-- your planner form block -->
-    </section>
-
-    <section id="info" class="section info">
-      <!-- your service preview card block -->
-    </section>
-  </div>
-
-  <script>
-    const toggleBtn = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('nav.nav-links');
-    toggleBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-  </script>
-
-</body>
-</html>
+<script>
+  const nav = document.querySelector('nav.nav-links');
+  const toggle = document.querySelector('.menu-toggle');
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+</script>
