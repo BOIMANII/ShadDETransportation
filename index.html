@@ -24,12 +24,12 @@
     }
 
     body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg-page);
       color: var(--black);
-      margin: 0;
-      overflow: hidden;
-      height: 100vh;
     }
 
     /* scroll area below header */
@@ -58,7 +58,7 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end; /* right justify menu */
       height: var(--header-height);
       background: linear-gradient(
         135deg,
@@ -97,20 +97,21 @@
       display: flex;
       gap: 24px;
       align-items: center;
+      margin-right: 24px;
     }
 
     nav.nav-links > a {
       color: var(--white);
       font-weight: 600;
       text-decoration: none;
-      padding: 12px 0;
-      transition: color .2s;
+      padding: 4px 0 16px;  /* bottom padding moves underline down */
+      border-bottom: 3px solid transparent;
+      transition: border-color .2s;
     }
 
     nav.nav-links > a:hover,
     nav.nav-links > a.active {
-      text-decoration: underline;
-      color: var(--white);
+      border-bottom-color: var(--white);
     }
 
     .nav-dropdown {
@@ -127,8 +128,9 @@
       transition: color .2s;
     }
 
-    .nav-dropdown-btn:hover {
-      color: var(--white);
+    .nav-dropdown-btn:hover,
+    .nav-dropdown-btn:focus {
+      text-decoration: underline;
     }
 
     .nav-dropdown-content {
@@ -155,7 +157,8 @@
       background: var(--accent-green);
     }
 
-    .nav-dropdown:hover .nav-dropdown-content {
+    .nav-dropdown:hover .nav-dropdown-content,
+    .nav-dropdown:focus-within .nav-dropdown-content {
       display: block;
     }
 
@@ -197,7 +200,9 @@
       position: relative;
       width: 100%;
       height: 100%;
+      overflow: hidden;
     }
+
     .hero img {
       position: absolute;
       top: 0; left: 0;
@@ -301,8 +306,9 @@
     </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="nav-links">
-      <a href="#home" class="active">Home</a>
+      <a href="service.html">Service Information</a>
       <a href="#planner">Trip Planner</a>
+      <a href="fare-chart.html">Fares and Passes</a>
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn">About Us ▼</button>
         <div class="nav-dropdown-content">
@@ -313,18 +319,17 @@
           <a href="news.html">News</a>
         </div>
       </div>
-      <a href="fare-chart.html">Fares and Passes</a>
     </nav>
   </header>
 
   <div class="scroll-container">
     <!-- Hero -->
-    <section id="home" class="section hero">
+    <section class="section hero" id="home">
       <img src="images/bus-image.svg" alt="Bus at a stop"/>
     </section>
 
     <!-- Trip Planner -->
-    <section id="planner" class="section">
+    <section class="section" id="planner">
       <div class="planner">
         <form class="planner-form">
           <h2>Trip Planner</h2>
@@ -357,23 +362,11 @@
   </div>
 
   <script>
-    // mobile menu toggle
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => {
         document.querySelector('nav.nav-links')
           .classList.toggle('open');
       });
-
-    // smooth in-page scroll
-    document.querySelectorAll('nav.nav-links a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (!target) return;
-        target.scrollIntoView({ behavior: 'smooth' });
-        document.querySelector('nav.nav-links').classList.remove('open');
-      });
-    });
   </script>
 </body>
 </html>
