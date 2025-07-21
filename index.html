@@ -57,41 +57,29 @@
       );
     }
     .logo {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 260px; height: var(--header-height);
       background: var(--white);
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       padding-left: 24px;
       clip-path: polygon(0 0,100% 0,85% 100%,0 100%);
       box-shadow: 2px 0 4px rgba(0,0,0,0.1);
     }
-    .logo img {
-      height: 64px;
-    }
+    .logo img { height: 64px; }
 
     .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--white);
-      font-size: 2rem;
-      cursor: pointer;
-      margin-right: 32px; /* moved further from edge */
+      display: none; background: none; border: none;
+      color: var(--white); font-size: 2rem; cursor: pointer;
+      margin-right: 32px;
     }
 
     nav.nav-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      margin-right: 80px; /* room for dropdown */
+      display: flex; gap: 24px; align-items: center;
+      margin-right: 80px;
     }
     nav.nav-links > a {
-      color: var(--white);
-      font-weight: 600;
-      text-decoration: none;
-      padding: 4px 0 16px;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; padding: 4px 0 16px;
       border-bottom: 3px solid transparent;
       transition: border-color .2s;
     }
@@ -104,28 +92,21 @@
       position: relative;
     }
     .nav-dropdown-btn {
-      background: none;
-      border: none;
-      color: var(--white);
-      font-weight: 600;
-      padding: 4px 0 16px;
-      cursor: pointer;
+      background: none; border: none;
+      color: var(--white); font-weight: 600;
+      padding: 4px 0 16px; cursor: pointer;
     }
     .nav-dropdown-content {
       display: none;
-      position: absolute;
-      top: 100%; left: 0;
+      position: absolute; top: 100%; left: 0;
       background: var(--primary-green);
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap;
-      margin-top: 2px;
+      white-space: nowrap; margin-top: 2px;
     }
     .nav-dropdown-content a {
-      display: block;
-      padding: 8px 16px;
-      color: var(--white);
-      text-decoration: none;
+      display: block; padding: 8px 16px;
+      color: var(--white); text-decoration: none;
       transition: background .2s;
     }
     .nav-dropdown-content a:hover {
@@ -137,43 +118,35 @@
     }
 
     @media (max-width: 767px) {
-      .menu-toggle {
-        display: block;
-      }
+      .menu-toggle { display: block; }
       nav.nav-links {
-        position: absolute;
-        top: var(--header-height);
-        right: 0;      /* flush to right edge */
-        left: auto;    /* no full-width */
+        position: absolute; top: var(--header-height);
+        right: 0; left: auto;
         background: var(--primary-green);
-        flex-direction: column;
-        align-items: flex-end; /* right-align items */
-        max-height: 0;
-        overflow: hidden;
+        flex-direction: column; align-items: flex-end;
+        max-height: 0; overflow: hidden;
         transition: max-height .3s ease;
-        padding: 0 24px;
-        width: auto;   /* shrink to fit */
-        margin-right: 0;
+        padding: 0 24px; width: auto; margin-right: 0;
       }
-      nav.nav-links.open {
-        max-height: 500px;
-      }
+      nav.nav-links.open { max-height: 500px; }
+
       nav.nav-links > a,
       .nav-dropdown-btn {
         padding: 16px 0;
-        width: 100%;
-        text-align: right;
+        width: 100%; text-align: right;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top: none;
       }
-      /* About dropdown in mobile */
+
+      /* About Us dropdown always visible */
       .nav-dropdown-content {
+        display: block !important;
         position: absolute;
         top: calc(var(--header-height) + 0px);
-        right: 24px;  /* flush under right margin */
+        right: 24px;
         left: auto;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         margin-top: 2px;
@@ -182,65 +155,43 @@
 
     /* ─── HERO ─────────────────────────────────────────── */
     .hero {
-      position: relative;
-      width: 100%; height: 100%;
+      position: relative; width: 100%; height: 100%;
       overflow: hidden;
     }
     .hero img {
-      position: absolute;
-      top: 0; left: 0;
+      position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
     }
 
     /* ─── TRIP PLANNER ───────────────────────────────── */
-    .planner {
-      width: 100%;
-      max-width: 800px;
-    }
+    .planner { width: 100%; max-width: 800px; }
     .planner-form {
       background: var(--primary-green);
       color: var(--white);
       padding: 24px;
       border-radius: 8px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: flex; flex-direction: column; gap: 16px;
     }
     .planner-form h2 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: var(--white);
+      text-align: center; font-size: 1.8rem;
+      margin-bottom: 1rem; color: var(--white);
     }
     .planner-form .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      display: flex; flex-direction: column; gap: 4px;
     }
-    .planner-form label {
-      font-weight: 600;
-    }
+    .planner-form label { font-weight: 600; }
     .planner-form input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
+      padding: 10px; border: 1px solid #ccc;
+      border-radius: 4px; font-size: 1rem;
     }
-    .toggle-group {
-      display: flex;
-      gap: 8px;
-    }
+    .toggle-group { display: flex; gap: 8px; }
     .toggle-btn {
-      flex: 1;
-      padding: 10px 0;
-      background: #f1f1f1;
-      color: var(--black);
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-weight: 600;
-      cursor: pointer;
+      flex: 1; padding: 10px 0;
+      background: #f1f1f1; color: var(--black);
+      border: 1px solid #ccc; border-radius: 4px;
+      font-weight: 600; cursor: pointer;
       transition: background .2s, color .2s;
     }
     .toggle-btn.active {
@@ -249,17 +200,14 @@
       border-color: var(--accent-green);
     }
     .date-time-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+      display: flex; gap: 16px; flex-wrap: wrap;
     }
     .plan-btn {
       padding: 12px;
       background: var(--accent-green);
       color: var(--white);
       font-weight: 600;
-      border: none;
-      border-radius: 4px;
+      border: none; border-radius: 4px;
       cursor: pointer;
       transition: background .2s;
     }
