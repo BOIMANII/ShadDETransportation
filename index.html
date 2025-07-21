@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Canada Commute</title>
   <style>
     :root {
@@ -15,7 +15,9 @@
       --header-height:  80px;
     }
     *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
     html {
       scroll-behavior: smooth;
@@ -43,7 +45,6 @@
       background: var(--bg-page);
       padding: 2rem;
     }
-    /* center hero without padding */
     .section.hero {
       padding: 0;
     }
@@ -55,7 +56,7 @@
       z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: center;  /* center the menu */
       height: var(--header-height);
       padding: 0 24px;
       background: linear-gradient(
@@ -93,7 +94,7 @@
       align-items: center;
     }
     nav.nav-links > a {
-      color: var(--white);
+      color: var(--accent-green);
       font-size: 1rem;
       font-weight: 600;
       text-decoration: none;
@@ -101,17 +102,20 @@
       border-bottom: 2px solid transparent;
       transition: color .2s, border-color .2s;
     }
-    nav.nav-links > a:hover,
+    nav.nav-links > a:hover {
+      color: var(--white);
+      border-bottom-color: var(--white);
+    }
     nav.nav-links > a.active {
-      color: var(--black);
-      border-bottom-color: var(--black);
+      color: var(--white);
+      border-bottom-color: var(--white);
     }
     .nav-dropdown {
       position: relative;
     }
     .nav-dropdown-btn {
       background: none;
-      color: var(--white);
+      color: var(--accent-green);
       font-size: 1rem;
       font-weight: 600;
       padding: 12px 0;
@@ -119,15 +123,19 @@
       cursor: pointer;
       transition: color .2s;
     }
+    .nav-dropdown-btn:hover {
+      color: var(--white);
+    }
     .nav-dropdown-content {
       display: none;
       position: absolute;
-      top: 100%; left: 0;
+      top: 100%;
+      left: 0;
       background: var(--light-green);
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       white-space: nowrap;
-      margin-top: 4px;
+      margin-top: 0;  /* reduce gap to dropdown */
     }
     .nav-dropdown-content a {
       display: block;
@@ -194,9 +202,7 @@
     }
 
     /* ─── PLANNER & INFO ───────────────────────────────── */
-    /* removed white wrapper */
-    .planner,
-    .info {
+    .planner, .info {
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
@@ -222,13 +228,9 @@
     .planner-form .form-group {
       display: flex; flex-direction: column; gap: 4px;
     }
-    .planner-form label {
-      font-weight: 600;
-    }
+    .planner-form label { font-weight: 600; }
     .planner-form input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 10px; border: 1px solid #ccc; border-radius: 4px; 
       font-size: 1rem;
     }
     .toggle-group { display: flex; gap: 8px; }
@@ -258,12 +260,9 @@
       color: var(--primary-green);
       border: 1px solid var(--primary-green);
     }
-
     .info-card {
-      background: var(--bg-page);
-      padding: 0;
-      box-shadow: none;
       text-align: center;
+      margin-top: 1rem;
     }
     .info-card h2 {
       font-size: 1.8rem;
@@ -299,12 +298,12 @@
   </header>
 
   <div class="scroll-container">
-    <!-- 1: Hero -->
+    <!-- Hero -->
     <section id="home" class="section hero">
       <img src="images/bus-image.svg" alt="Bus at a stop"/>
     </section>
 
-    <!-- 2: Trip Planner -->
+    <!-- Trip Planner -->
     <section id="planner" class="section">
       <div class="planner">
         <form class="planner-form">
@@ -336,7 +335,7 @@
       </div>
     </section>
 
-    <!-- 3: Service Info -->
+    <!-- Service Info -->
     <section id="info" class="section">
       <div class="info">
         <div class="info-card">
@@ -345,8 +344,8 @@
         </div>
       </div>
     </section>
-    
-    <!-- 4: Placeholder for fares section (to anchor) -->
+
+    <!-- Fares -->
     <section id="fares" class="section">
       <p>Fares and Passes content lives on the Fare Chart page.</p>
     </section>
@@ -360,7 +359,7 @@
           .classList.toggle('open');
       });
 
-    // intercept in-page nav links and scroll container
+    // in-page smooth scroll for nav links
     document.querySelectorAll('nav.nav-links a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
