@@ -13,6 +13,7 @@
       --black:          #000000;
       --bg-page:        var(--light-green);
       --header-height:  80px;
+      --logo-width:     260px;  /* match .logo width */
     }
     *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
@@ -21,8 +22,7 @@
     body {
       margin: 0; height: 100vh; overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
+      background: var(--bg-page); color: var(--black);
     }
 
     /* scrollable area below header */
@@ -30,37 +30,30 @@
       height: calc(100vh - var(--header-height));
       overflow-y: auto;
     }
-
     .section {
       min-height: calc(100vh - var(--header-height));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      background: var(--bg-page);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; background: var(--bg-page);
     }
     .section.hero { padding: 0; }
 
     /* ─── TOP BAR ─────────────────────────────────────── */
     header.topbar {
       position: sticky;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: flex-end;
       height: var(--header-height);
+      /* use absolute length so diagonal stops at logo width */
       background: linear-gradient(
         135deg,
-        var(--light-green) 25%,
-        var(--primary-green) 25% 100%
+        var(--light-green) var(--logo-width),
+        var(--primary-green) var(--logo-width)
       );
     }
     .logo {
       position: absolute; top: 0; left: 0;
-      width: 260px; height: var(--header-height);
-      background: var(--white);
-      display: flex; align-items: center;
+      width: var(--logo-width); height: var(--header-height);
+      background: var(--white); display: flex; align-items: center;
       padding-left: 24px;
       clip-path: polygon(0 0,100% 0,85% 100%,0 100%);
       box-shadow: 2px 0 4px rgba(0,0,0,0.1);
@@ -88,9 +81,7 @@
       border-bottom-color: var(--white);
     }
 
-    .nav-dropdown {
-      position: relative;
-    }
+    .nav-dropdown { position: relative; }
     .nav-dropdown-btn {
       background: none; border: none;
       color: var(--white); font-weight: 600;
@@ -100,14 +91,12 @@
       display: none;
       position: absolute; top: 100%; left: 0;
       background: var(--primary-green);
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       white-space: nowrap; margin-top: 2px;
     }
     .nav-dropdown-content a {
       display: block; padding: 8px 16px;
       color: var(--white); text-decoration: none;
-      transition: background .2s;
     }
     .nav-dropdown-content a:hover {
       background: var(--accent-green);
@@ -121,33 +110,27 @@
       .menu-toggle { display: block; }
       nav.nav-links {
         position: absolute; top: var(--header-height);
-        right: 0; left: auto;
-        background: var(--primary-green);
+        right: 0; left: auto; background: var(--primary-green);
         flex-direction: column; align-items: flex-end;
         max-height: 0; overflow: hidden;
         transition: max-height .3s ease;
         padding: 0 24px; width: auto; margin-right: 0;
       }
       nav.nav-links.open { max-height: 500px; }
-
       nav.nav-links > a,
       .nav-dropdown-btn {
-        padding: 16px 0;
-        width: 100%; text-align: right;
+        padding: 16px 0; width: 100%; text-align: right;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top: none;
       }
-
-      /* About Us dropdown always visible */
       .nav-dropdown-content {
         display: block !important;
         position: absolute;
         top: calc(var(--header-height) + 0px);
-        right: 24px;
-        left: auto;
+        right: 24px; left: auto;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         margin-top: 2px;
       }
@@ -155,22 +138,18 @@
 
     /* ─── HERO ─────────────────────────────────────────── */
     .hero {
-      position: relative; width: 100%; height: 100%;
-      overflow: hidden;
+      position: relative; width: 100%; height: 100%; overflow: hidden;
     }
     .hero img {
       position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
+      width: 100%; height: 100%; object-fit: cover;
     }
 
     /* ─── TRIP PLANNER ───────────────────────────────── */
     .planner { width: 100%; max-width: 800px; }
     .planner-form {
-      background: var(--primary-green);
-      color: var(--white);
-      padding: 24px;
-      border-radius: 8px;
+      background: var(--primary-green); color: var(--white);
+      padding: 24px; border-radius: 8px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       display: flex; flex-direction: column; gap: 16px;
     }
@@ -195,25 +174,20 @@
       transition: background .2s, color .2s;
     }
     .toggle-btn.active {
-      background: var(--accent-green);
-      color: var(--white);
+      background: var(--accent-green); color: var(--white);
       border-color: var(--accent-green);
     }
     .date-time-group {
       display: flex; gap: 16px; flex-wrap: wrap;
     }
     .plan-btn {
-      padding: 12px;
-      background: var(--accent-green);
-      color: var(--white);
-      font-weight: 600;
+      padding: 12px; background: var(--accent-green);
+      color: var(--white); font-weight: 600;
       border: none; border-radius: 4px;
-      cursor: pointer;
-      transition: background .2s;
+      cursor: pointer; transition: background .2s;
     }
     .plan-btn:hover {
-      background: var(--white);
-      color: var(--primary-green);
+      background: var(--white); color: var(--primary-green);
       border: 1px solid var(--primary-green);
     }
   </style>
@@ -281,11 +255,9 @@
   </div>
 
   <script>
-    document.querySelector('.menu-toggle')
-      .addEventListener('click', () => {
-        document.querySelector('nav.nav-links')
-          .classList.toggle('open');
-      });
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('nav.nav-links').classList.toggle('open');
+    });
   </script>
 </body>
 </html>
