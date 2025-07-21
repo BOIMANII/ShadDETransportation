@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Canada Commute</title>
   <style>
     :root {
@@ -13,187 +13,194 @@
       --black:         #000000;
       --bg-page:       var(--light-green);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
     html, body {
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-page);
-      color: var(--black);
+      height:100vh;
+      overflow:hidden;
+      font-family:'Segoe UI',sans-serif;
+      background:var(--bg-page);
+      color:var(--black);
     }
 
     .scroll-container {
-      height: 100%;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      scroll-behavior: smooth;
+      height:100%;
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
+      scroll-behavior:smooth;
     }
-
     .section {
-      scroll-snap-align: start;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-page);
+      scroll-snap-align:start;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--bg-page);
     }
 
     /* ─── TOP BAR ─────────────────────────────────────── */
     header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      padding: 0 24px;
-      background: var(--primary-green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position:sticky;
+      top:0;
+      z-index:100;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:60px;
+      /* no left-padding so logo is flush to the edge */
+      padding:0 24px 0 0;
+      background:var(--primary-green);
+      box-shadow:0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* Logo container is now a flex item, left-justified */
+    /* logo is now a normal flex‐child */
     .logo {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      background: var(--light-green);
-      padding: 0 24px 0 16px;
-      clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display:flex;
+      align-items:center;
+      height:100%;
+      background:var(--light-green);
+      /* padding inside logo only */
+      padding:0 24px 0 16px;
+      clip-path:polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
+      box-shadow:0 2px 4px rgba(0,0,0,0.1);
     }
     .logo img {
-      height: 48px;
+      height:48px;
+      display:block;
     }
 
-    /* Nav links (desktop) */
     nav.nav-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
+      display:flex;
+      gap:24px;
+      align-items:center;
     }
-    nav.nav-links > a {
-      color: var(--white);
-      font-weight: 600;
-      text-decoration: none;
-      padding: 8px 0;
-      border-bottom: 2px solid transparent;
-      transition: color .2s, border-color .2s;
+    nav.nav-links>a {
+      color:var(--white);
+      font-weight:600;
+      text-decoration:none;
+      padding:8px 0;
+      border-bottom:2px solid transparent;
+      transition:color .2s,border-color .2s;
     }
-    nav.nav-links > a:hover,
-    nav.nav-links > a.active {
-      color: var(--black);
-      border-bottom-color: var(--black);
+    nav.nav-links>a:hover,
+    nav.nav-links>a.active {
+      color:var(--black);
+      border-bottom-color:var(--black);
     }
 
-    /* Simple “About Us” dropdown */
     .nav-dropdown {
-      position: relative;
+      position:relative;
     }
     .nav-dropdown-btn {
-      background: none;
-      color: var(--white);
-      font-weight: 600;
-      padding: 8px 0;
-      border: none;
-      cursor: pointer;
-      transition: color .2s;
+      background:none;
+      color:var(--white);
+      font-weight:600;
+      padding:8px 0;
+      border:none;
+      cursor:pointer;
+      transition:color .2s;
     }
     .nav-dropdown-btn:hover {
-      color: var(--accent-green);
+      color:var(--accent-green);
     }
     .nav-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--light-green);
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap;
-      margin-top: 4px;
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:var(--light-green);
+      border-radius:4px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      white-space:nowrap;
+      margin-top:4px;
     }
     .nav-dropdown-content a {
-      display: block;
-      padding: 8px 16px;
-      color: var(--primary-green);
-      text-decoration: none;
-      font-weight: 500;
-      transition: background .2s, color .2s;
+      display:block;
+      padding:8px 16px;
+      color:var(--primary-green);
+      text-decoration:none;
+      font-weight:500;
+      transition:background .2s,color .2s;
     }
     .nav-dropdown-content a:hover {
-      background: var(--accent-green);
-      color: var(--white);
+      background:var(--accent-green);
+      color:var(--white);
     }
     .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
+      display:block;
     }
 
-    /* Hamburger (hidden desktop) */
     .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--white);
-      font-size: 1.6rem;
-      cursor: pointer;
+      display:none;
+      background:none;
+      border:none;
+      color:var(--white);
+      font-size:1.6rem;
+      cursor:pointer;
     }
 
-    /* ─── MOBILE LAYOUT ───────────────────────────────── */
-    @media (max-width: 767px) {
+    /* ─── MOBILE MENU ─────────────────────────────────── */
+    @media (max-width:767px) {
       .menu-toggle {
-        display: block;
+        display:block;
       }
       nav.nav-links {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: var(--primary-green);
-        flex-direction: column;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height .3s ease;
-        padding: 0 24px;
+        position:absolute;
+        top:60px; left:0; right:0;
+        background:var(--primary-green);
+        flex-direction:column;
+        gap:0;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .3s ease;
+        padding:0 24px;
       }
       nav.nav-links.open {
-        max-height: 400px;
+        max-height:400px;
       }
-      nav.nav-links > a,
+      nav.nav-links>a,
       .nav-dropdown-btn {
-        padding: 12px 0;
-        border-top: 1px solid rgba(255,255,255,0.2);
+        padding:12px 0;
+        border-top:1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links > a:first-child,
+      nav.nav-links>a:first-child,
       .nav-dropdown-btn:first-child {
-        border-top: none;
+        border-top:none;
       }
-
-      /* inline dropdown content in mobile */
       .nav-dropdown-content {
-        position: static;
-        box-shadow: none;
-        margin-left: 16px;
+        position:static;
+        box-shadow:none;
+        margin-left:16px;
       }
     }
 
-    /* ─── HERO / PLANNER / INFO ───────────────────────── */
-    .hero img {
-      width: 100%;
-      height: fit-content;
-      object-fit: cover;
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      position:relative;
+      /* fill viewport from very top */
+      height:100vh;
+      overflow:hidden;
     }
+    .hero img {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* ─── PLANNER & INFO ───────────────────────────────── */
     .planner,
     .info {
-      width: 100%;
-      padding: 2rem;
-      background: var(--white);
-      max-width: 800px;
-      margin: 1rem auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width:100%;
+      max-width:800px;
+      margin:1rem auto;
+      padding:2rem;
+      background:var(--white);
+      border-radius:8px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -203,9 +210,7 @@
     <div class="logo">
       <img src="images/logo.svg" alt="Canada Commute logo"/>
     </div>
-
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="planner.html">Trip Planner</a>
@@ -230,16 +235,16 @@
     </section>
 
     <section id="planner" class="section planner">
-      <!-- Trip Planner form goes here -->
+      <!-- Trip Planner form here -->
     </section>
 
     <section id="info" class="section info">
-      <!-- Service preview card goes here -->
+      <!-- Service preview card here -->
     </section>
   </div>
 
   <script>
-    // toggle mobile menu
+    // Mobile nav toggle
     const toggleBtn = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('nav.nav-links');
     toggleBtn.addEventListener('click', () => {
