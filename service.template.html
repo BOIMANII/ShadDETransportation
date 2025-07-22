@@ -18,15 +18,13 @@
       box-sizing: border-box;
       margin: 0; padding: 0;
     }
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Segoe UI', sans-serif;
       background: var(--light-green);
-      color: var(--black);
       height: 100vh;
       overflow: hidden;
+      color: var(--black);
     }
 
     /* HEADER */
@@ -47,16 +45,16 @@
     .logo {
       position: absolute;
       top: 0; left: 0;
-      width: var(--logo-width); height: var(--header-height);
+      width: var(--logo-width);
+      height: var(--header-height);
       background: var(--white);
-      display: flex; align-items: center;
+      display: flex;
+      align-items: center;
       padding-left: 24px;
       clip-path: polygon(0 0,100% 0,85% 100%,0 100%);
       box-shadow: 2px 0 4px rgba(0,0,0,0.1);
     }
-    .logo img {
-      height: 64px;
-    }
+    .logo img { height: 64px; }
     .menu-toggle {
       display: none;
       background: none; border: none;
@@ -65,7 +63,8 @@
       margin-right: 32px;
     }
     nav.nav-links {
-      display: flex; gap: 24px;
+      display: flex;
+      gap: 24px;
       align-items: center;
       margin-right: 80px;
     }
@@ -95,14 +94,11 @@
       background: var(--primary-green);
       border-radius: 4px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap;
-      margin-top: 2px;
+      white-space: nowrap; margin-top: 2px;
     }
     .nav-dropdown-content a {
-      display: block;
-      padding: 8px 16px;
-      color: var(--white);
-      text-decoration: none;
+      display: block; padding: 8px 16px;
+      color: var(--white); text-decoration: none;
       transition: background .2s;
     }
     .nav-dropdown-content a:hover {
@@ -112,11 +108,8 @@
     .nav-dropdown:focus-within .nav-dropdown-content {
       display: block;
     }
-
     @media (max-width: 767px) {
-      .menu-toggle {
-        display: block;
-      }
+      .menu-toggle { display: block; }
       nav.nav-links {
         position: absolute; top: var(--header-height);
         right: 0; left: auto;
@@ -126,70 +119,43 @@
         transition: max-height .3s ease;
         padding: 0 24px;
       }
-      nav.nav-links.open {
-        max-height: 500px;
-      }
+      nav.nav-links.open { max-height: 500px; }
       nav.nav-links > a,
       .nav-dropdown-btn {
         padding: 16px 0;
-        width: 100%;
-        text-align: right;
+        width: 100%; text-align: right;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top: none;
       }
-      /* always show About Us menu in mobile */
       .nav-dropdown-content {
-        display: block !important;
-        position: absolute;
-        top: calc(var(--header-height) + 0px);
+        position: absolute; top: calc(var(--header-height));
         right: 24px; left: auto;
+        display: block !important;
       }
     }
 
-    /* MAIN / SEARCH + MAP */
-    main {
+    /* MAIN / MAP */
+    main.service-page {
       position: relative;
       top: var(--header-height);
       height: calc(100vh - var(--header-height));
-      display: flex; flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px;
       overflow-y: auto;
-    }
-    .search-bar {
-      margin-bottom: 16px;
-      display: flex; gap: 8px;
-      width: 90%; max-width: 600px;
-    }
-    .search-bar input {
-      flex: 1;
-      padding: 10px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
-      font-size: 1rem;
-    }
-    .search-bar button {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 0 4px 4px 0;
-      background: var(--accent-green);
-      color: var(--white);
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .search-bar button:hover {
-      background: var(--primary-green);
+      padding: 100px 20px;  /* so map is centered vertically */
+      display: flex;
+      justify-content: center;
     }
     #map {
       width: 90%;
       max-width: 1200px;
-      flex: 1;
-      height: 100%;
+      height: 500px;
+    }
+
+    /* hide default white behind map */
+    #map > div {
+      background: transparent !important;
     }
   </style>
 </head>
@@ -217,11 +183,7 @@
     </nav>
   </header>
 
-  <main>
-    <div class="search-bar">
-      <input id="map-search" type="text" placeholder="Search location…"/>
-      <button id="search-btn">Search</button>
-    </div>
+  <main class="service-page">
     <div id="map"></div>
   </main>
 
@@ -230,24 +192,71 @@
     function initMap() {
       geocoder = new google.maps.Geocoder();
       map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 43.6667, lng: -79.4167 },
+        center: { lat: 0, lng: 0 },
         zoom: 12,
         disableDefaultUI: true
       });
-    }
-    document.getElementById("search-btn").addEventListener("click", () => {
-      const address = document.getElementById("map-search").value;
-      if (!address) return;
-      geocoder.geocode({ address }, (results, status) => {
-        if (status === "OK") {
-          map.setCenter(results[0].geometry.location);
-          map.setZoom(14);
-        }
+
+      // center on user's location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const loc = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          };
+          map.setCenter(loc);
+          new google.maps.Marker({ position: loc, map });
+        });
+      }
+
+      // create search control
+      const control = document.createElement("div");
+      control.style.background = "#fff";
+      control.style.padding = "6px";
+      control.style.borderRadius = "4px";
+      control.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+      control.style.display = "flex";
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Search location…";
+      input.style.flex = "1";
+      input.style.padding = "4px 8px";
+      input.style.fontSize = "1rem";
+      input.style.border = "1px solid #ccc";
+      input.style.borderRadius = "4px 0 0 4px";
+
+      const btn = document.createElement("button");
+      btn.textContent = "Go";
+      btn.style.padding = "4px 12px";
+      btn.style.border = "none";
+      btn.style.background = "var(--accent-green)";
+      btn.style.color = "#fff";
+      btn.style.cursor = "pointer";
+      btn.style.borderRadius = "0 4px 4px 0";
+
+      control.appendChild(input);
+      control.appendChild(btn);
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+
+      btn.addEventListener("click", () => {
+        const address = input.value.trim();
+        if (!address) return;
+        geocoder.geocode({ address }, (results, status) => {
+          if (status === "OK") {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(14);
+          }
+        });
       });
+    }
+
+    // mobile menu toggle
+    document.querySelector('.menu-toggle').addEventListener('click', () => {
+      document.querySelector('nav.nav-links').classList.toggle('open');
     });
   </script>
-  <script
-    async defer
+  <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=__MAP_KEY__&callback=initMap">
   </script>
 </body>
