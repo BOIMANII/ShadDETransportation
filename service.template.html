@@ -143,7 +143,7 @@
       top: var(--header-height);
       height: calc(100vh - var(--header-height));
       overflow-y: auto;
-      padding: 100px 20px;  /* so map is centered vertically */
+      padding: 100px 20px;
       display: flex;
       justify-content: center;
     }
@@ -152,10 +152,23 @@
       max-width: 1200px;
       height: 500px;
     }
-
-    /* hide default white behind map */
     #map > div {
       background: transparent !important;
+    }
+
+    /* Google Maps SearchBox */
+    .map-search {
+      position: absolute;
+      top: calc(var(--header-height) + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      z-index: 5;
+      background: #fff;
     }
   </style>
 </head>
@@ -183,12 +196,20 @@
     </nav>
   </header>
 
+  <!-- Google Maps SearchBox -->
+  <input
+    id="pac-input"
+    class="map-search"
+    type="text"
+    placeholder="Search Google Maps…"/>
+
   <main class="service-page">
     <div id="map"></div>
   </main>
 
   <script>
-    let map, geocoder;
+    let map, geocoder, marker;
+
     function initMap() {
       geocoder = new google.maps.Geocoder();
       map = new google.maps.Map(document.getElementById("map"), {
@@ -197,7 +218,31 @@
         disableDefaultUI: true
       });
 
-      // center on user's location
+      // 1. Hook up SearchBox
+      const input = document.getElementById("pac-input");
+      const searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+      map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+        if (!places.length) return;
+
+        if (marker) marker.setMap(null);
+
+        marker = new google.maps.Marker({
+          map,
+          position: places[0].geometry.location
+        });
+
+        map.setCenter(places[0].geometry.location);
+        map.setZoom(14);
+      });
+
+      // 2. Center on user’s location
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
           const loc = {
@@ -209,55 +254,15 @@
         });
       }
 
-      // create search control
-      const control = document.createElement("div");
-      control.style.background = "#fff";
-      control.style.padding = "6px";
-      control.style.borderRadius = "4px";
-      control.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-      control.style.display = "flex";
-
-      const input = document.createElement("input");
-      input.type = "text";
-      input.placeholder = "Search location…";
-      input.style.flex = "1";
-      input.style.padding = "4px 8px";
-      input.style.fontSize = "1rem";
-      input.style.border = "1px solid #ccc";
-      input.style.borderRadius = "4px 0 0 4px";
-
-      const btn = document.createElement("button");
-      btn.textContent = "Go";
-      btn.style.padding = "4px 12px";
-      btn.style.border = "none";
-      btn.style.background = "var(--accent-green)";
-      btn.style.color = "#fff";
-      btn.style.cursor = "pointer";
-      btn.style.borderRadius = "0 4px 4px 0";
-
-      control.appendChild(input);
-      control.appendChild(btn);
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-      btn.addEventListener("click", () => {
-        const address = input.value.trim();
-        if (!address) return;
-        geocoder.geocode({ address }, (results, status) => {
-          if (status === "OK") {
-            map.setCenter(results[0].geometry.location);
-            map.setZoom(14);
-          }
-        });
+      // 3. Mobile menu toggle
+      document.querySelector('.menu-toggle').addEventListener('click', () => {
+        document.querySelector('nav.nav-links').classList.toggle('open');
       });
     }
-
-    // mobile menu toggle
-    document.querySelector('.menu-toggle').addEventListener('click', () => {
-      document.querySelector('nav.nav-links').classList.toggle('open');
-    });
   </script>
+
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=__MAP_KEY__&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=__MAP_KEY__&libraries=places&callback=initMap">
   </script>
 </body>
 </html>
