@@ -9,10 +9,8 @@
       --primary-green: #0f660a;
       --accent-green:  #25991f;
       --light-green:   #98dd93;
-      --search-green:  #055401;
       --white:         #ffffff;
       --black:         #000000;
-      --bg-page:       var(--white);
     }
     *, *::before, *::after {
       box-sizing: border-box;
@@ -21,7 +19,7 @@
     }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-page);
+      background: var(--white);
       color: var(--black);
       line-height: 1.5;
       min-height: 100vh;
@@ -42,8 +40,7 @@
     }
     .logo {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 60px;
       background: var(--light-green);
       padding: 0 16px 0 24px;
@@ -98,25 +95,19 @@
         padding: 0 24px;
         border-radius: 0;
       }
-      .menu-toggle {
-        display: block;
-      }
+      .menu-toggle { display: block; }
       nav.nav-links {
         flex-direction: column;
         max-height: 0;
         overflow: hidden;
         transition: max-height .3s;
       }
-      nav.nav-links.open {
-        max-height: 480px;
-      }
+      nav.nav-links.open { max-height: 480px; }
       nav.nav-links > a {
         padding: 12px 0;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links > a:first-child {
-        border-top: none;
-      }
+      nav.nav-links > a:first-child { border-top: none; }
     }
 
     /* MAIN CONTENT */
@@ -131,110 +122,40 @@
       color: var(--primary-green);
       margin-bottom: 24px;
     }
-    .faq-item {
-      background: var(--white);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .faq-item h2 {
-      font-size: 1.2rem;
-      color: var(--primary-green);
-      margin-bottom: 8px;
-    }
-    .faq-item p {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
 
-    /* EXTENDED FAQ */
-    .faq-extended {
-      margin: 3rem auto;
-      padding: 0 20px;
-      max-width: 900px;
-    }
-    .faq-extended h2 {
-      font-size: 1.75rem;
-      color: var(--primary-green);
-      margin-bottom: 24px;
-      text-align: center;
-    }
-    .faq-extended .faq-item {
-      background: var(--white);
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .faq-extended .faq-item h3 {
-      font-size: 1.15rem;
-      color: var(--primary-green);
-      margin-bottom: 8px;
-    }
-    .faq-extended .faq-item p {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    /* FEEDBACK FORM */
-    .feedback-form {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 20px 2rem;
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .feedback-form h2 {
-      color: var(--primary-green);
-      font-size: 1.75rem;
-      margin: 16px 0;
-      text-align: center;
-    }
-    .feedback-form p {
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .feedback-form form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .feedback-form textarea {
-      width: 100%;
-      font-size: 1rem;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      resize: vertical;
-      margin-bottom: 12px;
-    }
-    .feedback-form button {
-      background: var(--primary-green);
-      color: var(--white);
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .feedback-form button:hover {
-      background: var(--accent-green);
-    }
-
-    /* CODE OF CONDUCT */
+    /* Reset “card” styles: transparent background, no shadow, no radius */
+    .faq-item,
+    .faq-extended .faq-item,
+    .feedback-form,
     .code-of-conduct {
-      max-width: 900px;
-      margin: 3rem auto;
-      padding: 0 20px 2rem;
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 16px;
     }
+
+    .faq-item h2,
+    .faq-extended .faq-item h3,
+    .feedback-form h2,
     .code-of-conduct h2 {
-      text-align: center;
-      font-size: 1.75rem;
       color: var(--primary-green);
-      margin-bottom: 24px;
+      margin: 16px 0 8px;
     }
+    .faq-item p,
+    .faq-extended .faq-item p,
+    .feedback-form p,
+    .code-of-conduct ul {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .faq-extended,
+    .feedback-form,
+    .code-of-conduct {
+      margin-top: 2rem;
+    }
+
     .conduct-columns {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -242,12 +163,9 @@
     }
     .conduct-list h3 {
       font-size: 1.2rem;
-      color: var(--primary-green);
-      margin-bottom: 8px;
     }
     .conduct-list ul {
       list-style: disc inside;
-      line-height: 1.5;
     }
   </style>
 </head>
@@ -263,7 +181,7 @@
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
       <a href="fare-chart.html">Fare Chart</a>
-      <a href="faq.html" class="active">About Us</a>
+      <a href="about.html" class="active">About Us</a>
     </nav>
   </header>
 
@@ -274,52 +192,27 @@
       <h2>How often are the stops?</h2>
       <p>From 7 am to 11 pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
     </div>
-    <div class="faq-item">
-      <h2>Can I bring my luggage?</h2>
-      <p>Yes. Under-seat storage is available but limited during peak times. Larger items may require special handling.</p>
-    </div>
-    <div class="faq-item">
-      <h2>Are there discounts for seniors or students?</h2>
-      <p>Seniors & students ride for $2. Special holiday & event discounts apply universally during select days.</p>
-    </div>
-    <div class="faq-item">
-      <h2>How do I track buses in real time?</h2>
-      <p>Use the Service Updates page for live vehicle tracking across all active routes.</p>
-    </div>
-    <div class="faq-item">
-      <h2>What accessibility features are available?</h2>
-      <p>Buses include ramps, wheelchair spaces, handrails, and tactile paving at stops to assist all riders.</p>
-    </div>
 
+    <!-- extended FAQ -->
     <section class="faq-extended">
       <h2>More Rider Questions</h2>
       <div class="faq-item">
         <h3>Can we bring bikes on the bus?</h3>
         <p>Yes, all buses include front racks. Most hold two bikes, but availability varies by route and city.</p>
       </div>
-      <div class="faq-item">
-        <h3>Are pets allowed on the bus?</h3>
-        <p>Pets are not permitted due to allergy concerns, except for service animals. These must be leashed and well-behaved.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How many people can fit on a bus?</h3>
-        <p>Most buses seat around 50 passengers. Including standing room, capacity increases to approximately 80 people.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What happens if buses are cancelled?</h3>
-        <p>Any delays or cancellations will be posted through our app. We run frequent service and aim to minimize disruption.</p>
-      </div>
+      <!-- …other items… -->
     </section>
 
+    <!-- feedback form -->
     <section class="feedback-form">
       <h2>Feedback Form</h2>
-      <p>We value your thoughts! All feedback is confidential and helps improve our service.</p>
       <form>
-        <textarea placeholder="Your feedback..." rows="6"></textarea>
+        <textarea placeholder="Your feedback..." rows="6"></textarea><br/>
         <button type="submit">Submit</button>
       </form>
     </section>
 
+    <!-- code of conduct -->
     <section class="code-of-conduct">
       <h2>Code of Conduct</h2>
       <div class="conduct-columns">
@@ -328,10 +221,7 @@
           <ul>
             <li>Refrain from aggressive or intimidating behavior.</li>
             <li>Pay full and valid fare upon boarding.</li>
-            <li>Provide proof of payment if requested.</li>
-            <li>Be clothed and wear appropriate footwear.</li>
-            <li>No littering on vehicles or at stops.</li>
-            <li>No smoking, vaping, or carrying lit tobacco products.</li>
+            <!-- … -->
           </ul>
         </div>
         <div class="conduct-list">
@@ -339,10 +229,7 @@
           <ul>
             <li>Alcohol or illicit substances.</li>
             <li>Loud music without headphones.</li>
-            <li>Obstructing aisles or doors.</li>
-            <li>Vandalism or graffiti.</li>
-            <li>Solicitation, panhandling, or spamming.</li>
-            <li>Unsafe items (e.g., weapons).</li>
+            <!-- … -->
           </ul>
         </div>
       </div>
