@@ -134,11 +134,18 @@
       font-size: 2rem;
       color: var(--primary-green);
     }
+    main.fares-page h2 {
+      margin-top: 32px;
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+      color: var(--primary-green);
+    }
     .fare-table {
       width: 100%;
       border-collapse: collapse;
       background: var(--white);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 24px;
     }
     .fare-table th,
     .fare-table td {
@@ -150,6 +157,14 @@
       background: var(--primary-green);
       color: var(--white);
       font-weight: 600;
+    }
+    main.fares-page ul {
+      list-style: disc inside;
+      margin-bottom: 24px;
+    }
+    main.fares-page p {
+      margin-bottom: 16px;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -179,6 +194,7 @@
 
   <main class="fares-page">
     <h1>Fares and Passes</h1>
+
     <table class="fare-table">
       <thead>
         <tr>
@@ -209,6 +225,62 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>Fare Chart</h2>
+    <table class="fare-table">
+      <thead>
+        <tr>
+          <th>Payment Methods</th>
+          <th>Adult</th>
+          <th>Youth</th>
+          <th>Senior</th>
+          <th>Child</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CC Card</td>
+          <td>$2.25</td>
+          <td>$1.90</td>
+          <td>$1.90</td>
+          <td>Free</td>
+        </tr>
+        <tr>
+          <td>Cash, Credit, or Debit</td>
+          <td>$2.50</td>
+          <td>$2.00</td>
+          <td>$2.00</td>
+          <td>Free</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Fare Category Definitions</h2>
+    <ul>
+      <li>Adult: Ages 19 to 64 years.</li>
+      <li>Youth: Ages 6 to 18 years.</li>
+      <li>Senior: Ages 65+ years.</li>
+      <li>Child: Children five years and under ride free.</li>
+    </ul>
+
+    <p>
+      A physical CC card costs $4, and can be purchased from fare vending machines at bus stations or select service centres, and participating Shoppers Drug Mart locations.
+    </p>
+
+    <h2>Proof of Payments &amp; Transfers</h2>
+    <p>
+      With just one fare, riders can travel on any Canada Commute vehicle in any direction. Fare is valid for two hours from time of issue or validation.
+    </p>
+    <p>
+      Customers travelling without a valid fare may be subject to a fine or criminal charge. Always tap your CC card, CC in mobile wallet, credit or debit card every time you board or transfer vehicles.
+    </p>
+
+    <h2>Fare Policies and General Conditions</h2>
+    <ul>
+      <li>Fares must not be altered or reproduced in any fashion.</li>
+      <li>Fares are non-refundable with the exception of CC e-purse.</li>
+      <li>Fares will not be replaced if lost or stolen.</li>
+    </ul>
   </main>
 
   <script>
