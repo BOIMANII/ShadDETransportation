@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>FAQ — Canada Commute</title>
+  <title>About Us — Canada Commute</title>
   <style>
     :root {
       --primary-green: #0f660a;
@@ -27,7 +27,7 @@
       min-height: 100vh;
     }
 
-    /* ─── HEADER ───────────────────────────────────────── */
+    /* HEADER */
     header.topbar {
       position: sticky;
       top: 0;
@@ -40,7 +40,6 @@
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
     .logo {
       position: absolute;
       top: 0;
@@ -54,12 +53,10 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       min-width: 200px;
     }
-
     .logo img {
       height: 48px;
       display: block;
     }
-
     .menu-toggle {
       display: none;
       position: absolute;
@@ -72,14 +69,12 @@
       color: var(--white);
       cursor: pointer;
     }
-
     nav.nav-links {
       display: flex;
       gap: 24px;
       margin-right: 16px;
       align-items: center;
     }
-
     nav.nav-links > a {
       color: var(--white);
       font-weight: 600;
@@ -88,64 +83,13 @@
       border-bottom: 2px solid transparent;
       transition: border-color .2s, color .2s;
     }
-
     nav.nav-links > a:hover,
     nav.nav-links > a.active {
       color: var(--black);
       border-bottom-color: var(--black);
     }
 
-    /* ─── DROPDOWN MENU ───────────────────────────────── */
-    .nav-dropdown {
-      position: relative;
-    }
-
-    .nav-dropdown-btn {
-      background: var(--primary-green);
-      color: var(--white);
-      font-weight: 600;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background .2s;
-    }
-
-    .nav-dropdown-btn:hover {
-      background: var(--accent-green);
-    }
-
-    .nav-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: var(--light-green);
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap;
-      z-index: 200;
-    }
-
-    .nav-dropdown-content a {
-      display: block;
-      padding: 8px 16px;
-      color: var(--primary-green);
-      text-decoration: none;
-      font-weight: 500;
-      transition: background .2s, color .2s;
-    }
-
-    .nav-dropdown-content a:hover {
-      background: var(--accent-green);
-      color: var(--white);
-    }
-
-    .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
-    }
-
-    /* ─── MOBILE NAV ───────────────────────────────────── */
+    /* MOBILE NAV */
     @media (max-width: 767px) {
       .logo {
         position: static;
@@ -154,48 +98,39 @@
         padding: 0 24px;
         border-radius: 0;
       }
-
       .menu-toggle {
         display: block;
       }
-
       nav.nav-links {
         flex-direction: column;
         max-height: 0;
         overflow: hidden;
         transition: max-height .3s;
       }
-
       nav.nav-links.open {
         max-height: 480px;
       }
-
-      nav.nav-links > a,
-      .nav-dropdown-btn {
+      nav.nav-links > a {
         padding: 12px 0;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
-
-      nav.nav-links > a:first-child,
-      .nav-dropdown-btn:first-child {
+      nav.nav-links > a:first-child {
         border-top: none;
       }
     }
 
-    /* ─── FAQ CONTENT ─────────────────────────────────── */
+    /* MAIN CONTENT */
     .container {
       max-width: 900px;
       margin: 2rem auto;
       padding: 0 20px;
     }
-
     .container h1 {
       text-align: center;
       font-size: 2rem;
       color: var(--primary-green);
       margin-bottom: 24px;
     }
-
     .faq-item {
       background: var(--white);
       border-radius: 8px;
@@ -203,15 +138,115 @@
       margin-bottom: 16px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
     .faq-item h2 {
       font-size: 1.2rem;
       color: var(--primary-green);
       margin-bottom: 8px;
     }
-
     .faq-item p {
       font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* EXTENDED FAQ */
+    .faq-extended {
+      margin: 3rem auto;
+      padding: 0 20px;
+      max-width: 900px;
+    }
+    .faq-extended h2 {
+      font-size: 1.75rem;
+      color: var(--primary-green);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .faq-extended .faq-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .faq-extended .faq-item h3 {
+      font-size: 1.15rem;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+    .faq-extended .faq-item p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* FEEDBACK FORM */
+    .feedback-form {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 20px 2rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .feedback-form h2 {
+      color: var(--primary-green);
+      font-size: 1.75rem;
+      margin: 16px 0;
+      text-align: center;
+    }
+    .feedback-form p {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .feedback-form form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .feedback-form textarea {
+      width: 100%;
+      font-size: 1rem;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+      margin-bottom: 12px;
+    }
+    .feedback-form button {
+      background: var(--primary-green);
+      color: var(--white);
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .feedback-form button:hover {
+      background: var(--accent-green);
+    }
+
+    /* CODE OF CONDUCT */
+    .code-of-conduct {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 20px 2rem;
+    }
+    .code-of-conduct h2 {
+      text-align: center;
+      font-size: 1.75rem;
+      color: var(--primary-green);
+      margin-bottom: 24px;
+    }
+    .conduct-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .conduct-list h3 {
+      font-size: 1.2rem;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+    .conduct-list ul {
+      list-style: disc inside;
       line-height: 1.5;
     }
   </style>
@@ -228,16 +263,7 @@
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
       <a href="fare-chart.html">Fare Chart</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-btn active">About Us ▼</button>
-        <div class="nav-dropdown-content">
-          <a href="faq.html" class="active">FAQ</a>
-          <a href="ask-questions.html">Ask Questions</a>
-          <a href="feedback.html">Feedback Form</a>
-          <a href="plans.html">Plans &amp; Improvements</a>
-          <a href="news.html">News</a>
-        </div>
-      </div>
+      <a href="faq.html" class="active">About Us</a>
     </nav>
   </header>
 
@@ -246,7 +272,7 @@
 
     <div class="faq-item">
       <h2>How often are the stops?</h2>
-      <p>From 7am to 11pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
+      <p>From 7 am to 11 pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
     </div>
     <div class="faq-item">
       <h2>Can I bring my luggage?</h2>
@@ -264,6 +290,63 @@
       <h2>What accessibility features are available?</h2>
       <p>Buses include ramps, wheelchair spaces, handrails, and tactile paving at stops to assist all riders.</p>
     </div>
+
+    <section class="faq-extended">
+      <h2>More Rider Questions</h2>
+      <div class="faq-item">
+        <h3>Can we bring bikes on the bus?</h3>
+        <p>Yes, all buses include front racks. Most hold two bikes, but availability varies by route and city.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are pets allowed on the bus?</h3>
+        <p>Pets are not permitted due to allergy concerns, except for service animals. These must be leashed and well-behaved.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How many people can fit on a bus?</h3>
+        <p>Most buses seat around 50 passengers. Including standing room, capacity increases to approximately 80 people.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What happens if buses are cancelled?</h3>
+        <p>Any delays or cancellations will be posted through our app. We run frequent service and aim to minimize disruption.</p>
+      </div>
+    </section>
+
+    <section class="feedback-form">
+      <h2>Feedback Form</h2>
+      <p>We value your thoughts! All feedback is confidential and helps improve our service.</p>
+      <form>
+        <textarea placeholder="Your feedback..." rows="6"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <section class="code-of-conduct">
+      <h2>Code of Conduct</h2>
+      <div class="conduct-columns">
+        <div class="conduct-list">
+          <h3>Rider Expectations</h3>
+          <ul>
+            <li>Refrain from aggressive or intimidating behavior.</li>
+            <li>Pay full and valid fare upon boarding.</li>
+            <li>Provide proof of payment if requested.</li>
+            <li>Be clothed and wear appropriate footwear.</li>
+            <li>No littering on vehicles or at stops.</li>
+            <li>No smoking, vaping, or carrying lit tobacco products.</li>
+          </ul>
+        </div>
+        <div class="conduct-list">
+          <h3>Prohibited Items & Actions</h3>
+          <ul>
+            <li>Alcohol or illicit substances.</li>
+            <li>Loud music without headphones.</li>
+            <li>Obstructing aisles or doors.</li>
+            <li>Vandalism or graffiti.</li>
+            <li>Solicitation, panhandling, or spamming.</li>
+            <li>Unsafe items (e.g., weapons).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
@@ -272,6 +355,5 @@
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => navLinks.classList.toggle('open'));
   </script>
-
 </body>
 </html>
