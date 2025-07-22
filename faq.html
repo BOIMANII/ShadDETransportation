@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>About Us — Canada Commute</title>
+  <title>FAQ — Canada Commute</title>
   <style>
     :root {
       --primary-green: #0f660a;
@@ -11,15 +11,19 @@
       --light-green:   #98dd93;
       --white:         #ffffff;
       --black:         #000000;
+      --header-height:  60px;
+      --logo-min-width: 200px;
     }
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: var(--white);
+      background: var(--light-green);
       color: var(--black);
       line-height: 1.5;
       min-height: 100vh;
@@ -33,22 +37,22 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      height: 60px;
-      padding: 0 24px 0 calc(200px + 24px);
+      height: var(--header-height);
+      padding: 0 24px 0 calc(var(--logo-min-width) + 24px);
       background: var(--primary-green);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .logo {
       position: absolute;
       top: 0; left: 0;
-      height: 60px;
+      height: var(--header-height);
       background: var(--light-green);
       padding: 0 16px 0 24px;
       display: flex;
       align-items: center;
       clip-path: polygon(0 0,100% 0,calc(100% - 20px) 100%,0 100%);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      min-width: 200px;
+      min-width: var(--logo-min-width);
     }
     .logo img {
       height: 48px;
@@ -86,6 +90,50 @@
       border-bottom-color: var(--black);
     }
 
+    /* DROPDOWN */
+    .nav-dropdown {
+      position: relative;
+    }
+    .nav-dropdown-btn {
+      background: var(--primary-green);
+      color: var(--white);
+      font-weight: 600;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .nav-dropdown-btn:hover {
+      background: var(--accent-green);
+    }
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--light-green);
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      z-index: 200;
+    }
+    .nav-dropdown-content a {
+      display: block;
+      padding: 8px 16px;
+      color: var(--primary-green);
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s, color .2s;
+    }
+    .nav-dropdown-content a:hover {
+      background: var(--accent-green);
+      color: var(--white);
+    }
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+
     /* MOBILE NAV */
     @media (max-width: 767px) {
       .logo {
@@ -95,22 +143,30 @@
         padding: 0 24px;
         border-radius: 0;
       }
-      .menu-toggle { display: block; }
+      .menu-toggle {
+        display: block;
+      }
       nav.nav-links {
         flex-direction: column;
         max-height: 0;
         overflow: hidden;
         transition: max-height .3s;
       }
-      nav.nav-links.open { max-height: 480px; }
-      nav.nav-links > a {
+      nav.nav-links.open {
+        max-height: 480px;
+      }
+      nav.nav-links > a,
+      .nav-dropdown-btn {
         padding: 12px 0;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
-      nav.nav-links > a:first-child { border-top: none; }
+      nav.nav-links > a:first-child,
+      .nav-dropdown-btn:first-child {
+        border-top: none;
+      }
     }
 
-    /* MAIN CONTENT */
+    /* FAQ CONTENT */
     .container {
       max-width: 900px;
       margin: 2rem auto;
@@ -122,50 +178,21 @@
       color: var(--primary-green);
       margin-bottom: 24px;
     }
-
-    /* Reset “card” styles: transparent background, no shadow, no radius */
-    .faq-item,
-    .faq-extended .faq-item,
-    .feedback-form,
-    .code-of-conduct {
-      background: transparent;
-      box-shadow: none;
-      border-radius: 0;
-      padding: 0;
+    .faq-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 16px;
       margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
-    .faq-item h2,
-    .faq-extended .faq-item h3,
-    .feedback-form h2,
-    .code-of-conduct h2 {
+    .faq-item h2 {
+      font-size: 1.2rem;
       color: var(--primary-green);
-      margin: 16px 0 8px;
+      margin-bottom: 8px;
     }
-    .faq-item p,
-    .faq-extended .faq-item p,
-    .feedback-form p,
-    .code-of-conduct ul {
+    .faq-item p {
       font-size: 1rem;
       line-height: 1.5;
-    }
-
-    .faq-extended,
-    .feedback-form,
-    .code-of-conduct {
-      margin-top: 2rem;
-    }
-
-    .conduct-columns {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .conduct-list h3 {
-      font-size: 1.2rem;
-    }
-    .conduct-list ul {
-      list-style: disc inside;
     }
   </style>
 </head>
@@ -181,7 +208,16 @@
       <a href="planner.html">Trip Planner</a>
       <a href="service.html">Service Updates</a>
       <a href="fare-chart.html">Fare Chart</a>
-      <a href="about.html" class="active">About Us</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn active">About Us ▼</button>
+        <div class="nav-dropdown-content">
+          <a href="faq.html" class="active">FAQ</a>
+          <a href="ask-questions.html">Ask Questions</a>
+          <a href="feedback.html">Feedback Form</a>
+          <a href="plans.html">Plans &amp; Improvements</a>
+          <a href="news.html">News</a>
+        </div>
+      </div>
     </nav>
   </header>
 
@@ -190,57 +226,32 @@
 
     <div class="faq-item">
       <h2>How often are the stops?</h2>
-      <p>From 7 am to 11 pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
+      <p>From 7am to 11pm, buses arrive every 15–20 minutes. Overnight intervals are 30–45 minutes, varying by route.</p>
     </div>
-
-    <!-- extended FAQ -->
-    <section class="faq-extended">
-      <h2>More Rider Questions</h2>
-      <div class="faq-item">
-        <h3>Can we bring bikes on the bus?</h3>
-        <p>Yes, all buses include front racks. Most hold two bikes, but availability varies by route and city.</p>
-      </div>
-      <!-- …other items… -->
-    </section>
-
-    <!-- feedback form -->
-    <section class="feedback-form">
-      <h2>Feedback Form</h2>
-      <form>
-        <textarea placeholder="Your feedback..." rows="6"></textarea><br/>
-        <button type="submit">Submit</button>
-      </form>
-    </section>
-
-    <!-- code of conduct -->
-    <section class="code-of-conduct">
-      <h2>Code of Conduct</h2>
-      <div class="conduct-columns">
-        <div class="conduct-list">
-          <h3>Rider Expectations</h3>
-          <ul>
-            <li>Refrain from aggressive or intimidating behavior.</li>
-            <li>Pay full and valid fare upon boarding.</li>
-            <!-- … -->
-          </ul>
-        </div>
-        <div class="conduct-list">
-          <h3>Prohibited Items & Actions</h3>
-          <ul>
-            <li>Alcohol or illicit substances.</li>
-            <li>Loud music without headphones.</li>
-            <!-- … -->
-          </ul>
-        </div>
-      </div>
-    </section>
+    <div class="faq-item">
+      <h2>Can I bring my luggage?</h2>
+      <p>Yes. Under-seat storage is available but limited during peak times. Larger items may require special handling.</p>
+    </div>
+    <div class="faq-item">
+      <h2>Are there discounts for seniors or students?</h2>
+      <p>Seniors & students ride for $2. Special holiday & event discounts apply universally during select days.</p>
+    </div>
+    <div class="faq-item">
+      <h2>How do I track buses in real time?</h2>
+      <p>Use the Service Updates page for live vehicle tracking across all active routes.</p>
+    </div>
+    <div class="faq-item">
+      <h2>What accessibility features are available?</h2>
+      <p>Buses include ramps, wheelchair spaces, handrails, and tactile paving at stops to assist all riders.</p>
+    </div>
   </main>
 
   <script>
-    // Mobile nav toggle
+    // mobile nav toggle
     const navLinks = document.querySelector('nav.nav-links');
     document.querySelector('.menu-toggle')
       .addEventListener('click', () => navLinks.classList.toggle('open'));
   </script>
+
 </body>
 </html>
