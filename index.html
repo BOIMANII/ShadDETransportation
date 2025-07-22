@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Canada Commute</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Service Updates – Canada Commute</title>
   <style>
     :root {
       --primary-green:  #0f660a;
@@ -11,68 +11,72 @@
       --light-green:    #98dd93;
       --white:          #ffffff;
       --black:          #000000;
-      --bg-page:        var(--light-green);
       --header-height:  80px;
-      --logo-width:     260px;  /* match .logo width */
+      --logo-width:     260px;
     }
     *, *::before, *::after {
-      margin: 0; padding: 0; box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0; padding: 0;
     }
     html { scroll-behavior: smooth; }
     body {
-      margin: 0; height: 100vh; overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg-page); color: var(--black);
+      background: var(--light-green);
+      height: 100vh;
+      overflow: hidden;
+      color: var(--black);
     }
 
-    /* scrollable area below header */
-    .scroll-container {
-      height: calc(100vh - var(--header-height));
-      overflow-y: auto;
-    }
-    .section {
-      min-height: calc(100vh - var(--header-height));
-      display: flex; align-items: center; justify-content: center;
-      padding: 2rem; background: var(--bg-page);
-    }
-    .section.hero { padding: 0; }
-
-    /* ─── TOP BAR ─────────────────────────────────────── */
+    /* HEADER */
     header.topbar {
       position: sticky;
-      top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: flex-end;
+      top: 0; left: 0; right: 0;
       height: var(--header-height);
-      /* use absolute length so diagonal stops at logo width */
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       background: linear-gradient(
         135deg,
         var(--light-green) var(--logo-width),
         var(--primary-green) var(--logo-width)
       );
+      z-index: 100;
     }
     .logo {
-      position: absolute; top: 0; left: 0;
-      width: var(--logo-width); height: var(--header-height);
-      background: var(--white); display: flex; align-items: center;
+      position: absolute;
+      top: 0; left: 0;
+      width: var(--logo-width);
+      height: var(--header-height);
+      background: var(--white);
+      display: flex;
+      align-items: center;
       padding-left: 24px;
       clip-path: polygon(0 0,100% 0,85% 100%,0 100%);
       box-shadow: 2px 0 4px rgba(0,0,0,0.1);
     }
-    .logo img { height: 64px; }
-
+    .logo img {
+      height: 64px;
+    }
     .menu-toggle {
-      display: none; background: none; border: none;
-      color: var(--white); font-size: 2rem; cursor: pointer;
+      display: none;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
       margin-right: 32px;
     }
-
     nav.nav-links {
-      display: flex; gap: 24px; align-items: center;
+      display: flex;
+      gap: 24px;
+      align-items: center;
       margin-right: 80px;
     }
     nav.nav-links > a {
-      color: var(--white); font-weight: 600;
-      text-decoration: none; padding: 4px 0 16px;
+      color: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 4px 0 16px;
       border-bottom: 3px solid transparent;
       transition: border-color .2s;
     }
@@ -80,23 +84,34 @@
     nav.nav-links > a.active {
       border-bottom-color: var(--white);
     }
-
-    .nav-dropdown { position: relative; }
+    .nav-dropdown {
+      position: relative;
+    }
     .nav-dropdown-btn {
-      background: none; border: none;
-      color: var(--white); font-weight: 600;
-      padding: 4px 0 16px; cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-weight: 600;
+      padding: 4px 0 16px;
+      cursor: pointer;
     }
     .nav-dropdown-content {
       display: none;
-      position: absolute; top: 100%; left: 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
       background: var(--primary-green);
-      border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      white-space: nowrap; margin-top: 2px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      margin-top: 2px;
     }
     .nav-dropdown-content a {
-      display: block; padding: 8px 16px;
-      color: var(--white); text-decoration: none;
+      display: block;
+      padding: 8px 16px;
+      color: var(--white);
+      text-decoration: none;
+      transition: background .2s;
     }
     .nav-dropdown-content a:hover {
       background: var(--accent-green);
@@ -106,89 +121,77 @@
       display: block;
     }
 
+    /* MAIN / MAP */
+    main.service-page {
+      position: relative;
+      top: var(--header-height);
+      height: calc(100vh - var(--header-height));
+      overflow-y: auto;
+      padding: 100px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    #map {
+      width: 90%;
+      max-width: 1200px;
+      height: 500px;
+    }
+    #map > div {
+      background: transparent !important;
+    }
+    .map-search {
+      position: absolute;
+      top: calc(var(--header-height) + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      z-index: 5;
+      background: #fff;
+    }
+
+    /* MOBILE NAV & ABOUT-LEFT FIX */
     @media (max-width: 767px) {
-      .menu-toggle { display: block; }
-      nav.nav-links {
-        position: absolute; top: var(--header-height);
-        right: 0; left: auto; background: var(--primary-green);
-        flex-direction: column; align-items: flex-end;
-        max-height: 0; overflow: hidden;
-        transition: max-height .3s ease;
-        padding: 0 24px; width: auto; margin-right: 0;
+      .menu-toggle {
+        display: block;
       }
-      nav.nav-links.open { max-height: 500px; }
+      nav.nav-links {
+        position: absolute;
+        top: var(--header-height);
+        right: 0;
+        background: var(--primary-green);
+        flex-direction: column;
+        align-items: flex-end;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s ease;
+        padding: 0 24px;
+      }
+      nav.nav-links.open {
+        max-height: 500px;
+      }
       nav.nav-links > a,
       .nav-dropdown-btn {
-        padding: 16px 0; width: 100%; text-align: right;
+        padding: 16px 0;
+        width: 100%;
+        text-align: right;
         border-top: 1px solid rgba(255,255,255,0.2);
       }
       nav.nav-links > a:first-child,
       .nav-dropdown-btn:first-child {
         border-top: none;
       }
+      /* force About submenu to expand leftward */
       .nav-dropdown-content {
-        display: block !important;
         position: absolute;
-        top: calc(var(--header-height) + 0px);
-        right: 24px; left: auto;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        margin-top: 2px;
+        top: var(--header-height);
+        right: 24px;
+        left: auto;
+        display: block !important;
       }
-    }
-
-    /* ─── HERO ─────────────────────────────────────────── */
-    .hero {
-      position: relative; width: 100%; height: 100%; overflow: hidden;
-    }
-    .hero img {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; object-fit: cover;
-    }
-
-    /* ─── TRIP PLANNER ───────────────────────────────── */
-    .planner { width: 100%; max-width: 800px; }
-    .planner-form {
-      background: var(--primary-green); color: var(--white);
-      padding: 24px; border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .planner-form h2 {
-      text-align: center; font-size: 1.8rem;
-      margin-bottom: 1rem; color: var(--white);
-    }
-    .planner-form .form-group {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .planner-form label { font-weight: 600; }
-    .planner-form input {
-      padding: 10px; border: 1px solid #ccc;
-      border-radius: 4px; font-size: 1rem;
-    }
-    .toggle-group { display: flex; gap: 8px; }
-    .toggle-btn {
-      flex: 1; padding: 10px 0;
-      background: #f1f1f1; color: var(--black);
-      border: 1px solid #ccc; border-radius: 4px;
-      font-weight: 600; cursor: pointer;
-      transition: background .2s, color .2s;
-    }
-    .toggle-btn.active {
-      background: var(--accent-green); color: var(--white);
-      border-color: var(--accent-green);
-    }
-    .date-time-group {
-      display: flex; gap: 16px; flex-wrap: wrap;
-    }
-    .plan-btn {
-      padding: 12px; background: var(--accent-green);
-      color: var(--white); font-weight: 600;
-      border: none; border-radius: 4px;
-      cursor: pointer; transition: background .2s;
-    }
-    .plan-btn:hover {
-      background: var(--white); color: var(--primary-green);
-      border: 1px solid var(--primary-green);
     }
   </style>
 </head>
@@ -196,12 +199,14 @@
 
   <header class="topbar">
     <div class="logo">
-      <img src="images/logo.svg" alt="Canada Commute logo"/>
+      <a href="index.html">
+        <img src="images/logo.svg" alt="Canada Commute logo"/>
+      </a>
     </div>
     <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav class="nav-links">
-      <a href="service.html">Service Information</a>
-      <a href="#planner">Trip Planner</a>
+      <a href="service.html" class="active">Service Information</a>
+      <a href="planner.html">Trip Planner</a>
       <a href="fare-chart.html">Fares and Passes</a>
       <div class="nav-dropdown">
         <button class="nav-dropdown-btn">About Us ▼</button>
@@ -216,48 +221,69 @@
     </nav>
   </header>
 
-  <div class="scroll-container">
-    <!-- Hero -->
-    <section class="section hero" id="home">
-      <img src="images/bus-image.svg" alt="Bus at a stop"/>
-    </section>
-    <!-- Trip Planner -->
-    <section class="section" id="planner">
-      <div class="planner">
-        <form class="planner-form">
-          <h2>Trip Planner</h2>
-          <div class="form-group">
-            <label for="from">From</label>
-            <input type="text" id="from" placeholder="Enter starting point"/>
-          </div>
-          <div class="form-group">
-            <label for="to">To</label>
-            <input type="text" id="to" placeholder="Enter destination"/>
-          </div>
-          <div class="toggle-group">
-            <button type="button" class="toggle-btn active">Leave at</button>
-            <button type="button" class="toggle-btn">Arrive by</button>
-          </div>
-          <div class="date-time-group">
-            <div class="form-group">
-              <label for="date">Date</label>
-              <input type="date" id="date"/>
-            </div>
-            <div class="form-group">
-              <label for="time">Time</label>
-              <input type="time" id="time"/>
-            </div>
-          </div>
-          <button type="button" class="plan-btn">Plan My Trip</button>
-        </form>
-      </div>
-    </section>
-  </div>
+  <input
+    id="pac-input"
+    class="map-search"
+    type="text"
+    placeholder="Search Google Maps…"/>
+
+  <main class="service-page">
+    <div id="map"></div>
+  </main>
 
   <script>
-    document.querySelector('.menu-toggle').addEventListener('click', () => {
-      document.querySelector('nav.nav-links').classList.toggle('open');
-    });
+    let map, geocoder, marker;
+
+    function initMap() {
+      geocoder = new google.maps.Geocoder();
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 12,
+        disableDefaultUI: true
+      });
+
+      // SearchBox hookup
+      const input = document.getElementById("pac-input");
+      const searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+      map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+        if (!places.length) return;
+        if (marker) marker.setMap(null);
+        marker = new google.maps.Marker({
+          map,
+          position: places[0].geometry.location
+        });
+        map.setCenter(places[0].geometry.location);
+        map.setZoom(14);
+      });
+
+      // Geolocation
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          const loc = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          };
+          map.setCenter(loc);
+          new google.maps.Marker({ position: loc, map });
+        });
+      }
+
+      // Mobile menu toggle
+      document.querySelector('.menu-toggle').addEventListener('click', () => {
+        document.querySelector('nav.nav-links').classList.toggle('open');
+      });
+    }
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=__MAP_KEY__&libraries=places&callback=initMap">
   </script>
 </body>
 </html>
+```
